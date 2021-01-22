@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>EletronTech - Potência Geral</title>
+		<link rel="stylesheet" type="text/css" href="../css/fei.css">
+		<link rel="shortcut icon" type="image/png" href="../images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="display: none;">
+		<div class="et-topbar" id="et_topbar">
+			<table id="tabela" valign="center" width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<tr width="100%"  valign="center" >
+					<td id="et_space_back" valign="center">
+						<input type="image" src="../images/back.png" class="et-back" id="et_back" onclick="history.back();"/>
+					</td>
+					<td width="100%" height="100%" valign="center">
+						<span class="et-fei-name">Potência Geral</span>
+					</td>
+					<td id="et_space_menu" valign="center">
+						<input type="image" src="../images/help.png" class="et-menu" id="et_menu">
+					</td>	
+				</tr>
+			</table>
+		</div>
+		<form onkeypress="if (event.keyCode == 13) {btn_calcular.click();}" style="overflow: auto; height: inherit;">
+			<div class="et-medium" id="et_medium">
+				<table width="100%" class="et-tooltable">
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Sistema de Fornecimento</label>						
+							<select type="text" class="txt_value" id="cmb_sistema" title="Categoria" unidade="" inteiro="true">
+								  <option value="0">Selecione uma Opção</option>
+								  <option value="1">Monofásico</option>
+								  <option value="2">Bifásico</option>
+								  <option value="3">Trifásico</option>
+							</select>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Corrente Elétrica (A)</label>						
+							<input type="text" class="txt_value" id="txt_corrente" inteiro="false" unidade="A"/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Tensão Máxima (V)</label>						
+							<input type="text" class="txt_value" id="txt_tensao" inteiro="false" unidade="V"/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Fator de Potência (%)</label>						
+							<input type="text" class="txt_value" id="txt_fatorPotencia" inteiro="false" unidade="%"/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Potência Ativa (W)</label>						
+							<input type="text" class="txt_result" id="txt_potenciaAtiva" readonly/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Potência Reativa (VAr)</label>						
+							<input type="text" class="txt_result" id="txt_potenciaReativa" readonly/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Potência Aparente (VA)</label>						
+							<input type="text" class="txt_result" id="txt_potenciaAparente" readonly/>
+						</td>
+					</tr>
+				</table>	
+			</div>
+			<div class="et-bottom" id="et_bottom">
+				<input type="button" value="Calcular" id="btn_calcular" onclick="if (this.value == 'Calcular') {UtilizarFerramenta(codigoFerramenta, 2); Validar(this, '== 4');} else {Limpar(this);}">
+			</div>
+		</form>
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error">Por favor, preencha todos os campos corretamente!</label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+		<!--AJUDA-->
+		<div id="termos">
+			<div id="termos_box">
+				<div class="into_termos">
+					<label class="lbl_title">Sobre a Ferramenta</label>
+					<div id="txt_termos" style="text-align: justify;">
+						<p class="fei_desc_bold">Descrição</p> 
+						<!--Descrição-->
+						<p class="fei_desc_comp">Ferramenta que realiza o cálculo referente a potência aparente, ativa e reativa de uma rede de fornecimento(monofásica, bifásica ou trifásica), sua corrente elétrica, tensão máxima e fator de potência.<p>
+
+						<p class="fei_desc_bold">Atributos</p>
+						<!--Atributos-->
+						<p class="attrb_fei"><b>Sistema de Fornecimento</b></p>
+						<p class="attrb_fei"><b>Corrente Elétrica(A)</b> - Àmpere</p>
+						<p class="attrb_fei"><b>Tensão Máxima(V)</b> - Volt</p>
+						<p class="attrb_fei"><b>Fator de Potência(%)</b> - Porcentagem</p>
+						<p class="attrb_fei"><b>Potência Ativa(W)</b> - Watt</p>
+						<p class="attrb_fei"><b>Potência Reativa(VAr)</b> - Volt Àmpere reativo</p>
+						<p class="attrb_fei"><b>Potência Aparente(VA)</b> - Volt Àmpere</p>	
+						<p class="space"></p>						
+					</div>
+				</div>
+				<input type="button" id="btn_termos" value="OK">
+			</div>
+		</div>
+		<!--AJUDA-->
+	</body>
+	<script type="text/javascript" src="../cordova.js"></script>
+	<script type="text/javascript" src="js/Potencia Geral - Calculo.js"></script>
+	<script type="text/javascript" src="js/Validacao - Ferramentas.js"></script>
+	<script type="text/javascript" src="js/help.js"></script>
+	<script type="text/javascript" src="../js/banco.js"></script>
+	<script type="text/javascript" src="../js/ajax.js"></script>
+	<script type="text/javascript" src="../js/ControleHash.js"></script>
+	<script type="text/javascript" src="../js/AnyTech - Validacao.js"></script>
+	<script>
+		window.onload = function()
+		{			
+			helpActived = 0;
+			resizingTool();
+			
+			document.body.style.display = "inline-block";
+			
+			AbrirBanco();
+			
+			if (!VerificarLogado())
+			{
+				window.location.href = '../';
+			}
+			else
+			{
+				Parametros = GetParametros();
+				
+				codigoFerramenta = Parametros["codigo"];
+				
+				UtilizarFerramenta(codigoFerramenta, 1);
+				
+				ControleHash(window.location.hash, event);
+			}
+		}	
+		
+		function resizingTool(){
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			h10 = hScreen * 0.10;
+			h80 = hScreen * 0.80;
+			
+			//Topbar resizing
+			et_topbar.style.height = h10+"px";
+			et_back.style.height = h10+"px";
+			et_menu.style.height = h10+"px";
+			et_space_back.style.height = h10+"px";
+			et_space_menu.style.height = h10+"px";
+			
+			//bottom resizing
+			et_bottom.style.height = h10+"px";
+		}
+		
+		function error_in()
+		{
+			/*error.style.visibility = "visible";
+			error.style.opacity = "1";*/
+			
+			window.location.hash = '#alert';
+		}
+		
+		function error_out()
+		{
+			/*//btn_eout.style.visibility = "hidden";
+			error.style.opacity = "0";
+			error.style.visibility = "hidden";*/
+			
+			history.back();
+		}
+		
+		function UtilizarFerramenta(codigoFerramenta, tipo)
+		{
+			if (ConexaoInternet() && codigoFerramenta != undefined)
+			{
+				Ajax("GET", "https://www.anytech.com.br/et/php/UtilizarFerramenta.php", "codigoFerramenta=" + codigoFerramenta + "&codigoUsuario=" + window.localStorage.getItem('codigo') + "&tipo=" + tipo, "");
+			}
+		}
+	</script>
+</html>

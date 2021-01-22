@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>EletronTech - Sobre Nós</title>
+		<link rel="stylesheet" type="text/css" href="css/fei.css">
+		<link rel="stylesheet" type="text/css" href="css/menu.css">
+		<link rel="shortcut icon" type="image/png" href="images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="display: none;">
+	
+		
+		
+		<div class="et-menu-bar" id="et_menu_bar">
+			<input type="button" class="et-button-menu et-line" value="Facebook" onclick="window.open('http://www.facebook.com/anytechoficial','_blank');"/>
+			<input type="button" class="et-button-menu et-line" value="Twitter" onclick="window.open('http://www.twitter.com/anytechoficial','_blank');"/>
+			<input type="button" class="et-button-menu et-line" value="Youtube" onclick="window.open('http://www.youtube.com/channel/UCmGX9F8du1F_rWSjDFPcdSw','_blank');"/>
+		</div>
+		<div id="cover_menu"></div>
+		<div class="et-topbar" id="et_topbar">
+			<table id="tabela" valign="center" width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<tr width="100%"  valign="center" >
+					<td id="et_space_back" valign="center">
+						<input type="image" src="images/back.png" class="et-back" id="et_back" onclick="history.back();">
+					</td>
+					<td width="100%" height="100%" valign="center">
+						<span class="et-fei-name">Sobre Nós</span>
+					</td>
+					<td id="et_space_menu" valign="center">
+						<input type="image" src="images/menu.png" class="et-menu" id="et_menu">
+					</td>	
+				</tr>
+			</table>
+		</div>
+		<div class="et-medium" id="et_medium" style="overflow: hidden;">
+			<table width="100%" height="100%" valign="center" align="center" class="et-tooltable">				
+				<tr width="100%"  align="center" >
+					<td width="100%"  align="center" >
+						<label class="lbl_title ctr about-title"><b>EletronTech</b></label>		
+						<label class="lbl_title ctr">Versão <span id="lbl_versaoApp">1.0.0</span></label>	
+						<img class="ctr logo-mid" src="images/eletrontech-anytech-logo-blue.png">
+						<label class="lbl_title fBlack ctr">Desenvolvido por</label>						
+						<label class="lbl_title fBlack ctr"><b>ANYTECH - <span id="lbl_anoAtual">2016</span></b></label>						
+						<label class="lbl_title fBlack ctr">Todos os direitos reservados.</label>						
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="et-bottom" id="et_bottom">
+			<input type="button" value="Saiba Mais" id="btn_cadastrar" onclick="termos_in()">
+		</div>
+		
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error"></label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+				
+		
+		<div id="termos">
+			<div id="termos_box">
+				<div class="into_termos">
+					<label class="lbl_title">Saiba Mais</label>
+					<label id="txt_termos" style="text-align: justify;">
+
+					<b>Sobre o EletronTech</b><br><br> 
+
+					Nós da equipe ANYTECH, desenvolvemos o EletronTech pensando em você, estudante e profissional da área de exatas.<br><br>
+					Em poucos segundos você poderá realizar diversos cálculos com nossas ferramentas de elétrica, física, matemática, computação e muito mais! <br><br>
+
+					<b>Sobre a ANYTECH</b><br><br>
+					
+					A ANYTECH é uma micro empresa de desenvolvimento de sistemas informatizados.<br><br>
+					Criamos diversos tipos de sistemas e soluções inteligentes para você. Realizamos o melhor na criação de websites, softwares e muitos outros serviços.<br><br>
+					Temos como objetivo proporcionar aos nossos clientes um serviço de qualidade, com entrega em curto prazo, e com preços acessíveis.<br><br>
+					</label>
+				</div>
+				<input type="button" id="btn_termos" value="Voltar" onclick="termos_out()">
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/menu.js"></script>
+	<script type="text/javascript" src="js/ControleHash.js"></script>
+	<script>
+		window.onload = function(){			
+			resizingTool();
+			menuActived = 0;
+			
+			var data = new Date();
+			
+			lbl_anoAtual.textContent = data.getFullYear();
+			
+			document.body.style.display = "inline-block";
+			
+			ControleHash(window.location.hash, event);
+		}	
+		
+		function resizingTool(){
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			h10 = hScreen * 0.10;
+			h80 = hScreen * 0.80;
+			
+			//Topbar resizing
+			et_topbar.style.height = h10+"px";
+			et_back.style.height = h10+"px";
+			et_menu.style.height = h10+"px";
+			et_space_back.style.height = h10+"px";
+			et_space_menu.style.height = h10+"px";
+			
+			//bottom resizing
+			et_bottom.style.height = h10+"px";
+		}
+		
+		function error_in()
+		{
+			txt_error.innerHTML = "Por favor, preencha todos os campos corretamente!";
+			/*error.style.visibility = "visible";
+			error.style.opacity = "1";*/
+			
+			window.location.hash = '#alert';
+		}
+		
+		function error_out()
+		{
+			/*btn_eout.style.visibility = "hidden";
+			error.style.opacity = "0";
+			error.style.visibility = "hidden";*/
+			
+			history.back();
+		}
+		
+		function termos_in()
+		{
+			/*termos.style.visibility = "visible";
+			termos.style.opacity = "1";*/
+			
+			window.location.hash = '#more';
+		}
+		
+		function termos_out()
+		{
+			/*termos.style.opacity = "0";
+			termos.style.visibility = "hidden";*/
+			
+			history.back();
+		}
+		
+	</script>
+</html>

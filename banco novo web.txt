@@ -1,0 +1,255 @@
+﻿create database db_eletrontech;
+
+use db_eletrontech;
+
+SELECT * FROM tb_pasta t;
+delete from tb_pasta;
+
+select cd_pasta from tb_pasta where cd_usuario = 15 and cd_subpasta is null;
+
+create table tb_pasta
+(
+  cd_pasta int not null auto_increment,
+  dt_data_criacao date,
+  nm_nome varchar(20),
+  nm_caminho varchar(200) unique,
+  cd_subpasta int,
+  cd_usuario int,
+  constraint pk_pasta
+    primary key (cd_pasta),
+  constraint fk_pasta_usuario
+    foreign key (cd_usuario)
+      references tb_usuario(cd_usuario)
+);
+
+create table tb_arquivo
+(
+  cd_arquivo int not null auto_increment,
+  dt_data_criacao date,
+  nm_nome varchar(20),
+  nm_caminho varchar(200) unique,
+  nm_tipo varchar(10),
+  cd_pasta int,
+  constraint pk_arquivo
+    primary key (cd_arquivo),
+  constraint fk_arquivo_usuario
+    foreign key (cd_pasta)
+      references tb_pasta(cd_pasta)
+);
+
+SELECT * FROM tb_visita t;
+
+select dt_data as 'Data', count(dt_data) as 'Visita(s)' from tb_visita group by dt_data order by dt_data desc;
+
+select tb_usuario.nm_usuario, tb_visita.dt_data from tb_usuario inner join tb_visita on tb_usuario.cd_usuario = tb_visita.cd_usuario where tb_usuario.cd_usuario = 1;
+
+insert into tb_usuario(nm_usuario,cd_cpf,cd_telefone1,nm_email,cd_senha) values
+("Gustavo Alves de Araújo",'43928816870','1332123125','gustavoalves.a7@gmail.com','goldbach'),
+("João Gabriel de Almindo Vasconcelos",'45231233221','1332233223','joao@gmail.com','chuchuzinho'),
+("Lucas Sergio Denhei",'47635526717','1332568978','lucassergio@gmail.com','mimimi'),
+("Luiz Carlos Marcelino",'48736646352','1333033303','selectguy@gmail.com','katarina'),
+("Nicollas Leite Frazão",'43552672662','1330232032','cafezinho@gmail.com','cafezinho'),
+("Rafael Moura",'45366625316','1332345223','tiorafa@gmail.com','darkness');
+
+
+SELECT * FROM tb_usuario t;
+
+delete from tb_usuario;
+
+create table tb_usuario
+(
+  cd_usuario int not null auto_increment,
+  nm_usuario varchar(41),
+  cd_cpf varchar(11) unique,
+  cd_datanas varchar(8),
+  cd_telefone1 varchar(12),
+  cd_telefone2 varchar(12),
+  cd_tipo_telefone1 tinyint(1),
+  cd_tipo_telefone2 tinyint(1),
+  nm_sexo varchar(10),
+  nm_email varchar(50) unique,
+  cd_senha varchar(40),
+  ic_admin tinyint(1),
+  im_usuario varchar(200),
+  constraint pk_usuario
+    primary Key(cd_usuario)
+);
+
+create table tb_pacote
+(
+  cd_pacote int not null auto_increment,
+  nm_pacote varchar(50),
+  im_pacote varchar(200),
+  ds_pacote varchar(300),
+  vl_custo decimal(9,2),
+  ic_custom tinyint(1),
+  constraint pk_pacote
+    primary key (cd_pacote)
+);
+
+create table tb_ferramenta
+(
+  cd_ferramenta int not null auto_increment,
+  nm_ferramenta varchar(50) not null unique,
+  nm_url_imagem varchar(200) not null,
+  nm_funcao_javascript varchar(200),
+  ds_ferramenta varchar(200) not null,
+  vl_custo decimal(4,2) not null,
+  ic_projeto bool not null,
+  constraint pk_ferramenta
+    primary key(cd_ferramenta)
+);
+
+create table pacote_ferramenta
+(
+  cd_pacote int,
+  cd_ferramenta int,
+  constraint ck_pacote_ferramenta
+    primary key (cd_pacote, cd_ferramenta),
+  constraint fk_pacote_ferramenta_pacote
+    foreign key (cd_pacote)
+      references tb_pacote(cd_pacote),
+  constraint fk_pacote_ferramenta_ferramenta
+    foreign key (cd_ferramenta)
+      references tb_ferramenta(cd_ferramenta)
+);
+
+create table usuario_pacote
+(
+  cd_usuario int,
+  cd_pacote int,
+  qt_dias int,
+  dt_inicio date,
+  dt_termino date,
+  constraint ck_usuario_pacote
+    primary key (cd_usuario, cd_pacote),
+  constraint fk_usuario_pacote_usuario
+    foreign key (cd_usuario)
+      references tb_usuario(cd_usuario),
+  constraint fk_usuario_pacote_pacote
+    foreign key (cd_pacote)
+      references tb_pacote(cd_pacote)
+);
+
+insert into tb_ferramenta(nm_ferramenta,nm_id_ferramenta,nm_url_imagem,nm_url_ferramenta,ds_ferramenta,ic_projeto) values
+('Quantificação de Tomadas','btn_fei1','imagens/icones/ferramentas/FEI_01.png','FEI/Quantificação de Tomadas.html','Calcula o número mínimo de tomadas de uso geral para o cômodo especificado apresentando também sua potência total.',0),
+('Disjuntor e Fiação','btn_fei2','imagens/icones/ferramentas/FEI_02.png','FEI/Disjuntor e Fiação.html','Auxilia na escolha de disjuntor e da espessura mais apropriada para circuito apartir de corrente, potência e tensão.',0),
+('Potência de Iluminação','btn_fei3','imagens/icones/ferramentas/FEI_03.png','FEI/Potência de Iluminação.html','Calcula a potência mínima para a iluminação cômodo especificado.',0),
+('Conversor de Grandezas','btn_fei4','imagens/icones/ferramentas/FEI_04.png','FEI/Conversor de Grandezas.html','Realiza a conversão das principais grandezas utilizadas nos cálculos de elétrica.',0),
+('Iluminação Geral','btn_fei5','imagens/icones/ferramentas/FEI_05.png','FEI/Iluminação Geral.html','Realiza a conversão das principais grandezas utilizadas nos cálculos de elétrica.',0),
+('Área e Perímetro','btn_fei6','imagens/icones/ferramentas/FEI_06.png','FEI/Área e Perímetro.html','Permite a realização dos cálculos de área e perímetro de um ambiente, utilizando a fórmula baseada em largura e comprimento de terreno.',0),
+('Impedância Elétrica','btn_fei7','imagens/icones/ferramentas/FEI_07.png','FEI/Impedância Elétrica.html','Calcula a medida da capacidade de um circuito resistir ao fluxo de determinada corrente elétrica.',0),
+('Condutância Elétrica','btn_fei8','imagens/icones/ferramentas/FEI_08.png','FEI/Condutância Elétrica.html','Calcula a propriedade que facilita a condutividade de uma corrente elétrica por meio de um corpo.',0),
+('Capacitância Elétrica','btn_fei9','imagens/icones/ferramentas/FEI_09.png','FEI/Capacitância Elétrica.html','Calcula a capacitância elétrica.',0),
+('Potência Geral','btn_fei10','imagens/icones/ferramentas/FEI_10.png','FEI/Potência Geral.html','Calcula a Potência Ativa, Potência Reativa e consequentemente a Potência aparente de uma instalação monofásica, bifásica ou trifásica, com base na corrente elétrica, tensão máxima fornecida e fator potência inseridos pelo usuário.',0),
+('Rendimento do Motor','btn_fei11','imagens/icones/ferramentas/FEI_11.png','FEI/Rendimento do Motor.html','Calculo realizado com base nos valores de energia dissipada e energia util aplicada em um motor.',0),
+('Indutância Elétrica','btn_fei12','imagens/icones/ferramentas/FEI_12.png','FEI/Indutância Elétrica.html','Calculo para determinar a corrente absorvida em um circuito e dimensionar corretamente a proteção de condutores acima de 20m.',0),
+('Resistor de Base','btn_fei13','imagens/icones/ferramentas/FEI_13.png','FEI/Resistor de Base.html','Calcula a tensão correta para a utilização de um resistor de base.',0),
+('Resistor de Cargas','btn_fei14','imagens/icones/ferramentas/FEI_14.png','FEI/Resistor de Cargas.html','Calcula a tensão correta para a utilização de um resistor de cargas.',0),
+('Ruptura de Capacitor','btn_fei15','imagens/icones/ferramentas/FEI_15.png','FEI/Ruptura de Capacitor.html','Calculo da Ruptura de um capacitor.',0);
+
+SELECT * FROM tb_ferramenta t;
+
+SELECT * FROM tb_pacote t;
+
+SELECT * FROM pacote_ferramenta p;
+
+insert into tb_pacote(nm_pacote) values
+('Eletron Tech Advance');
+
+delete from pacote_ferramenta;
+
+insert into pacote_ferramenta values
+(1,1),
+(1,2),
+(1,3),
+(1,4),
+(1,5),
+(1,6),
+(1,7),
+(1,8),
+(1,9),
+(1,10),
+(1,11),
+(1,12),
+(1,13),
+(1,14),
+(1,15),
+(2,6),
+(2,4),
+(2,1),
+(3,3),
+(3,5),
+(4,9),
+(4,8),
+(4,2),
+(4,7),
+(4,11),
+(4,12);
+
+select tb_ferramenta.nm_ferramenta as 'Ferramenta', tb_pacote.nm_pacote as 'Pacote'
+  from tb_ferramenta inner join pacote_ferramenta
+    on tb_ferramenta.cd_ferramenta = pacote_ferramenta.cd_ferramenta
+      inner join tb_pacote
+        on pacote_ferramenta.cd_pacote = tb_pacote.cd_pacote
+           order by tb_pacote.nm_pacote;
+
+insert into usuario_pacote values
+(19,1,11,'2015-01-30','2015-02-01');
+
+SELECT * FROM usuario_pacote u;
+
+select tb_usuario.nm_usuario as 'Usuário', tb_pacote.nm_pacote as 'Pacote', usuario_pacote.dt_inicio as 'Data de Inicío', usuario_pacote.dt_termino as 'Data de Término', usuario_pacote.qt_dias as 'Dias Restantes'
+  from tb_usuario inner join usuario_pacote
+    on tb_usuario.cd_usuario = usuario_pacote.cd_usuario
+      inner join tb_pacote
+        on usuario_pacote.cd_pacote = tb_pacote.cd_pacote;
+		
+select nm_ferramenta, nm_url_imagem as 'imagem', count(tb_ferramenta.cd_ferramenta) as utilizacoes
+  from tb_utilizacao inner join tb_ferramenta
+    on tb_utilizacao.cd_ferramenta = tb_ferramenta.cd_ferramenta
+      inner join pacote_ferramenta
+        on tb_ferramenta.cd_ferramenta = pacote_ferramenta.cd_ferramenta
+          inner join tb_pacote
+            on pacote_ferramenta.cd_pacote = tb_pacote.cd_pacote
+              inner join usuario_pacote
+                on tb_pacote.cd_pacote = usuario_pacote.cd_pacote
+                  inner join tb_usuario
+                    on usuario_pacote.cd_usuario = tb_usuario.cd_usuario
+                       where tb_usuario.cd_usuario = 19
+                         group by tb_ferramenta.cd_ferramenta
+                           order by utilizacoes desc limit 5;
+
+SELECT * FROM tb_usuario t;
+
+SELECT * FROM usuario_pacote u;
+
+SELECT * FROM tb_pacote t;
+
+create table tb_utilizacao
+(
+  cd_utilizacao int not null auto_increment,
+  cd_ferramenta int,
+  cd_usuario int,
+  dt_utilizacao date,
+  constraint pk_utilizacao
+     primary key (cd_utilizacao),
+  constraint fk_utilizacao_ferramenta
+    foreign key (cd_ferramenta)
+      references tb_ferramenta(cd_ferramenta),
+  constraint fk_utilizacao_usuario
+    foreign key (cd_usuario)
+      references tb_usuario(cd_usuario)
+);
+
+SELECT * FROM tb_utilizacao t;
+
+SELECT * FROM tb_ferramenta t order by nm_ferramenta;
+
+delete from tb_ferramenta where cd_ferramenta = 15;
+
+delete from pacote_ferramenta where cd_ferramenta = 15;
+
+SELECT * FROM pacote_ferramenta p;
+
+insert into tb_utilizacao(cd_ferramenta, cd_usuario, dt_utilizacao) values('$codigoFerramenta', $codigoUsuario', now())

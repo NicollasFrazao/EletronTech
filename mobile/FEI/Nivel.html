@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>EletronTech - Área e Perímetro</title>
+		<link rel="stylesheet" type="text/css" href="../css/fei.css">
+		<link rel="shortcut icon" type="image/png" href="../images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="display:none">
+		<div style="visibility: hidden;">
+		
+		<div class="et-topbar" id="et_topbar">
+			<table id="tabela" valign="center" width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<tr width="100%"  valign="center" >
+					<td id="et_space_back" valign="center">
+						<input type="image" src="../images/back.png" class="et-back" id="et_back" onclick="history.back();">
+					</td>
+					<td width="100%" height="100%" valign="center">
+						<span class="et-fei-name">Área e Perímetro</span>
+					</td>
+					<td id="et_space_menu" valign="center">
+						<input type="image" src="../images/help.png" class="et-help" id="et_menu">
+					</td>	
+				</tr>
+			</table>
+		</div>
+		<form onkeypress="if (event.keyCode == 13) {btn_calcular.click();}" style="overflow: auto; height: inherit;">
+			<div class="et-medium" id="et_medium">
+				<table width="100%" class="et-tooltable">
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Comprimento (m)</label>						
+							<input type="text" class="txt_value" id="txt_comprimento" title="Comprimento(m)" maxlength="10" unidade="m" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Largura (m)</label>						
+							<input type="text" class="txt_value" id="txt_largura" title="Largura(m)" maxlength="10" unidade="m" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Área (m²)</label>						
+							<input type="text" class="txt_result" id="txt_area" title="Área(m²)" readonly/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Perímetro (m)</label>						
+							<input type="text" class="txt_result" id="txt_perimetro" title="Perímetro(m)" readonly/>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="et-bottom" id="et_bottom">
+				<input type="button" value="Calcular" id="btn_calcular" onclick="if (this.value == 'Calcular') {UtilizarFerramenta(codigoFerramenta, 2); Validar(this, '== 2');} else {Limpar(this);}">
+			</div>
+		</form>
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error">Por favor, preencha todos os campos corretamente!</label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+		
+		<!--AJUDA-->
+		<div id="termos">
+			<div id="termos_box">
+				<div class="into_termos">
+					<label class="lbl_title">Sobre a Ferramenta</label>
+					<div id="txt_termos" style="text-align: justify;">
+						<p class="fei_desc_bold">Descrição</p> 
+						<!--Descrição-->
+						<p class="fei_desc_comp">Ferramenta que realiza cálculos referentes a superfície de um espaço e seu contorno, sendo estes a área e o perímetro, através das medidas de comprimento e largura.<p>
+
+						<p class="fei_desc_bold">Atributos</p>
+						<!--Atributos-->
+						<p class="attrb_fei"><b>Comprimento (m)</b> - Metro</p>
+						<p class="attrb_fei"><b>Largura (m)</b> - Metro</p>
+						<p class="attrb_fei"><b>Área (m²)</b> - Metro quadrado</p>
+						<p class="attrb_fei"><b>Perimetro (m²)</b> - Metro quadrado</p>
+						<p class="space"></p>
+					</div>
+				</div>
+				<input type="button" id="btn_termos" value="OK">
+			</div>
+		</div>
+		<!--AJUDA-->
+		</div>
+		<div style="display: inline-block; width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; background-color: #00b0f0;"></div>
+		<div>
+			<div style="background-color: rgba(255,255,255,0.5); width: 100%; height: 100px; position: absolute; top: 50%; margin-top: -50px"></div>
+			<button id="bola" style="transition: background 0.5s; display: inline-block; width: 100%; height: 90px; position: absolute; z-index: 9999; background-color: rgba(255,255,255,1); color: #00b0f0; border: 0px;">
+				<div style="transition: color 0.5s; transform: rotate(90deg); -webkit-transform: rotate(90deg); color: #00b0f0; font-weight: bold; font-size: 3em;" id="graus">A</div>
+			</button>
+		</div>
+	</body>
+	<script type="text/javascript" src="../cordova.js"></script>
+	<script type="text/javascript" src="js/Area e Perimetro - Calculo.js"></script>
+	<script type="text/javascript" src="js/Validacao - Ferramentas.js"></script>
+	<script type="text/javascript" src="js/help.js"></script>
+	<script type="text/javascript" src="../js/banco.js"></script>
+	<script type="text/javascript" src="../js/ajax.js"></script>
+	<script type="text/javascript" src="../js/ControleHash.js"></script>
+	<script type="text/javascript" src="../js/AnyTech - Validacao.js"></script>
+	<script>
+		window.onload = function()
+		{
+			helpActived = 0;
+			resizingTool();
+			
+			document.body.style.display = "inline-block";
+			
+			AbrirBanco();
+			
+			if (!VerificarLogado())
+			{
+				window.location.href = '../';
+			}
+			else
+			{
+				Parametros = GetParametros();
+				
+				codigoFerramenta = Parametros["codigo"];
+				
+				UtilizarFerramenta(codigoFerramenta, 1);
+				
+				ControleHash(window.location.hash, event);
+			}
+		}	
+		
+		function resizingTool(){
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			h10 = hScreen * 0.10;
+			h80 = hScreen * 0.80;
+			
+			//Topbar resizing
+			et_topbar.style.height = h10+"px";
+			et_back.style.height = h10+"px";
+			et_menu.style.height = h10+"px";
+			et_space_back.style.height = h10+"px";
+			et_space_menu.style.height = h10+"px";
+			
+			//bottom resizing
+			et_bottom.style.height = h10+"px";
+		}
+		
+		function error_in()
+		{
+			/*error.style.visibility = "visible";
+			error.style.opacity = "1";*/
+			
+			window.location.hash = '#alert';
+		}
+		
+		function error_out()
+		{
+			/*//btn_eout.style.visibility = "hidden";
+			error.style.opacity = "0";
+			error.style.visibility = "hidden";*/
+			
+			history.back();
+		}
+		
+		function UtilizarFerramenta(codigoFerramenta, tipo)
+		{
+			if (ConexaoInternet() && codigoFerramenta != undefined)
+			{
+				Ajax("GET", "https://www.anytech.com.br/et/php/UtilizarFerramenta.php", "codigoFerramenta=" + codigoFerramenta + "&codigoUsuario=" + window.localStorage.getItem('codigo') + "&tipo=" + tipo, "");
+			}
+		}
+		
+		window.addEventListener('deviceorientation', function(event) {
+			var alpha = event.alpha;
+			var beta = event.beta;
+			var gamma = event.gamma;
+			
+			beta = beta.toFixed(0);
+			beta = (beta - 3);
+			
+			//document.getElementById("z").innerHTML = alpha;
+		  
+			//document.getElementById("y").innerHTML = gamma;
+			
+			graus.innerHTML = beta + "°";
+			if(beta == 0){
+				bola.style.backgroundColor = "#00b0f0";
+				graus.style.color = "#fff";
+			}
+			else
+			{
+				bola.style.backgroundColor = "#fff";
+				graus.style.color = "#00b0f0";
+			}
+			wid = window.innerHeight;
+			spa = ((wid * (beta-64.5))/180);
+			spa = spa.toFixed(0);
+			spa = spa - 21;
+			
+			//document.getElementById("x").innerHTML = spa;
+			bola.style.marginTop = spa+"px";
+
+		}, false);
+	</script>
+</html>

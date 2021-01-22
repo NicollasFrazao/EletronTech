@@ -1,0 +1,23 @@
+*
+{
+	margin: 0;
+	padding: 0;
+	font-family: century gothic;
+}
+
+#barra
+{
+	display: inline-block;
+	width: 100%;
+}
+
+#et
+{
+	display: inline;
+	position: absolute;
+	height: 4%;
+	width: 50%;
+	top: 0;
+	margin-left: 25%;
+	box-shadow: 0px 0px 5px 5px black;
+}

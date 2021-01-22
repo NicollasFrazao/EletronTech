@@ -1,0 +1,592 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+		*
+		{
+			margin: 0px;
+			padding: 0px;
+			font-family: century gothic;
+			outline: none;
+		}
+		
+		::-webkit-scrollbar
+		{
+				height: 12px;
+				width: 1%;
+				background: #222;
+		}
+			
+	
+		
+		::-webkit-scrollbar-thumb
+		{
+			background:  #333;
+			-webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+			<!--#0ca3ff;-->
+		}
+
+		::-webkit-scrollbar-corner
+		{
+			background:  white;
+		}
+		
+		#allchat
+		{
+			display: inline-block;
+			width: 100%;
+			height: 550px;
+			background-color: black;
+		}
+		
+		table
+		{
+			display: inline-block;
+			width: 100%;
+			border: 0px;
+		}
+		
+		#topochat
+		{
+			display: inline-block;
+			width: 98%;
+			background-color: #00b0f0;
+			color: white;
+			padding:1%;
+		}
+		
+		#giuchat
+		{
+			display: inline-block;
+			width: 100%;
+			height: 500px;
+			background-color: black;
+		}
+		
+		#chatconversa
+		{
+			display: inline-block;
+			width: 100%;
+			heigth: 500px;
+			background-color: black;
+		}
+		
+		table #ol
+		{
+			display: inline-block;
+			width: 100%;
+			height: 500px;
+		}
+		
+		#conversacao
+		{
+			display: inline-block;
+			width: 100%;
+			height: 390px;
+			background-color: black;
+			overflow: auto;
+		}
+		
+		
+		#msgchat
+		{
+			display: inline-block;
+			width: 100%;
+			height: 90px;
+			margin-top:10px;
+			background-color: orange;
+		}
+		
+		#chatamigos
+		{
+			display: inline-block;
+			width: 100%;
+			height: 100%;
+			background-color: #222;
+		}
+		
+		#enviar_mensagem
+		{
+			display: inline-block;
+			width: 100%;
+			height: 100%;
+			resize: none;
+			padding: 1%;
+			background-color: #bbb;
+			color: white;
+			border: 0px;
+		}
+		
+		#out_chat, #in_chat
+		{
+			display: inline-block;
+			width: 96%;
+			heigth: auto;
+			background-color: black;
+			padding: 2%;
+		}
+		
+		#in_chat
+		{
+			background-color: #111;
+			
+		}
+		
+		#out_data, #in_data
+		{
+			display: inline-block;
+			color: #00b0f0;
+			font-size: 10px;
+			
+		}
+		
+		#out_msg, #in_msg
+		{
+			display: inline-block;
+			width: 100%;
+			color: white;
+			font-size: 14px;
+		}
+		
+		#out_chat #ot
+		{
+			display: inline-block;
+			width: auto;
+			padding-left:10px;
+		}
+		
+		#in_chat #it
+		{
+			display: inline-block;
+			width: auto;
+			padding-right:20px;
+		}
+		
+		#t1
+		{
+			width: 70%;
+		}
+		
+		#t2
+		{
+			width: 30%;
+		}
+		
+		#busca_chat
+		{
+			display: inline-block;
+			width: 100%;
+			background-color: transparent;			
+		}
+		
+		#txt_busca
+		{
+			display: inline-block;
+			width: 98%;
+			padding: 1%;
+			
+		}
+		
+		
+		#amigoschat
+		{
+			display: inline-block;
+			width: 100%;
+			height: 460px;
+			background-color: transparent;
+			overflow: auto;
+			margin-top: 5px;
+		}
+		
+		#amiguinho
+		{
+			display: inline-block;
+			width: 90%;
+			padding-top:5px;
+			padding-bottom:5px;
+			padding-left: 10px;
+			margin: 5px;
+		}
+		
+		#foto_amigo
+		{
+			display: inline-block;
+			width: 30px;
+		}
+		
+		#status
+		{
+			display: inline-block;
+			width: 5px;
+		}
+		
+		#nome_amigo
+		{
+			color: white;
+			font-size: 10px;
+			text-shadow: 1px 0px black;
+		}
+		
+		#hf
+		{
+			display: inline-block;
+			width: 100%;
+		}	
+		
+		#t3
+		{
+			display: inline-block;
+			width: 10%;
+		}
+		
+		#t4
+		{
+			display: inline-block;
+			width: 20%;
+		}
+		
+		#t5
+		{
+			display: inline-block;
+			width: 70%;
+		}
+		</style>
+	</head>
+	<script>
+	</script>
+	<body>
+		<div id="allchat">
+			<table>
+				<tr>
+					<td>
+						<div id="topochat">
+							<label>ChatTech</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td>
+									<div id="giuchat">
+										<table id="ol">
+											<tr>
+												<td id="t1">
+													<div id="chatconversa">
+														<div id="conversacao">
+															<div id="out_chat" align="left">
+																<table id="ot">
+																	<tr>
+																		<td>
+																			<label id="out_data">Você às 09:00</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="out_msg">Olá bom dia, tudo bem?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															
+															<!--other-->
+															<div id="in_chat" align="right">
+																<table id="it">
+																	<tr>
+																		<td>
+																			<label id="in_data">Alguém às 09:01</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="in_msg">E aí? como vai?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															
+															
+															
+															
+															<!--TESTES-->
+															<div id="out_chat" align="left">
+																<table id="ot">
+																	<tr>
+																		<td>
+																			<label id="out_data">Você às 09:00</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="out_msg">Olá bom dia, tudo bem?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															
+															<!--other-->
+															<div id="in_chat" align="right">
+																<table id="it">
+																	<tr>
+																		<td>
+																			<label id="in_data">Alguém às 09:01</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="in_msg">E aí? como vai?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															<div id="out_chat" align="left">
+																<table id="ot">
+																	<tr>
+																		<td>
+																			<label id="out_data">Você às 09:00</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="out_msg">Olá bom dia, tudo bem?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															
+															<!--other-->
+															<div id="in_chat" align="right">
+																<table id="it">
+																	<tr>
+																		<td>
+																			<label id="in_data">Alguém às 09:01</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="in_msg">E aí? como vai?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															<div id="out_chat" align="left">
+																<table id="ot">
+																	<tr>
+																		<td>
+																			<label id="out_data">Você às 09:00</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="out_msg">Olá bom dia, tudo bem?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															
+															<!--other-->
+															<div id="in_chat" align="right">
+																<table id="it">
+																	<tr>
+																		<td>
+																			<label id="in_data">Alguém às 09:01</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="in_msg">E aí? como vai?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															<div id="out_chat" align="left">
+																<table id="ot">
+																	<tr>
+																		<td>
+																			<label id="out_data">Você às 09:00</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="out_msg">Olá bom dia, tudo bem?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															
+															<!--other-->
+															<div id="in_chat" align="right">
+																<table id="it">
+																	<tr>
+																		<td>
+																			<label id="in_data">Alguém às 09:01</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="in_msg">E aí? como vai?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															<div id="out_chat" align="left">
+																<table id="ot">
+																	<tr>
+																		<td>
+																			<label id="out_data">Você às 09:00</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="out_msg">Olá bom dia, tudo bem?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															
+															<!--other-->
+															<div id="in_chat" align="right">
+																<table id="it">
+																	<tr>
+																		<td>
+																			<label id="in_data">Alguém às 09:01</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="in_msg">E aí? como vai?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															<div id="out_chat" align="left">
+																<table id="ot">
+																	<tr>
+																		<td>
+																			<label id="out_data">Você às 09:00</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="out_msg">Olá bom dia, tudo bem?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															
+															<!--other-->
+															<div id="in_chat" align="right">
+																<table id="it">
+																	<tr>
+																		<td>
+																			<label id="in_data">Alguém às 09:01</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="in_msg">E aí? como vai?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															<div id="in_chat" align="right">
+																<table id="it">
+																	<tr>
+																		<td>
+																			<label id="in_data">Alguém às 09:01</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="in_msg">E aí? como vai?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div><div id="in_chat" align="right">
+																<table id="it">
+																	<tr>
+																		<td>
+																			<label id="in_data">Alguém às 09:01</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="in_msg">E aí? como vai?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div><div id="in_chat" align="right">
+																<table id="it">
+																	<tr>
+																		<td>
+																			<label id="in_data">Alguém às 09:01</label>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<label id="in_msg">E aí? como vai?</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															<!--FIMTESTE-->
+														</div>
+														<div id="msgchat">
+															<textarea id="enviar_mensagem"></textarea>
+														</div>
+													</div>
+												</td>
+												
+												<td id="t2">
+													<div id="chatamigos">
+														<div id="busca_chat" align="center">
+															<input type="text" id="txt_busca">
+														</div>
+														<div id="amigoschat">
+															<div id="amiguinho" align="center">
+																<table id="hf">
+																	<tr>
+																		<td align="center" id="t3">
+																			<img src="imagens/useronline.png" id="status">
+																		</td>
+																		<td align="center" id="t4">
+																			<input type="image" src="imagens/gus.jpg" id="foto_amigo">
+																		</td>
+																		<td id="t5">
+																			<label id="nome_amigo" style="font-weight:bold">Gustavo Alves</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+															<div id="amiguinho" align="center">
+																<table id="hf">
+																	<tr>
+																		<td align="center" id="t3">
+																			<img src="imagens/useronline.png" id="status">
+																		</td>
+																		<td align="center" id="t4">
+																			<input type="image" src="imagens/gus.jpg" id="foto_amigo">
+																		</td>
+																		<td id="t5">
+																			<label id="nome_amigo" style="font-weight:bold">Gustavo d dAlves</label>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

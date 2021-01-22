@@ -1,0 +1,802 @@
+
+
+	window.onload = function()
+	{
+		pjtW =  <?php echo $comprimento ?>*10;
+		pjtH = <?php echo $largura ?>*10;
+		//pre definindo submenus
+		esquadriasSM = 1;
+		lampadaSM = 1;
+		tomadaSM = 1;
+		interruptorSM = 1;
+		condutorSM = 1;
+		quadroSM = 1;
+		eletrodutosSM = 1;
+		zoomSM = 1;
+		//menu = 9;
+		//selecionarMenu();
+		limpaVar();
+		
+		escala = 1;
+		
+		larguraTotal = 25 * 5;
+		alturaTotal = 3.5;
+		comprimentoTotal = 80 * 5;
+		comDraw = 1;
+		pdes = 1;
+		myS = 1;
+		com = 1;
+		
+		hist = [];
+		hi = 0;
+		gerar();
+		
+		
+		var minX= 0;
+		var maxX= (760 - comprimentoTotal) - 20;
+		var minY=0;
+		var maxY=(570 - larguraTotal) - 20;
+		
+		
+	}
+	
+	function gerar()
+	{
+		painelDesenho.style.width = pjtW;
+		painelDesenho.style.height = pjtH;
+		painelDesenho.style.top = "50%";
+		painelDesenho.style.left = "50%";
+		painelDesenho.style.marginLeft = ((pjtW/2)* -1)-95;
+		painelDesenho.style.marginTop = ((pjtH/2) * -1);
+		painelDesenho.style.position = "absolute";
+		painelDesenho.style.display = "inline-block";
+		
+		painel = new Kinetic.Stage
+		(
+			{
+				id:'terreno',
+				container: 'painelDesenho',
+				width: pjtW,
+				height: pjtH,
+				fill: '#689cc3',
+				stroke: 'blue',
+				strokeWidth: 10
+			}
+		);
+	}
+		
+		
+	//click no painel de desenho
+	painelDesenho.onclick = function()
+	{
+		//Zoom
+		if(menu == 11)
+		{
+			if(zoomSM == 1)
+			{
+				if(escala <3)
+				{
+					escala = escala + 0.1;
+					myS = myS - 0.000068;
+				}
+			}
+			else
+			{
+				if(escala > 0.5)
+				{
+					escala = escala - 0.1;
+					myS = myS + 0.000068;
+				}
+			}
+			painelDesenho.style.transform="scale("+escala+")";	
+		}
+	}
+	painelDesenho.onmousemove = function()
+	{
+		cXc = parseInt((event.clientX)) - ((screen.width/2) - (pjtW/2))+75/myS;
+		cYc = parseInt((event.clientY)) - ((screen.height/2) - (pjtH/2))+30/myS;
+		if((cXc >= 0 && cXc <= (pjtW*15)) && (cYc >= 0 && cYc <= (pjtH*15)))
+		{
+			coordenadas.innerHTML = "X, Y ["+cXc.toFixed(0)+", "+cYc.toFixed(0)+"]";
+		}
+		else if(cXc >= (pjtW))
+		{
+			alert("i");
+		}
+		else{}
+		
+	}
+	
+	painelDesenho.onmouseout = function()
+	{
+		coordenadas.innerHTML = "";
+	}
+	
+	painelDesenho.onmouseover = function()
+	{
+		
+		if(menu == 11)
+		{
+			
+		}
+		else if(menu == 12)
+		{
+			painelDesenho.style.cursor= "pointer";
+		}
+		else
+		{
+			painelDesenho.style.cursor= "crosshair";
+		}
+		
+	}
+	
+	painelDesenho.onmousedown = function()
+	{
+		if(comDraw == 1)
+		{
+			X1 = parseInt((event.clientX)) - ((screen.width/2) - (pjtW/2))+75/myS;
+			Y1 = parseInt((event.clientY)) - ((screen.height/2) - (pjtH/2))+30/myS;
+			pdes = 1;
+		}
+		else
+		{	
+			painelDesenho.style.cursor= "no-drop";
+			pdes = 0;
+			comDraw = 1;
+		}
+	}
+	
+	painelDesenho.onmouseup = function()
+	{
+		// capturando as coordenadas finais do desenho
+		X2 = parseInt((event.clientX)) - ((screen.width/2) - (pjtW/2)) + 75/myS;
+		Y2 = parseInt((event.clientY)) - ((screen.height/2) - (pjtH/2))+30/myS;
+		
+		var camada = new Kinetic.Layer
+		(
+			{
+				//dragBoundFunc: function(pos)
+				//{
+					//X = pos.x;
+					//Y = pos.y;
+					//if(X<minX){X=minX;}
+					//if(X>maxX){X=maxX;}
+					//if(Y<minY){Y=minY;}
+					//if(Y>maxY){Y=maxY;}
+					//return({x:X, y:Y});
+				//}
+			}
+		);
+		camada.setDraggable(false);
+		painel.add(camada);
+		
+		camada.on('mouseover', function(){
+				if(menu==1)
+				{
+					camada.add(point1);
+					camada.add(point2);
+					camada.add(point3);
+					camada.add(point4);
+					camada.draw();
+					setDate();
+				}
+				
+				if(menu == 2)
+				{
+					comDraw = 0;
+				}
+			});
+			
+			
+					 
+			camada.on('mousedown', function(){
+				if(menu == 1)
+				{
+					//Tornando Draggable
+					camada.setDraggable(true);
+					comodo.setStroke('blue');
+					camada.draw();
+					setDate();
+				}
+				
+				if(menu == 3)
+				{
+					//add esquadrias
+					if(X2 <= comodo.x()+20)
+					{
+						porta = new Kinetic.Rect
+						(
+							{
+								x: comodo.x()-10,
+								y: comodo.y()+10,
+								width: 20,
+								height: 80,
+								fill: 'red',
+								draggable: false,
+								dragBoundFunc: function(pos) {
+									X = pos.x;
+									Y = pos.y;
+									if(Y < comodo.y() +10)
+									{
+										Y = comodo.y() + 10;
+									}
+									else if(Y > comodo.height()-5)
+									{
+										Y = comodo.height()-5;
+									}
+									
+								  return {
+									x: this.getAbsolutePosition().x,
+									y: Y
+								  }
+								}
+							}
+						);
+						camada.add(porta);
+						camada.draw();
+						setDate();
+					}
+					else if(X2 > (comodo.x() + comodo.width()))
+					{
+						alert("i");
+					}
+					else{}
+				}
+				
+				if(menu == 2)
+				{
+					camada.setDraggable(false);
+				}
+				
+				if(menu == 12)
+				{
+					camada.setDraggable(false);
+					coma = comodo.getName();
+					selComodo.remove(coma);
+					comodo.destroy();
+					camada.destroy();
+				}
+			});
+			camada.on('mouseout', function(){
+				setDate();
+			});
+			camada.on('mouseout', function(){
+				if(menu == 1)
+				{
+					camada.setDraggable(true);
+					comodo.setStroke('white');
+					point1.remove();
+					point2.remove();
+					point3.remove();
+					point4.remove();
+					camada.draw();
+				}
+				if(menu == 2)
+				{
+					comDraw = 1;
+				}
+				
+			});
+		if(menu == 2 && pdes == 1)
+		{
+			com++;
+			//criando o objeto que será desenhado
+			var comodo = new Kinetic.Rect
+			(
+				{
+					//determinando nome e id do comodo
+					
+					id: 'e'+com,
+					name: 'e'+com,
+					//coordenada inicial
+					x: X1,
+					y: Y1,
+					medida: X1,
+					//coordenada final
+					width: X2 - X1,
+					height: Y2 - Y1,
+					fill: 'black',
+					stroke: 'white',
+					strokeWidth: 20,
+					draggable: false,
+					resize: true
+				}
+			);
+			camada.add(comodo);	
+
+				//Criando os pontos ancoras do comodo
+				var point1 = new Kinetic.Rect
+				(
+					{			
+						x: X1-5,
+						y: Y1-5,
+						width: 10,
+						height: 10,
+						fill: 'blue',
+						draggable: true
+					}
+				);
+				
+				var point2 = new Kinetic.Rect
+				(
+					{
+						x: X1-5,
+						y: Y2-5,
+						width: 10,
+						height: 10,
+						fill: 'blue',
+						draggable: true
+					}
+				);
+				
+				var point3 = new Kinetic.Rect
+				(
+					{
+						x: X2-5,
+						y: Y1-5,
+						width: 10,
+						height: 10,
+						fill: 'blue',
+						draggable: true
+					}
+				);
+				
+				var point4 = new Kinetic.Rect
+				(
+					{
+						x: X2-5,
+						y: Y2-5,
+						width: 10,
+						height:10,
+						fill: 'blue',
+						draggable: true
+					}
+				);			
+			//Fixando Ancoras
+				point1.on("mouseover", function () {
+					camada.add(point1);
+					camada.add(point2);
+					camada.add(point3);
+					camada.add(point4);
+					camada.draw();
+					painelDesenho.style.cursor= "nw-resize";
+				});
+				
+				point2.on("mouseover", function () {
+					camada.add(point1);
+					camada.add(point2);
+					camada.add(point3);
+					camada.add(point4);
+					camada.draw();
+					painelDesenho.style.cursor= "ne-resize";
+				});
+				
+				point3.on("mouseover", function () {
+					camada.add(point1);
+					camada.add(point2);
+					camada.add(point3);
+					camada.add(point4);
+					camada.draw();
+					painelDesenho.style.cursor= "ne-resize";
+				});
+				
+				point4.on("mouseover", function () {
+					camada.add(point1);
+					camada.add(point2);
+					camada.add(point3);
+					camada.add(point4);
+					camada.draw();
+					painelDesenho.style.cursor= "nw-resize";
+				});
+				
+				//fehando fixamento de ancoras
+				
+				
+				point1.on("mousedown", function () {
+					point2.remove();
+					point3.remove();
+					point4.remove();
+					painelDesenho.style.cursor= "crosshair";
+					
+					point1.on("mouseup", function () {
+						var pos = this.getPosition();
+						var xN = pos.x;
+						var yN = pos.y;
+						var cX = comodo.getX();
+						var cY = comodo.getY();
+						var wT = comodo.getWidth();
+						var hT = comodo.getHeight();
+						
+						point2.setX(xN);
+						point3.setY(yN);
+						camada.add(point2);
+						camada.add(point3);
+						camada.add(point4);
+						comodo.setX(xN+4);
+						comodo.setY(yN+4);
+						comodo.setWidth(wT-xN+cX-4);
+						comodo.setHeight(hT-yN+cY-4);
+						camada.add(comodo);
+						
+						//here
+						porta.x(comodo.x()-10);		
+						porta.y(comodo.y()+10);							
+						camada.draw();
+						setDate();
+					});
+				});
+				
+				point2.on("mousedown", function () {
+					point1.remove();
+					point3.remove();
+					point4.remove();
+					painelDesenho.style.cursor= "crosshair";
+					point2.on("mouseup", function () {
+						var pos = this.getPosition();
+						var xN = pos.x;
+						var yN = pos.y;
+						var cX = comodo.getX();
+						var cY = comodo.getY();
+						var wT = comodo.getWidth();
+						var hT = comodo.getHeight();
+						
+						point1.setX(xN);
+						point4.setY(yN);
+						camada.add(point1);
+						camada.add(point3);
+						camada.add(point4);
+						comodo.setX(xN+4);
+						comodo.setWidth(wT-xN+cX-4);
+						comodo.setHeight(yN-cY+4);
+						camada.add(comodo);
+						camada.draw();
+						setDate();
+					});
+				});
+				
+				point3.on("mousedown", function () {
+					point1.remove();
+					point2.remove();
+					point4.remove();
+					painelDesenho.style.cursor= "crosshair";
+					point3.on("mouseup", function () {
+						var pos = this.getPosition();
+						var xN = pos.x;
+						var yN = pos.y;
+						var cX = comodo.getX();
+						var cY = comodo.getY();
+						var wT = comodo.getWidth();
+						var hT = comodo.getHeight();
+						
+						point1.setY(yN);
+						point4.setX(xN);
+						camada.add(point1);
+						camada.add(point2);
+						camada.add(point4);
+						comodo.setY(yN);
+						comodo.setWidth(xN-cX+4);
+						comodo.setHeight(hT-(yN-cY));
+						camada.add(comodo);
+						camada.draw();
+						setDate();
+					});
+				});
+				
+				point4.on("mousedown", function () {
+					point1.remove();
+					point2.remove();
+					point3.remove();
+					painelDesenho.style.cursor= "crosshair";
+					point4.on("mouseup", function () {
+						var pos = this.getPosition();
+						var xN = pos.x;
+						var yN = pos.y;
+						var cX = comodo.getX();
+						var cY = comodo.getY();
+						point3.setX(xN);
+						point2.setY(yN);
+						camada.add(point1);
+						camada.add(point2);
+						camada.add(point3);
+						comodo.setWidth(xN-cX+4);
+						comodo.setHeight(yN-cY+4);
+						camada.add(comodo);
+						camada.draw();
+						setDate();
+					});
+				});
+				
+				point1.on("mouseout", function () {
+					painelDesenho.style.cursor= "crosshair";
+				}
+				);
+				point2.on("mouseout", function () {
+					painelDesenho.style.cursor= "crosshair";
+				}
+				);
+				point3.on("mouseout", function () {
+					painelDesenho.style.cursor= "crosshair";
+				}
+				);
+				point4.on("mouseout", function () {
+					painelDesenho.style.cursor= "crosshair";
+				}
+				);
+				
+			camada.add(point1);
+			camada.add(point2);
+			camada.add(point3);
+			camada.add(point4);
+			point1.remove();
+			point2.remove();
+			point3.remove();
+			point4.remove();
+			camada.draw();
+			setDate();
+			regHist();
+		}
+		
+		function setDate()
+		{
+			nmComodo.value = comodo.getName();
+			tipoComodo.value = "0";
+			if(comodo.getHeight() > 0)
+			{
+				largComodo.value = comodo.getHeight();
+			}
+			else
+			{
+				largComodo.value = comodo.getHeight()*-1;
+			}
+			
+			if(comodo.getWidth() > 0)
+			{
+				compComodo.value = comodo.getWidth();
+			}
+			else
+			{
+				compComodo.value = comodo.getWidth()*-1;
+			}			
+			xComodo.value = comodo.getX()+camada.getX();
+			yComodo.value = comodo.getY()+camada.getY();
+			
+		}
+		
+		function regHist()
+		{
+			hist[hi] = comodo.getName();
+			hist[hi] += "|"+comodo.getWidth();
+			hist[hi] += "|"+comodo.getHeight();
+			hist[hi] += "|"+comodo.getX()+camada.getX();
+			hist[hi] += "|"+comodo.getY()+camada.getY();
+			hi++;
+		}
+	}
+	
+	btnComodoComp.onclick = function()
+	{
+		if(grupoComodo.style.display == "inline-block")
+		{
+			grupoComodo.style.display = "none";
+			btnComodoComp.value = "▼ Cômodos";
+		}
+		else
+		{
+			danoneComp();
+			grupoComodo.style.display = "inline-block";
+			btnComodoComp.value = "▲ Cômodos";
+		}
+	}
+	
+	btnEsquadriaComp.onclick = function()
+	{
+		if(grupoEsquadria.style.display == "inline-block")
+		{
+			grupoEsquadria.style.display = "none";
+			btnEsquadriaComp.value = "▼ Esquadrias";
+		}
+		else
+		{
+			danoneComp();
+			grupoEsquadria.style.display = "inline-block";
+			btnEsquadriaComp.value = "▲ Esquadrias";
+		}
+	}
+	
+	btnTomadaComp.onclick = function()
+	{
+		if(grupoTomada.style.display == "inline-block")
+		{
+			grupoTomada.style.display = "none";
+			btnTomadaComp.value = "▼ Tomadas";
+		}
+		else
+		{
+			danoneComp();
+			grupoTomada.style.display = "inline-block";
+			btnTomadaComp.value = "▲ Tomadas";
+		}
+	}
+	
+	btnLampadaComp.onclick = function()
+	{
+		if(grupoLampada.style.display == "inline-block")
+		{
+			grupoLampada.style.display = "none";
+			btnLampadaComp.value = "▼ Lampadas";
+		}
+		else
+		{
+			danoneComp();
+			grupoLampada.style.display = "inline-block";
+			btnLampadaComp.value = "▲ Lampadas";
+		}
+	}
+	
+	
+	btnInterruptorComp.onclick = function()
+	{
+		if(grupoInterruptor.style.display == "inline-block")
+		{
+			grupoInterruptor.style.display = "none";
+			btnInterruptorComp.value = "▼ Interruptores";
+		}
+		else
+		{
+			danoneComp();
+			grupoInterruptor.style.display = "inline-block";
+			btnInterruptorComp.value = "▲ Interruptores";
+		}
+	}
+	
+	btnDisjuntorComp.onclick = function()
+	{
+		if(grupoDisjuntor.style.display == "inline-block")
+		{
+			grupoDisjuntor.style.display = "none";
+			btnDisjuntorComp.value = "▼ Disjuntores";
+		}
+		else
+		{
+			danoneComp();
+			grupoDisjuntor.style.display = "inline-block";
+			btnDisjuntorComp.value = "▲ Disjuntores";
+		}
+	}
+	
+	btnCircuitoComp.onclick = function()
+	{
+		if(grupoCircuito.style.display == "inline-block")
+		{
+			grupoCircuito.style.display = "none";
+			btnCircuitoComp.value = "▼ Circuitos";
+		}
+		else
+		{
+			danoneComp();
+			grupoCircuito.style.display = "inline-block";
+			btnCircuitoComp.value = "▲ Circuitos";
+		}
+	}
+	
+	btnConduiteComp.onclick = function()
+	{
+		if(grupoConduite.style.display == "inline-block")
+		{
+			grupoConduite.style.display = "none";
+			btnConduiteComp.value = "▼ Conduites";
+		}
+		else
+		{
+			danoneComp();
+			grupoConduite.style.display = "inline-block";
+			btnConduiteComp.value = "▲ Conduites";
+		}
+	}
+	
+	btnCondutorComp.onclick = function()
+	{
+		if(grupoCondutor.style.display == "inline-block")
+		{
+			grupoCondutor.style.display = "none";
+			btnCondutorComp.value = "▼ Condutores";
+		}
+		else
+		{
+			danoneComp();
+			grupoCondutor.style.display = "inline-block";
+			btnCondutorComp.value = "▲ Condutores";
+		}
+	}
+	
+	btnQuadroComp.onclick = function()
+	{
+		if(grupoQuadro.style.display == "inline-block")
+		{
+			grupoQuadro.style.display = "none";
+			btnQuadroComp.value = "▼ Quadros";
+		}
+		else
+		{
+			danoneComp();
+			grupoQuadro.style.display = "inline-block";
+			btnQuadroComp.value = "▲ Quadros";
+		}
+	}
+	
+	function danoneComp()
+	{
+		grupoComodo.style.display = "none";
+		btnComodoComp.value = "▼ Cômodos";
+		
+		grupoEsquadria.style.display = "none";
+		btnEsquadriaComp.value = "▼ Esquadrias";
+		
+		grupoTomada.style.display = "none";
+		btnTomadaComp.value = "▼ Tomadas";
+		
+		grupoLampada.style.display = "none";
+		btnLampadaComp.value = "▼ Lampadas";
+		
+		grupoInterruptor.style.display = "none";
+		btnInterruptorComp.value = "▼ Interruptores";
+		
+		grupoDisjuntor.style.display = "none";
+		btnDisjuntorComp.value = "▼ Disjuntores";
+		
+		grupoCircuito.style.display = "none";
+		btnCircuitoComp.value = "▼ Circuitos";
+		
+		grupoConduite.style.display = "none";
+		btnConduiteComp.value = "▼ Conduites";
+		
+		grupoCondutor.style.display = "none";
+		btnCondutorComp.value = "▼ Condutores";
+		
+		grupoQuadro.style.display = "none";
+		btnQuadroComp.value = "▼ Quadros";
+	}
+	
+	comodoSubTomada.onmouseover = function()
+	{
+		legendaComodo.innerHTML = "Tomadas";
+	}
+	
+	comodoSubLampada.onmouseover = function()
+	{
+		legendaComodo.innerHTML = "Lâmpadas";
+	}
+	
+	comodoSubEsquadrias.onmouseover = function()
+	{
+		legendaComodo.innerHTML = "Portas e Janelas";
+	}
+	
+	comodoSubInterruptores.onmouseover = function()
+	{
+		legendaComodo.innerHTML = "Interruptores";
+	}
+	
+	comodoSubTomada.onmouseout = function()
+	{
+		limpaLegendaComodo();
+	}
+
+	comodoSubLampada.onmouseout = function()
+	{
+		limpaLegendaComodo();
+	}
+
+	comodoSubEsquadrias.onmouseout = function()
+	{
+		limpaLegendaComodo();
+	}
+
+	comodoSubInterruptores.onmouseout = function()
+	{
+		limpaLegendaComodo();
+	}	
+	function limpaLegendaComodo()
+	{
+		legendaComodo.innerHTML = "";
+	}

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>EletronTech - Cadastro</title>
+		<link rel="stylesheet" type="text/css" href="css/fei.css">
+		<link rel="shortcut icon" type="image/png" href="images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="display: none;">
+		<div class="et-topbar" id="et_topbar">
+			<table id="tabela" valign="center" width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<tr width="100%"  valign="center" >
+					<td id="et_space_back" valign="center">
+						<input type="image" src="images/eletrontech-anytech-logo-bar.png" class="et-back" id="et_back">
+					</td>
+					<td width="100%" height="100%" valign="center">
+						<span class="et-fei-name">Cadastro</span>
+					</td>
+					<td id="et_space_menu" valign="center">
+						<input type="image" src="images/close.png" class="et-menu" id="et_menu" onclick="history.back();"/>
+					</td>	
+				</tr>
+			</table>
+		</div>
+		<form id="Frm_Cadastro" method="POST" action="https://www.anytech.com.br/et/php/Cadastro.php" style="overflow: auto; height: inherit;" onkeypress="if (event.keyCode == 13) {this.onsubmit();}">
+			<div class="et-medium" id="et_medium">
+				<table width="100%" class="et-tooltable">				
+					<tr width="100%">
+						<td width="100%"  colspan="2">
+							<label class="lbl_title">Nome Completo</label>						
+							<input type="text" class="txt_value at-valida" tipo="NomeCompleto" id="txt_nome" name="nome" required/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%"  colspan="2">
+							<label class="lbl_title">E-mail</label>						
+							<input type="text" class="txt_value at-valida" tipo="E-mail" id="txt_email" name="email" required/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%"  colspan="2">
+							<label class="lbl_title">Senha</label>						
+							<input type="password" class="txt_value at-valida" tipo="Senha" id="txt_senha" name="senha" required/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%"  colspan="2">
+							<label class="lbl_title">Confirmação de Senha</label>						
+							<input type="password" class="txt_value at-valida" tipo="ConfirmarSenha" id="txt_confirmaSenha" required/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="auto">
+							<input class="at-valida" tipo="checkbox" type="checkbox" required/>
+						</td>
+						<td width="100%">
+							<label class="lbl_title"  onclick="termos_in()">Li e concordo com os <strong>termos de uso</strong>.</label>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="et-bottom" id="et_bottom">
+				<input type="submit" value="Cadastrar" id="btn_cadastrar">
+			</div>
+		</form>
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error"></label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+				
+		
+		<div id="termos">
+			<div id="termos_box">
+				<div class="into_termos">
+					<label class="lbl_title">Eletrontech Termos de Uso e Privacidade</label>
+					<label id="txt_termos" style="text-align: justify;">
+
+					<b>Aceitação dos termos:</b><br> Importante, leia com atenção: Ao criar uma conta ou utilizar serviços do EletronTech, você concorda com estes termos e condições.<br><br> 
+
+					<b>Declaração de Termos e Responsabilidades</b><br><br> 
+
+					Esta Declaração de Termos e Responsabilidades se baseia nos princípios uso da AnyTech e representa o seu relacionamento com os usuários, referente a EletronTech, definido neste documento como “Serviço”. Ao utilizar este serviço, você concorda com esta Declaração, conforme atualizada periodicamente de acordo com a secção abaixo. Uma vez que a EletronTech forneça uma ampla atualização, termos adicionais podem ser acrescentados, conforme é discutido na secção 1.5.<br><br>Bem-vindo ao EletronTech, site ou o aplicativo móvel. Seu uso do Serviço está sujeito a estes Termos de Uso e Política de Privacidade. Estes Termos de Uso são um acordo legal entre Você e a EletronTech, uma ANYTECH, para o uso do serviço EletronTech. "Você" refere-se a qualquer indivíduo que cria uma conta no serviço, ou, se o serviço está sendo usada em nome de uma entidade por um autorizado indivíduo para concordar com tais termos em nome de tal entidade, em seguida, "Você" refere-se a tais entidade. Se você não concordar com os termos deste Contrato, não use o Serviço. A EletronTech reserva-se o direito de atualizar e alterar o Acordo de tempos em tempos sem aviso prévio ou aceitação por Você, conforme é discutido na secção 1.6. O Acordo será também aplicável à utilização do Serviço, a título experimental. Ao utilizar o Serviço, você indica sua aceitação irrevogável do presente Acordo. O site e qualquer software descarregável associados ao Serviço são protegidos por leis de direitos autorais, bem como por outras leis de propriedade intelectual.<br><br> 
+
+					1. Como este contrato funciona<br><br>
+
+					1.1 Legislação. A EletronTech é um sistema pertencente a ANYTECH, uma empresa brasileira, que é regida pela legislação do Brasil. <br><br> 
+
+					1.2 Elegibilidade. Você deve somente utilizar os Serviços se (a) tiver mais de 15 anos de idade e (b) for autorizado por lei a criar um vínculo contratual.<br><br>
+
+					1.3 Privacidade. A política de privacidade presente no endereço http://www.anytech.com.br/termos/eletrontech/privacidade rege qualquer informação pessoal que for fornecida à ANYTECH. Ao utilizar o Serviço, você concorda com os termos da política de privacidade.<br><br>
+
+					1.4 Software. O Software é licenciado e não comercializado, estando de acordo com os termos deste contrato.<br><br>
+
+					1.5 Termos adicionais. O Serviço está sujeito a termos adicionais acrescentados periodicamente, que podem ser comunicados para sua ciência. <br><br> 
+
+					1.6 Ordem de prioridade. Caso haja algum conflito entre os termos presentes neste contrato e os termos adicionais, prevalecem os termos adicionais em relação ao Serviço em questão.<br><br>
+
+					1.7 Suporte. Toda e qualquer dúvida acerca desse regulamento poderão ser sanadas ao entrar em contato com nosso centro de suporte ao cliente no e-mail: eletrontech.suporte@anytech.com.
+
+					1.9 Modificação. A EletronTech pode modificar ou descontinuar a utilização dos Serviço ou ferramenta a qualquer momento, sem se comprometer com você ou com terceiros. Entretanto, faremos um esforço justo para notificá-lo antes de realizar qualquer a modificação. A EletronTech também permite que você transfira seus arquivos num tempo aceitável. Se o Serviço for inteiramente descontinuado, fornecemos a você um reembolso, que será os dias restantes para o termino do pacote contratado previamente.<br><br>
+
+					2 Descrição do Serviço<br><br>
+
+					O Serviço inclui, e está limitado a um serviço, web site ou aplicativo móvel que permite acesso e uso de uma única conta ANYTECH. "EletronTech" referido, significa aqui uma ferramenta de colaboração on-line e off-line que realiza cálculos específicos na área de elétrica e projetos de plantas elétricas baixas residenciais. O Serviço pode conter informações, dados, textos, fotografias, vídeos, mensagens escritas, software, scripts, imagens e recursos interativos gerados. Sujeito a estes Termos de Serviço, a EletronTech concede a Você e cada usuário do serviço uma licença nacional, não-exclusiva, não sublicenciável e não-transferível para usar (ou seja, para baixar e exibir localmente) Conteúdo exclusivamente para efeitos da utilização do Serviço. O uso, reprodução, modificação, distribuição ou armazenamento de qualquer Conteúdo, exceto para fins de utilização do serviço é expressamente proibido sem autorização prévia por escrito de nós. Você não poderá vender, licenciar, alugar, ou de outra forma utilizar ou explorar qualquer Conteúdo para uso comercial ou de qualquer forma que viole qualquer direito de terceiros. Para efeitos destes Termos de Serviço, "Conteúdo" também inclui todo o conteúdo do usuário (conforme abaixo definido). A "Conta EletronTech" ou "Conta" aqui referido significa um serviço, web site ou aplicativo móvel, fornecido pela EletronTech, onde você pode usar para criar, atualizar, compartilhar e publicar mensagens ou outros materiais ("conteúdo do Usuário").
+					A menos que expressamente indicado em contrário, qualquer novo recurso que aumente ou melhore o Serviço atual, incluindo o lançamento de novas ferramentas e recursos, estarão sujeitos ao acordo. Para utilizar o serviço, você deve obter acesso à World Wide Web (WWW), seja diretamente ou através de dispositivos que acessam conteúdo baseado na web. Além disso, você deve fornecer todo o equipamento necessário para fazer essa conexão à World Wide Web, incluindo computador, modem ou outro dispositivo de acesso. Você também está ciente e concorda que o serviço pode incluir determinadas comunicações, tais como anúncios de serviços, mensagens administrativas, etc., e que estas comunicações são consideradas parte do serviço e você não será capaz de optar por não os receber. Você concorda em não acessar o Serviço por qualquer meio diferente através das interfaces que são fornecidas pela EletronTech para uso no acesso ao Serviço. A EletronTech irá fornecer o Serviço de acordo com este Acordo. Além, pode, a seu exclusivo critério, modificar os recursos do Serviço de tempos em tempos sem aviso prévio.<br><br>
+
+					3 Inscrição<br><br>
+
+					Para utilizar o serviço, você deve ter uma conta válida. Para adquirir uma conta para o serviço, você deve fornecer um endereço de correio eletrônico (E-MAIL) e outras informações ("Dados de Cadastro"). Você é responsável por manter a confidencialidade dos dados de acesso para a sua conta, e é totalmente responsável por todas as atividades que ocorram na sua conta. Você concorda em (a) notificar imediatamente a EletronTech de qualquer uso não autorizado de sua conta ou qualquer outra violação de segurança, e (b) assegurar que você saia da sua conta ao final de cada sessão. A EletronTech não é responsável por qualquer perda ou dano decorrente de sua falha em cumprir com esta seção. Em consideração à utilização do Serviço, Você concorda em: (a) fornecer informações verdadeiras, exatas, atuais e completas sobre si mesmo, conforme solicitado pelo formulário de registro no Serviço, e (b) manter e atualizar prontamente os Dados de Registro para mantê-las verdadeiras, precisas, atuais e completas. A EletronTech não assume qualquer obrigação de verificar essas informações conforme detalhado no conteúdo da seção de serviço destes Termos de Serviço. Se você fornecer qualquer informação que seja falsa, incorreta, desatualizada ou incompleta, ou a EletronTech tiver motivos razoáveis para suspeitar que tal informação é falsa, incorreta, desatualizada ou incompleta, a EletronTech tem o direito de suspender ou encerrar sua conta e recusar todo o uso atual ou futuro do Serviço (ou qualquer parte dele). Ao utilizar o Serviço (e registrar uma conta no serviço), Você declara e garante que tem pelo menos 15 anos de idade, e ninguém com menos de 15 anos de idade poderá usar o serviço. A EletronTech poderá, a seu exclusivo critério, recusar-se a oferecer o serviço a qualquer pessoa ou entidade e alterar seus critérios de elegibilidade a qualquer momento. Você é o único responsável por garantir que estes Termos de Serviço estão em conformidade com todas as leis, regras e regulamentos aplicáveis a você e ao direito de acesso ao serviço é revogada quando estes Termos de Serviço ou o uso do Serviço é proibida ou para a oferta medida, venda ou fornecimento dos conflitos de Serviços com qualquer lei, norma ou regulamento.<br><br>
+					
+					4 Uso do Serviço<br><br>
+					
+					4.1 Licença. Ao acessar o Serviço pela primeira vez, você recebe uma licença que lhe pertencerá até a exclusão total da conta.<br><br>
+					
+					4.2 Pacote. Ao acessar o Serviço pela primeira vez, você recebe um “pacote Tester” com duração de 30 dias. Neste pacote contém todas as ferramentas do Serviço.<br><br>
+					
+					5 Práticas gerais de uso e armazenamento<br><br>
+					
+					Você concorda que a EletronTech não tem qualquer responsabilidade ou obrigação pela exclusão ou falha ao armazenar ou transmitir qualquer Conteúdo do Usuário ou outras comunicações mantidas pelo Serviço. Você reconhece que a EletronTech pode estabelecer práticas gerais e limites relativos à utilização do Serviço e poderá modificar estas práticas e limites de tempos em tempos. Se reserva o direito de criar limitações de uso e armazenamento, a critério próprio, a qualquer momento com ou sem aviso prévio.<br><br>
+					
+					6 Não revenda do serviço<br><br>
+					
+					Você concorda em não reproduzir, duplicar, copiar, vender, revender ou explorar qualquer parte do Serviço, uso do Serviço, ou acesso ao Serviço sem a permissão expressa da EletronTech.<br>
+					
+					Termos de privacidade:<br><br>
+					
+					6.1 Coletamos o conteúdo e outras informações transmitidas por usuários quando usam nossos Serviços, incluindo quando se cadastram em uma conta ou criam conteúdo. Isso pode incluir informações presentes no conteúdo ou a respeito deles, como a localização de uma foto ou a data que um arquivo foi criado. Também coletamos informações sobre como usuários usam nossos Serviços, por exemplo, os tipos de conteúdo que eles veem ou com que se envolvem e a frequência ou duração de suas atividades.<br><br>
+					
+					6.2 Dados pessoais e relação de atividades poderão ser usados para gerar gráficos e estáticas divulgadas a terceiros.<br><br>
+					
+					6.3 Todos os valores de pacotes e ferramentas podem sofrer alteração sem aviso prévio, todos os recursos pré-pagos adquiridos serão mantidos.<br><br>
+					
+					6.4 Todos conteúdos produzidos por usuários são de total responsabilidade dos mesmos;<br><br>
+					
+					6.5 Todos os arquivos fornecidos pelo usuário (fotos, arquivos de texto e arquivos de diagramação) entrarão em posse da ANYTECH e suas filiais.<br><br>
+					
+					6.6 Nenhum arquivo pessoal será compartilhado com órgão vigentes sem uma requisição judicial.<br><br>
+					
+					6.7 Coletamos informações de ou sobre computadores, telefones e outros dispositivos em que são acessados nossos Serviços, dependendo das permissões concedidas. Podemos associar as informações coletadas dos diferentes dispositivos, o que nos ajuda a fornecer Serviços consistentes entre dispositivos. Veja alguns exemplos das informações que coletamos sobre os dispositivos: <br><br>
+					
+					Atributos, como sistema operacional, versão de hardware, configurações do dispositivo, nomes e tipos de arquivos e softwares, bateria e intensidade de sinal, e identificadores de dispositivo.<br><br>
+					
+					Localizações do dispositivo, incluindo localizações geográficas específicas, por meio de GPS, Bluetooth ou sinal Wi-Fi.<br><br>
+					
+					Informações de conexão, como o nome da sua operadora de celular ou ISP (Internet Service Provider), tipo de navegador, idioma, fuso horário, número de celular e endereço IP.<br><br>
+					
+					Coletaremos informações pessoais para enviar comunicações de marketing, entrar em contato sobre nossos Serviços e lhe informar sobre políticas e termos. Também usamos as informações para responder usuário que entrem em contato conosco<br><br>
+					
+					7 Desativação da conta<br><br>
+					
+					Você afirma estar ciente de que tem conhecimento pleno sobre todos procedimentos necessários para manter sua conta de maneira regular, permitindo uma possível desativação da mesma com ou sem aviso prévio no caso de irregularidade ou de recusa em atender exigências feitas pela staff da ANYTECH. Mediante a desativação da conta, fica clara a impossibilidade de acesso ao ELETRONTECH e aos seus respectivos serviços, sem a possibilidade de recuperar a conta. A recuperação da conta é vetada também no caso de desativação espontânea. Caso haja algum material vinculado a conta desativada, a ANYTECH não se responsabiliza pela perda, além de não reembolsar contas desativadas em hipótese alguma.
+					</label>
+					<p class="space"></p>
+				</div>
+				<input type="button" id="btn_termos" value="OK" onclick="termos_out()">
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/banco.js"></script>
+	<script type="text/javascript" src="js/ajax.js"></script>
+	<script type="text/javascript" src="js/ControleHash.js"></script>
+	<script type="text/javascript" src="js/AnyTech - Validacao.js"></script>
+	<script>
+		window.onload = function(){			
+			resizingTool();
+			
+			document.body.style.display = "inline-block";
+			
+			MapearForms();
+			AbrirBanco();
+			
+			if (VerificarLogado())
+			{
+				window.location.href = 'Painel.html';
+			}
+			else
+			{
+				window.localStorage.clear();
+				DroparTabelas();
+				CriarTabelas();
+				
+				ic = 0;
+				codigo = 0;
+				
+				ControleHash(window.location.hash, event);
+			}
+		}	
+		
+		Frm_Cadastro.onsubmit = function()
+		{
+			if (!ConexaoInternet())
+			{
+				error_in('Sem conexão com a internet!', 1);
+			}
+			else if (VerificarForm(this))
+			{
+				AjaxForm(this, "error_in('Cadastrando...', 0);", "var retorno = this.responseText; var indicador = retorno.split(';-;')[0]; var aviso = retorno.split(';-;')[1]; if (indicador == 1) {et_menu.style.visibility = 'hidden'; btn_cadastrar.disabled = true; ic = 1; codigo = retorno.split(';-;')[2];} else {ic = 0;} error_in(aviso, 1);");
+			}
+			else
+			{
+				error_in("Por favor, preencha todos os campos corretamente!",1);
+			}
+			
+			return false;
+		}
+		
+		function resizingTool()
+		{
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			h10 = hScreen * 0.10;
+			h80 = hScreen * 0.80;
+			
+			//Topbar resizing
+			et_topbar.style.height = h10+"px";
+			et_back.style.height = h10+"px";
+			et_menu.style.height = h10+"px";
+			et_space_back.style.height = h10+"px";
+			et_space_menu.style.height = h10+"px";
+			
+			//bottom resizing
+			et_bottom.style.height = h10+"px";
+		}
+		
+		function error_in(texto, ic)
+		{
+			if (ic == 1)
+			{
+				btn_eout.style.visibility = "visible";
+				btn_eout.focus();
+			}
+			else
+			{
+				btn_eout.style.visibility = "hidden";
+			}
+			
+			txt_error.innerHTML = texto;//"Por favor, preencha todos os campos corretamente!";
+			
+			/*error.style.visibility = "visible";
+			error.style.opacity = "1";*/
+			
+			window.location.hash = '#alert';
+		}
+		
+		function error_out()
+		{
+			/*btn_eout.style.visibility = "hidden";
+			error.style.opacity = "0";
+			error.style.visibility = "hidden";
+			
+			if (ic == 1)
+			{
+				ic = 0;
+				SincronizarDados(codigo);
+			}*/
+			
+			history.back();
+		}
+		
+		function termos_in()
+		{
+			/*termos.style.visibility = "visible";
+			termos.style.opacity = "1";*/
+			
+			window.location.hash = '#termos';
+		}
+		
+		function termos_out()
+		{
+			/*termos.style.opacity = "0";
+			termos.style.visibility = "hidden";*/
+			
+			history.back();
+		}
+		
+	</script>
+</html>

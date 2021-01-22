@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<meta charset = "UTF-8">
+		<title>Quantificação de Tomadas</title>
+	</head>
+	<body>
+		<form>
+			<table>
+				
+				<tr>
+					<td>
+						<label> Resistencia Eletrica </label>
+						<input type="text" id="resistencia_eletrica" />
+					</td>
+					
+					<td>
+						<label> Frequencia da Corrente (Hz) </label>
+						<input type="text" id="frequencia_corrente" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label> Capacitancia do Capacitor (F) </label>
+						<input type="text" id="capacitancia" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<input type="submit" value="Calcular" onclick="calcular()">
+					</td>
+				</tr>
+				
+			</table>
+		</form>
+	
+	<script >
+		
+		function calcular(){
+		var resist_eletrica = document.getElementById("resistencia_eletrica").value;
+		var freq_corrente = document.getElementById("frequencia_corrente").value;
+		var capacitancia = document.getElementById("capacitancia").value;
+		var xc = (2*3.14*freq_corrente*capacitancia)/1;
+		var r2 = resist_eletrica*resist_eletrica;
+		var xc2 = xc*xc;
+		var z2 = xc2+r2;
+		var z = Math.sqrt(z2);
+		alert(z);
+		}
+		
+	</script>
+		
+	</body>
+</html>

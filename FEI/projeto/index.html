@@ -1,0 +1,150 @@
+<html>
+	<head>
+		<meta charset = "UTF-8">
+		<title>PROJETO</title>
+		<style>		
+		*
+		{
+			margin:0;
+			padding:0;
+			font-family: Century Gothic;
+			
+		}
+		
+		body
+		{
+			background-color: #00428b;
+		}
+		
+		input, select
+		{
+			width: 100%;
+			padding:5px;
+		}
+		
+		#btn_limpar, #btn_criar
+		{
+			display: inline-block;
+			width: 48.5%;
+			height:
+			border: 1px solid black;
+			background-color: black;
+			color: white;
+		}
+		
+		form
+		{
+			display: inline-block;
+			width: 500px;
+			height: 400px;
+			color: white;
+			position: absolute;
+			margin-left: -250px;
+			margin-top: -200px;
+			top: 50%;
+			left: 50%;
+		}
+		
+		table
+		{
+			display: inline-block;
+			margin-top: 35px;
+		}
+		
+		label
+		{
+			color: white;
+		}
+		</style>
+	</head>
+	<body>
+		<form action="Diagramacao.php" target="_blank" method="post" name="projeto"  align="center">
+			<table>
+				<h1>Diagramação de Projetos</h1>
+				<tr>
+					<td colspan="2">
+						<label>Nome do Projeto</label>
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2">
+						<input type="text" name="nm_projeto" required></input>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td>
+						<label>Altura (m)</label>
+					</td>
+					
+					<td>
+						<label>Largura (m)</label>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<input type="text" name="altura" onkeydown="verifica();"required></input>
+					</td>
+					
+					<td>
+						<input type="text" name="largura" required></input>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<label>Comprimento (m)</label>
+					</td>
+
+					<td>
+						<label>Desenvolvimento</label>
+					</td>
+				</tr>
+				
+				
+
+				<tr>
+					
+					<td>
+						<input type="text" name="comprimento" required></input>
+					</td>
+					<td>
+						<select name="desenvolvimento"required>
+						  <option value="null">Selecione uma Opção</option>
+						  <option value="Unifilar">Unifilar</option>
+						  <option value="Multifilar">Multifilar</option>
+						</select>
+					</td>
+				</tr>
+				
+			
+
+				<tr>
+					<td colspan="2">
+						<label>Sistema de Fornecimento</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select name="sistema_fornecimento" required>
+						  <option value="null">Selecione uma Opção</option>
+						  <option value="Automatico">Automatico</option>
+						  <option value="Monofasico">Monofasico</option>
+						  <option value="Bifasico">Bifasico</option>
+						  <option value="Trifasico">Trifasico</option>
+						</select>
+					</td>
+					
+					<td>
+						<input type="reset" value="Limpar" id="btn_limpar" OnClick="LimparBorda()"></input>
+						<input type="submit" value="Criar" id="btn_criar"></input>
+					</td>
+				</tr>
+				
+			</table>
+		</form>
+	</body>
+</html>

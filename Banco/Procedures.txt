@@ -1,0 +1,39 @@
+delimiter $
+  create procedure sp_area_perimetro_calculo
+  (
+    in largura decimal(9,2),
+    in comprimento decimal(9,2),
+    in tipo tinyint(1),
+    out resultado decimal(20,2)
+  )
+    begin
+      if tipo = 1 then
+        set resultado = largura*comprimento;
+      else
+        set resultado = (largura*2) + (comprimento*2);
+      end if;
+    end $
+delimiter;
+
+call sp_area_perimetro_calculo(5,5,1,@resultado);
+
+select @resultado;
+
+delimiter $
+  create procedure sp_capacitancia_eletrica_calculo
+  (
+    in carga decimal(9,2),
+    in potencia decimal(9,2),
+    in corrente decimal(9,2),
+    out resultado decimal(20,2)
+  )
+    begin
+      declare potencial decimal(9,2);
+      set potencial = potencia/corrente;
+      set resultado  = carga/potencial;
+    end $
+delimiter;
+
+call sp_capacitancia_eletrica_calculo(5,5,5,@resultado);
+
+select @resultado;

@@ -1,0 +1,99 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/css.css">
+	</head>
+	<body>
+		<div id="all">
+			<div id="et_topbar">
+				<table width="100%" height="100%">
+					<tr width="100%">
+						<td width="10%" align="center">
+							<input type="image" src="imagens/return.png" id="btn_return">
+						</td>
+						<td width="80%" align="center">
+							<label id="nm_fei">Área e Perímetro</label>
+						</td>
+						<td width="10%" align="center">
+							<input type="image" src="imagens/ajuda.png" id="btn_help" onclick="help_in()">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="et_tool">
+				<table width="100%">					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Comprimento (m)</label>						
+							<input type="text" class="txt_value" id="txt_comprimento" title="Comprimento(m)" maxlength="10" unidade="m" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Largura (m)</label>						
+							<input type="text" class="txt_value" id="txt_largura" title="Largura(m)" maxlength="10" unidade="m" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Área (m²)</label>						
+							<input type="text" class="txt_result" id="txt_area" title="Área(m²)" disabled >
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Perímetro (m)</label>						
+							<input type="text" class="txt_result" id="txt_perimetro" title="Perímetro(m)"disabled>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="et_bottombar">				
+				<input type="button" value="Calcular" id="btn_calcular" onclick="if (this.value == 'Calcular') {Validar(this, '== 2');} else {Limpar(this);}">
+			</div>
+		</div>
+		<div id="help">
+			<div id="help_box">
+				<label id="txt_help">Está derramenta é a ferramenta mais maneira de todo o ET.</label>
+				<input type="button" id="btn_hout" value="OK" onclick="help_out()">
+			</div>
+		</div>
+		
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error">Por favor, preencha todos os campos corretamente!</label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="script/Área e Perímetro - Cálculo.js"></script>
+	<script type="text/javascript" src="script/Validação - Ferramentas.js"></script>
+	<script>
+		function help_in()
+		{
+			help.style.display = "inline-block";
+		}
+		
+		function help_out()
+		{
+			help.style.display = "none";
+		}
+		
+		function error_in()
+		{
+			error.style.display = "inline-block";
+			txt_area.value = null;
+			txt_perimetro.value = null;
+		}
+		
+		function error_out()
+		{
+			error.style.display = "none";
+		}
+	</script>
+</html>

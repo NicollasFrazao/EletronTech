@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+	<meta charset="utf-8">
+		<title>EletronTech - Login</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="shortcut icon" type="image/png" href="images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="visibility: hidden;">
+		<div class="et-main bBlue" id="et_main">
+			<div class="et-main-top" id="et_main_top" align="center">
+				<img src="images/eletrontech-anytech-logo.png" class="et-logo">
+			</div>
+			<div class="et-main-bottom" id="et_main_bottom" align="center">
+				<form id="Frm_Login" method="POST" action="https://www.anytech.com.br/et/php/Login.php" style="overflow: auto; height: inherit;" onkeypress="if (event.keyCode == 13) {this.onsubmit();}">
+					<input type="text" class="et-input at-valida" tipo="E-mail" id="et_user_mail" placeholder="e-mail" name="email" required/>
+					<input type="password" class="et-input at-valida" tipo="Senha" id="et_user_password" placeholder="senha" name="senha" required/>
+					<input type="submit" class="et-button btnTrue" value="Acessar" id="btn_acessar"/>
+					<input type="button" class="et-button btnFalse" value="Esqueci minha senha!" onclick="window.location.hash = '#et_forgot';">
+					<input type="button" class="et-button btnTrue2" value="Cadastre-se no EletronTech" onclick="window.location.href = 'Cadastro.html';"/>
+				</form>
+			</div>
+		</div>
+		
+		
+		<div class="et-forgot" id="et_forgot">
+			<form id="Frm_RecuperarSenha" method="POST" action="https://www.anytech.com.br/et/php/RecuperarSenha.php" style="overflow: auto; height: inherit;" onkeypress="if (event.keyCode == 13) {this.onsubmit();}">
+				<span class="et-forgot-title">Recuperação de Conta</span>
+				<span class="et-forgot-desc">Digite seu e-mail abaixo para recuperar sua conta.</span>
+				<input type="text" class="et-input-forgot at-valida" id="et_user_mail_recover" placeholder="e-mail" name="email" tipo="E-mail" required/>
+				<input type="submit" class="et-button btnTrue" value="Enviar">
+				<input type="button" class="et-button btnTrue2-forgot" value="Voltar" onclick="history.back();">
+			</form>
+		</div>
+		
+		<div class="et-cover" id="et_cover"></div>
+		
+		<div class="et-message" id="et_message">
+			<span class="et-message-title" id="messageTitle"></span>
+			<span class="et-message-desc" id="messageDesc"></span>
+			<input type="button" id="message_ok" class="et-button btnTrue rec" value="OK" onclick="history.back();">
+		</div>
+	</body>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/ajax.js"></script>
+	<script src="js/banco.js"></script>
+	<script src="js/AnyTech - Validacao.js"></script>
+	<script src="js/ControleHash.js"></script>
+	<script>
+		window.onload = function()
+		{
+			ic = 0;
+			
+			resize();
+			
+			document.body.style.visibility = "visible";
+			
+			MapearForms();
+			AbrirBanco();
+			
+			if (VerificarLogado())
+			{
+				window.location.href = 'Painel.html';
+			}
+			else
+			{
+				window.localStorage.clear();
+				DroparTabelas();
+				CriarTabelas();
+				
+				try
+				{
+					ControleHash(window.location.hash, event);
+				}
+				catch (e)
+				{
+					console.log(e.message);
+				}
+			}
+		}
+		
+		function Login()
+		{
+			Frm_Login.onsubmit();
+		}
+		
+		Frm_Login.onsubmit = function()
+		{
+			
+			if (!ConexaoInternet())
+			{
+				openMessage('network_error');
+			}
+			else if (VerificarForm(this))
+			{
+				AjaxForm(this, "openMessage('validate;0');", "var retorno = this.responseText; var indicador = retorno.split(';-;')[0]; if (indicador == 1) {codigo = retorno.split(';-;')[3]; if (retorno.split(';-;')[2] == 1) {openMessage('login_sucess'); ic = 1;} else {/*SincronizarDados(codigo);*/ window.localStorage.setItem('logado', 1); window.localStorage.setItem('codigo', codigo); window.location.href = 'Painel.html';}} else {openMessage('login_error;' + retorno.split(';-;')[1], 1);}");
+			}
+			else
+			{
+				openMessage('login_error');
+			}
+			
+			return false;
+		}
+		
+		Frm_RecuperarSenha.onsubmit = function()
+		{
+			
+			if (!ConexaoInternet())
+			{
+				openMessage('network_error');
+			}
+			else if (VerificarForm(this))
+			{
+				AjaxForm(this, "openMessage('forgot;0');", "var retorno = this.responseText; var indicador = retorno.split(';-;')[0]; if (indicador == 1) {Frm_RecuperarSenha.reset();} openMessage('forgot_alert;1;' + retorno.split(';-;')[1]);");
+			}
+			else
+			{
+				openMessage('forgot_error');
+			}
+			
+			return false;
+		}
+		
+		function resize()
+		{
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			
+			//aplicando tamanho total da tela
+			document.getElementById('et_main').style.width = wScreen+"px";
+			document.getElementById('et_main').style.height = hScreen+"px";
+			
+			hTop = et_main_top.scrollHeight;
+			hBottom = et_main_bottom.scrollHeight;
+			
+			hPd = ((hScreen * 6.6)/100) * 6;
+			hSoma = hTop + hBottom;
+			
+			
+			hInner = (100 * hSoma)/hScreen; 
+			
+			hPadding = (100 - hInner) /2;
+			document.getElementById('et_main').style.paddingTop = hPadding+"%";
+			
+			h40 = hScreen * 0.40;
+			document.getElementById('et_forgot').style.height = h40+"px";
+		}
+		
+		window.onresize = function(){
+			hNow = window.innerHeight;
+			if(hNow == hScreen){
+				logoVisible();				
+			}
+		}
+		
+		et_user_mail.onfocus = function(){
+			logoHidden();
+		}
+		
+		et_user_mail.onblur = function(){
+			logoVisible();
+			
+			this.onvalidate();
+		}
+		
+		et_user_password.onfocus = function(){
+			logoHidden();
+		}
+		
+		et_user_password.onblur = function(){
+			logoVisible();
+			
+			this.onvalidate();
+		}
+		
+		function logoVisible(){
+			et_main_top.style.display = "inline-block";
+		}
+		
+		function logoHidden(){
+			et_main_top.style.display = "none";
+		}
+		
+		function openRecover()
+		{
+			et_cover.style.zIndex = 9960;
+			
+			et_cover.style.visibility = "visible";
+			et_cover.style.opacity = "1";
+			et_forgot.style.visibility = "visible";
+			et_forgot.style.opacity = "1";
+		}
+		
+		function closeRecover(){
+			et_cover.style.opacity = "0";
+			et_cover.style.visibility = "hidden";
+			et_forgot.style.opacity = "0";
+			et_forgot.style.visibility = "hidden";
+		}
+		
+		function openMessage(dove, aux)
+		{
+			et_cover.style.zIndex = 9980;
+			
+			if(dove == 'recover')
+			{
+				message_ok.style.visibility = "visible";
+				messageTitle.textContent = "Recuperação de Conta";
+				messageDesc.textContent = "Sua senha foi enviada para o e-mail indicado.";
+			}
+			else if(dove == 'recover_error')
+			{
+				message_ok.style.visibility = "visible";
+				messageTitle.textContent = "Recuperação de Conta";
+				messageDesc.textContent = "E-mail inválido.";
+			}
+			else if(dove == 'login_error')
+			{
+				message_ok.style.visibility = "visible";
+				messageTitle.textContent = "Login Inválido";
+				messageDesc.textContent = "E-mail e/ou senha incorreto(s).";
+			}
+			else if(dove == 'login_sucess')
+			{
+				message_ok.style.visibility = "visible";
+				messageTitle.textContent = "Conta reativada";
+				messageDesc.textContent = "Sua conta foi reativada!";
+			}
+			else if(dove.split(';')[0] == 'login_error')
+			{
+				message_ok.style.visibility = "visible";
+				messageTitle.textContent = "Login Inválido";
+				messageDesc.textContent = dove.split(';')[1];
+			}
+			else if (dove == 'network_error')
+			{
+				message_ok.style.visibility = "visible";
+				messageTitle.textContent = "Sem conexão";
+				messageDesc.textContent = "No momento você está sem conexão com a internet.";
+			}
+			else if (dove.split(';')[0] == 'synchro')
+			{
+				messageTitle.textContent = "Sincronizando...";
+				messageDesc.textContent = dove.split(';')[2];
+				
+				if (dove.split(';')[1] == 0)
+				{
+					message_ok.style.visibility = "hidden";
+				}
+				else
+				{
+					message_ok.style.visibility = "visible";
+				}
+			}
+			else if (dove.split(';')[0] == 'validate')
+			{
+				messageTitle.textContent = "Efetuando login";
+				messageDesc.textContent = "Validando dados...";
+				
+				if (dove.split(';')[1] == 0)
+				{
+					message_ok.style.visibility = "hidden";
+				}
+				else
+				{
+					message_ok.style.visibility = "visible";
+				}
+			}
+			else if (dove.split(';')[0] == 'forgot')
+			{
+				messageTitle.textContent = "Recuperação de Conta";
+				messageDesc.textContent = "Validando dados...";
+				
+				if (dove.split(';')[1] == 0)
+				{
+					message_ok.style.visibility = "hidden";
+				}
+				else
+				{
+					message_ok.style.visibility = "visible";
+				}
+				
+				ic = 2;
+			}
+			else if (dove.split(';')[0] == 'forgot_alert')
+			{
+				messageTitle.textContent = "Recuperação de Conta";
+				messageDesc.textContent = dove.split(';')[2];
+				
+				if (dove.split(';')[1] == 0)
+				{
+					message_ok.style.visibility = "hidden";
+				}
+				else
+				{
+					message_ok.style.visibility = "visible";
+				}
+				
+				ic = 2;
+			}
+			else if(dove == 'forgot_error')
+			{
+				message_ok.style.visibility = "visible";
+				messageTitle.textContent = "Recuperação de Conta";
+				messageDesc.textContent = "E-mail inválido.";
+				
+				ic = 2;
+			}
+			else
+			{
+				message_ok.style.visibility = "visible";
+			}
+			
+			if (ic == 2)
+			{
+				window.location.hash = '#alert_forgot';
+			}
+			else
+			{
+				window.location.hash = '#alert';
+			}
+		}
+		
+		function closeMessage()
+		{
+			ic = 0;
+			
+			history.back();
+		}
+	</script>	
+</html>

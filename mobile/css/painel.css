@@ -1,0 +1,54 @@
+.et-tools{
+	display: inline-block;
+	width: 91.5%;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 20%;
+	padding-left: 8.5%;
+}
+.et-fei{
+	display: inline-block;
+	width: 24.5%;
+	margin-right: 7.5%;
+}
+
+.et-fei-img{
+	display: inline-block;
+	width: 85%;
+	background-color: gold;
+}
+
+.et-fei-title{
+	display: inline-block;
+	width: 100%;
+	height: 60px;
+	color: #555;
+	text-align: center;
+	font-size: 0.7em;
+	text-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+}
+
+.feiBlue{
+	background-color: #00b0f0;
+}
+
+.feiGreen{
+	background-color: #00a10b;
+}
+
+.feiYellow{
+	background-color: #ecbd27
+}
+
+.feiRed{
+	background-color: #bd0000
+}
+
+.feiGray{
+	background-color: #ddd;
+	box-shadow: inset 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.feiPurple{
+	background-color: #6d00c1;
+}

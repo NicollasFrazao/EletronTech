@@ -1,0 +1,109 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/css.css">
+	</head>
+	<body>
+		<div id="all">
+			<div id="et_topbar">
+				<table width="100%" height="100%">
+					<tr width="100%">
+						<td width="10%" align="center">
+							<input type="image" src="imagens/return.png" id="btn_return">
+						</td>
+						<td width="80%" align="center">
+							<label id="nm_fei">Potência de Iluminação</label>
+						</td>
+						<td width="10%" align="center">
+							<input type="image" src="imagens/ajuda.png" id="btn_help" onclick="help_in()">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="et_tool">
+				<table width="100%">	
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Cômodo</label>						
+							<select type="text" class="txt_value" id="cmb_comodo" title="Cômodo" unidade="" inteiro="true">
+								  <option value="0">Selecione uma Opção</option>
+								  <option value="1">Área de Serviço</option>
+								  <option value="2">Banheiro</option>
+								  <option value="3">Copa</option>
+								  <option value="4">Cozinha</option>
+								  <option value="5">Garagem</option>
+								  <option value="6">Lavanderia</option>
+								  <option value="7">Quarto</option>
+								  <option value="8">Sala</option>
+								  <option value="9">Sótão</option>
+								  <option value="10">Subsolo</option>
+								  <option value="11">Varanda</option>
+							</select>
+						</td>
+					</tr>				
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Comprimento (m)</label>						
+							<input type="text" class="txt_value" id="txt_comprimento" title="Comprimento(m)"  unidade="m" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Largura (m)</label>						
+							<input type="text" class="txt_value" id="txt_largura" title="Largura(m)" unidade="m" inteiro="false">
+						</td>
+					</tr>
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Potência Total (W)</label>						
+							<input type="text" class="txt_result" id="txt_potencia" title="Potência Total(W)" unidade="W" inteiro="false" disabled>
+						</td>
+					</tr>
+					
+				</table>
+			</div>
+			<div id="et_bottombar">				
+				<input type="button" value="Calcular" id="btn_calcular" onclick="if (this.value == 'Calcular') {Validar(this, '== 3');} else {Limpar(this);}">
+			</div>
+		</div>
+		<div id="help">
+			<div id="help_box">
+				<label id="txt_help">Adicionar uma legenda maneira aqui!</label>
+				<input type="button" id="btn_hout" value="OK" onclick="help_out()">
+			</div>
+		</div>
+		
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error">Por favor, preencha todos os campos corretamente!</label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="script/Potência de Iluminação - Cálculo.js"></script>
+	<script type="text/javascript" src="script/Validação - Ferramentas.js"></script>
+	<script>
+		function help_in()
+		{
+			help.style.display = "inline-block";
+		}
+		
+		function help_out()
+		{
+			help.style.display = "none";
+		}
+		
+		function error_in()
+		{
+			error.style.display = "inline-block";
+		}
+		
+		function error_out()
+		{
+			error.style.display = "none";
+		}
+	</script>
+</html>

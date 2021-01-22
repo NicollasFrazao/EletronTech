@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>EletronTech - Redefinir Senha</title>
+		<link rel="stylesheet" type="text/css" href="css/fei.css">
+		<link rel="shortcut icon" type="image/png" href="images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="display: none;">
+		<div class="et-topbar" id="et_topbar">
+			<table id="tabela" valign="center" width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<tr width="100%"  valign="center" >
+					<td id="et_space_back" valign="center">
+						<input type="image" src="images/back.png" class="et-back" id="et_back" onclick="history.back();">
+					</td>
+					<td width="100%" height="100%" valign="center">
+						<span class="et-fei-name">Redefinir Senha</span>
+					</td>
+					<td id="et_space_menu" valign="center">
+						<input type="image" src="images/close.png" class="et-menu" id="et_close" style="visibility: hidden;">
+					</td>	
+				</tr>
+			</table>
+		</div>
+		
+		<form id="Frm_AlterarSenha" method="POST" action="https://www.anytech.com.br/et/php/AlterarSenha.php" style="overflow: auto; height: inherit;" onkeypress="if (event.keyCode == 13) {this.onsubmit();}">
+			<input type="hidden" name="codigo" id="txt_codigo" class="at-valida" tipo="Inteiro" required/>
+			<div class="et-medium" id="et_medium">
+				<table width="100%" class="et-tooltable">				
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Senha Atual</label>						
+							<input type="password" class="txt_value" id="txt_senhaAntiga" required/>
+						</td>
+					</tr>
+									
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Nova Senha</label>						
+							<input type="password" class="txt_value at-valida" tipo="Senha" id="txt_senha" name="senha" required/>
+						</td>
+					</tr>
+									
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Confirmação da Nova Senha</label>						
+							<input type="password" class="txt_value at-valida" tipo="ConfirmarSenha" id="txt_confirmarSenha" required/>
+						</td>
+					</tr>				
+				</table>
+			</div>
+			<div class="et-bottom" id="et_bottom">
+				<input type="submit" value="Salvar" id="btn_salvar">
+			</div>
+		</form>
+		
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error"></label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/ajax.js"></script>
+	<script type="text/javascript" src="js/banco.js"></script>
+	<script type="text/javascript" src="js/ControleHash.js"></script>
+	<script type="text/javascript" src="js/AnyTech - Validacao.js"></script>
+	<script>
+		window.onload = function()
+		{			
+			resizingTool();
+			menuActived = 0;
+			
+			document.body.style.display = "inline-block";
+			
+			MapearForms();
+			AbrirBanco();
+			
+			if (!VerificarLogado())
+			{
+				window.location.href = 'Login.html';
+			}
+			else
+			{
+				getSenha();
+				
+				ControleHash(window.location.hash, event);
+			}
+		}
+		
+		function getSenha()
+		{
+			banco.transaction
+			(
+				function (transaction)
+				{
+					transaction.executeSql
+					(
+						'select cd_senha from tb_usuario where cd_usuario = ?',
+						[window.localStorage.codigo],
+						function (transaction, results)
+						{
+							var linha = results.rows.item(0);
+							
+							txt_codigo.value = window.localStorage.codigo;
+							senhaBanco = linha.cd_senha;
+						},
+						function (transaction, error)
+						{
+							alert(error.message);
+						}
+					);
+				}
+			);
+		}
+		
+		function setSenha()
+		{
+			banco.transaction
+			(
+				function (transaction)
+				{
+					transaction.executeSql
+					(
+						'update tb_usuario set cd_senha = ? where cd_usuario = ?',
+						[base64_encode(txt_senha.value), window.localStorage.codigo],
+						function (transaction, results)
+						{
+							getSenha();
+						},
+						function (transaction, error)
+						{
+							alert(error.message);
+						}
+					);
+				}
+			);
+		}
+		
+		Frm_AlterarSenha.onsubmit = function()
+		{
+			if (base64_decode(senhaBanco) != txt_senhaAntiga.value)
+			{
+				error_in('Senha atual fornecida não consta no sistema!', 1);
+			}
+			else if (!VerificarForm(this))
+			{
+				error_in("Senhas fornecidas não conferem!", 1);
+			}
+			else
+			{
+				AjaxForm
+				(
+					this,
+					function()
+					{
+						error_in('Alterando senha...', 0);
+					},
+					function(ajax)
+					{
+						var retorno = ajax.responseText;
+						var indicador = retorno.split(';-;')[0];
+						var mensagem = retorno.split(';-;')[1];
+						
+						error_in(mensagem, 1);
+						
+						if (indicador == 1)
+						{
+							Frm_AlterarSenha.reset();
+							setSenha();
+						}
+					}
+				);
+			}
+			
+			return false;
+		}
+		
+		function resizingTool(){
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			h10 = hScreen * 0.10;
+			h80 = hScreen * 0.80;
+			
+			//Topbar resizing
+			et_topbar.style.height = h10+"px";
+			et_back.style.height = h10+"px";
+			et_close.style.height = h10+"px";
+			et_space_back.style.height = h10+"px";
+			et_space_menu.style.height = h10+"px";
+			
+			//bottom resizing
+			et_bottom.style.height = h10+"px";
+		}
+		
+		function error_in(texto, ic)
+		{
+			if (ic == 1)
+			{
+				btn_eout.style.visibility = "visible";
+			}
+			else
+			{
+				btn_eout.style.visibility = "hidden";
+			}
+			
+			//"Por favor, preencha os campos obrigatórios corretamente!"
+			txt_error.innerHTML = texto;
+			
+			/*error.style.visibility = "visible";
+			error.style.opacity = "1";*/
+			
+			window.location.hash = '#alert';
+		}
+		
+		function error_out()
+		{
+			/*btn_eout.style.visibility = "hidden";
+			error.style.opacity = "0";
+			error.style.visibility = "hidden";*/
+			
+			history.back();
+		}
+		
+	</script>
+</html>

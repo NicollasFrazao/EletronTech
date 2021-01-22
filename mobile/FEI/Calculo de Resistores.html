@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>EletronTech - Cálculo de Resistores</title>
+		<link rel="stylesheet" type="text/css" href="../css/fei.css">
+		<link rel="shortcut icon" type="image/png" href="../images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="display: none;">
+		<div class="et-topbar" id="et_topbar">
+			<table id="tabela" valign="center" width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<tr width="100%"  valign="center" >
+					<td id="et_space_back" valign="center">
+						<input type="image" src="../images/back.png" class="et-back" id="et_back" onclick="history.back();"/>
+					</td>
+					<td width="100%" height="100%" valign="center">
+						<span class="et-fei-name">Cálculo de Resistores</span>
+					</td>
+					<td id="et_space_menu" valign="center">
+						<input type="image" src="../images/help.png" class="et-menu" id="et_menu">
+					</td>	
+				</tr>
+			</table>
+		</div>
+		<form onkeypress="if (event.keyCode == 13) {btn_calcular.click();}" style="overflow: auto; height: inherit;">
+			<div class="et-medium" id="et_medium">
+				<table width="100%" class="et-tooltable" style="margin-bottom: -5px;">
+					<!--COMBO-->
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Tipo de Cálculo</label>						
+							<select type="text" style="width: 100%;" class="txt_value" id="cmb_calculo" title="Bitola (mm²)" onchange="setCalc(this.value)">
+									<option value="0">Selecione uma Opção</option>
+									<option value="1">1ª Lei de Ohm</option>
+									<option value="2">2ª Lei de Ohm</option>
+									<option value="3">Código de Cores</option>
+									<option value="4">Em Série</option>
+									<option value="5">Em Paralelo</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+					<div class="firstLaw typeCalc" id="c1">
+						<table width="100%">
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">Tensão (V)</label>						
+									<input type="text" class="txt_value" id="txt_tensao_c1" title="Tensão Elétrica(V)" unidade="V" inteiro="false" calculo="1"/>
+								</td>
+							</tr>
+							
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">Intensidade da Corrente (A)</label>						
+									<input type="text" class="txt_value" id="txt_corrente_c1" title="Intensidade da Corrente(A)" unidade="A" inteiro="false" calculo="1"/>
+								</td>
+							</tr>
+							
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">Resistência (Ω)</label>						
+									<input type="text" class="txt_value" id="txt_resistencia_c1" title="Resistência Elétrica(Ω)" unidade="Ω" inteiro="false" calculo="1"/>
+								</td>
+							</tr>
+							
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">Potência (W)</label>						
+									<input type="text" class="txt_value" id="txt_potencia_c1" title="Potência Elétrica(W)" unidade="W" inteiro="false" calculo="1"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+					
+					<!--DIV2-->
+					<div class="secondLaw typeCalc" id="c2">
+						<table>
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">Resistividade (Ω.m)</label>						
+									<input type="text" class="txt_value" id="txt_resistividade_c2" title="Resistividade (Ω.m)" unidade="Ω.m" inteiro="false" calculo="2"/>
+								</td>
+							</tr>
+
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">Resistência (Ω)</label>						
+									<input type="text" class="txt_value" id="txt_resistencia_c2" title="Resistência Elétrica(Ω)" unidade="Ω" inteiro="false" calculo="2"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div class="colors typeCalc" id="c3"  style="margin-top: -25px">
+						<table width="100%;" class="et-tooltable">
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">Calcular</label>						
+									<select type="text" style="width: 100%;" class="txt_value" id="cmb_calculo_c3" onchange="blueSender(this.getAttribute('calculo'));" calculo="3">
+											<option value="0">Resistência e Tolerância</option>
+											<option value="1">Faixas</option>
+									</select>
+								</td>
+							</tr>
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">Faixas</label>						
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">
+									<select type="text" class="txt_value cmb_resistor" id="cmb_faixa1" title="Faixa 1" onchange="this.style.backgroundColor = this.selectedOptions[0].getAttribute('content');" calculo="3">
+										<option content="#fff" value="">1</option>
+										<option content="#a35b2a"value="1">Marrom</option>
+										<option content="#ff0000" value="2">Vermelho</option>
+										<option content="#ff8100" value="3">Laranja</option>
+										<option content="#fff400" value="4">Amarelo</option>
+										<option content="#28b812" value="5">Verde</option>
+										<option content="#1333d4" value="6">Azul</option>
+										<option content="#a641a7" value="7">Violeta</option>
+										<option content="#a3a3a3" value="8">Cinza</option>
+										<option content="#ffffff" value="9">Branco</option>
+									</select>
+									
+									<select type="text" class="txt_value cmb_resistor" id="cmb_faixa2" title="Faixa 2" onchange="this.style.backgroundColor = this.selectedOptions[0].getAttribute('content');" calculo="3">
+										<option content="#fff" value="">2</option>
+										<option content="#000" value="0">Preto</option>
+										<option content="#a35b2a"value="1">Marrom</option>
+										<option content="#ff0000" value="2">Vermelho</option>
+										<option content="#ff8100" value="3">Laranja</option>
+										<option content="#fff400" value="4">Amarelo</option>
+										<option content="#28b812" value="5">Verde</option>
+										<option content="#1333d4" value="6">Azul</option>
+										<option content="#a641a7" value="7">Violeta</option>
+										<option content="#a3a3a3" value="8">Cinza</option>
+										<option content="#ffffff" value="9">Branco</option>
+									</select>
+									
+									<select type="text" class="txt_value cmb_resistor" id="cmb_faixa3" title="Faixa 3" onchange="this.style.backgroundColor = this.selectedOptions[0].getAttribute('content');" calculo="3">
+										<option content="#fff" value="">3</option>
+										<option content="#000" value="0">Preto</option>
+										<option content="#a35b2a"value="1">Marrom</option>
+										<option content="#ff0000" value="2">Vermelho</option>
+										<option content="#ff8100" value="3">Laranja</option>
+										<option content="#fff400" value="4">Amarelo</option>
+										<option content="#28b812" value="5">Verde</option>
+										<option content="#1333d4" value="6">Azul</option>
+										<option content="#a641a7" value="7">Violeta</option>
+										<option content="#a3a3a3" value="8">Cinza</option>
+										<option content="#ffffff" value="9">Branco</option>
+										<option content="#f4d411" value="10">Dourado</option>
+										<option content="#dfdeda" value="11">Prateado</option>
+									</select>
+									
+									<select type="text" class="txt_value cmb_resistor" id="cmb_faixa4" title="Faica 4" onchange="this.style.backgroundColor = this.selectedOptions[0].getAttribute('content');" calculo="3">
+										<option content="#fff" value="">4</option>
+										<option content="#a35b2a"value="1">Marrom</option>
+										<option content="#ff0000" value="2">Vermelho</option>
+										<option content="#f4d411" value="10">Dourado</option>
+										<option content="#dfdeda" value="11">Prateado</option>
+									</select>
+								</td>
+							</tr>
+							
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">Resistência (Ω)</label>						
+									<input type="text" class="txt_value" id="txt_resistencia_c3" title="Resistência (Ω)" unidade="Ω" inteiro="false" calculo="3"/>
+								</td>
+							</tr>
+							
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">Tolerância (+/- %)</label>						
+									<input type="text" class="txt_value" id="txt_tolerancia_c3" title="Tolerância (+/- %)" unidade="+/- %" inteiro="false" calculo="3"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+					
+					<!--DIV3-->
+					<div class="resistorEquivalente typeCalc" id="c4" style="margin-top: -25px">
+						<table width="100%;" class="et-tooltable">
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">R1 (Ω)</label>						
+									<input type="text" class="txt_value" id="txt_r1_c4" title="R1 (Ω)" unidade="Ω" inteiro="false" calculo="4"/>
+								</td>
+							</tr>
+							
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">R2 (Ω)</label>						
+									<input type="text" class="txt_value" id="txt_r2_c4" title="R2 (Ω)" unidade="Ω" inteiro="false" calculo="4"/>
+								</td>
+							</tr>
+							
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">Req (Ω)</label>						
+									<input type="text" class="txt_value" id="txt_req_c4" title="Req (Ω)" unidade="Ω" inteiro="false" calculo="4"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+					
+					<!--DIV4-->
+					<div class="resistorParalelo typeCalc" id="c5"  style="margin-top: -25px">
+						<table width="100%;" class="et-tooltable">
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">R1 (Ω)</label>						
+									<input type="text" class="txt_value" id="txt_r1_c5" title="R1 (Ω)" unidade="Ω" inteiro="false"  calculo="5"/>
+								</td>
+							</tr>
+							
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">R2 (Ω)</label>						
+									<input type="text" class="txt_value" id="txt_r2_c5" title="R2 (Ω)" unidade="Ω" inteiro="false" calculo="5"/>
+								</td>
+							</tr>
+							
+							<tr width="100%">
+								<td width="100%">
+									<label class="lbl_title">Req (Ω)</label>						
+									<input type="text" class="txt_value" id="txt_req_c5" title="Req (Ω)" unidade="Ω" inteiro="false" calculo="5"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!--INPUT-->
+			</div>
+			
+			<!--BOTÃO CALCULAR-->
+			<div class="et-bottom" id="et_bottom">
+				<input type="button" value="Calcular" id="btn_calcular" onclick="if (this.value == 'Calcular') {UtilizarFerramenta(codigoFerramenta, 2); Validar(this, condicao, '', cmb_calculo.value);} else {Limpar(this, cmb_calculo.value); whiteSender(cmb_calculo.value); if (cmb_calculo.value == 3) {cmb_faixa1.onchange(); cmb_faixa2.onchange(); cmb_faixa3.onchange(); cmb_faixa4.onchange();}}">
+			</div>
+			<!--BOTÃO CALCULAR-->
+			
+		</form>
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error">Por favor, preencha todos os campos corretamente!</label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+		<!--AJUDA-->
+		<div id="termos">
+			<div id="termos_box">
+				<div class="into_termos">
+					<label class="lbl_title">Sobre a Ferramenta</label>
+					<div id="txt_termos" style="text-align: justify;">
+						<p class="fei_desc_bold">Descrição</p> 
+						<!--Descrição-->
+						<p class="fei_desc_comp">Ferramenta que possibilita o cálculo voltado à resistores através da primeira e segunda lei de Ohm, código de cores, circuitos em paralelo e em série exibindo a resistência, potência e tolerância.
+<p>
+
+						<p class="fei_desc_bold">Atributos</p>
+						<!--Atributos-->
+						<p class="attrb_fei"><b>Tensão(V) </b> - Volt</p>
+						<p class="attrb_fei"><b>Intensidade da Corrente(A)</b> - Àmpere</p>
+						<p class="attrb_fei"><b>Resistência(Ω)</b> - Ohm</p>
+						<p class="attrb_fei"><b>Potência(W)</b> - Watt </p>
+						<p class="attrb_fei"><b>Resistividade(Ω.m)</b> - Ohm-Metro </p>
+						<p class="attrb_fei"><b>Comprimento(m)</b> - metro </p>
+						<p class="attrb_fei"><b>Área(m²)</b> - metro quadrado </p>
+						<p class="attrb_fei"><b>Resistência equivalente (Ω)</b> - Ohm </p>
+					</div>
+				</div>
+				<input type="button" id="btn_termos" value="OK">
+			</div>
+		</div>
+		<!--AJUDA-->
+	</body>
+	<script type="text/javascript" src="../cordova.js"></script>
+	<script type="text/javascript" src="js/Calculo de Resistores - Calculo.js"></script>
+	<script type="text/javascript" src="js/Validacao - Ferramentas.js"></script>
+	<script type="text/javascript" src="js/help.js"></script>
+	<script type="text/javascript" src="../js/banco.js"></script>
+	<script type="text/javascript" src="../js/ajax.js"></script>
+	<script type="text/javascript" src="../js/ControleHash.js"></script>
+	<script type="text/javascript" src="../js/AnyTech - Validacao.js"></script>
+	<script>
+		window.onload = function()
+		{	
+			condicao = '';
+			helpActived = 0;
+			resizingTool();
+			
+			document.body.style.display = "inline-block";
+			
+			AbrirBanco();
+			
+			if (!VerificarLogado())
+			{
+				window.location.href = '../';
+			}
+			else
+			{
+				Parametros = GetParametros();
+				
+				codigoFerramenta = Parametros["codigo"];
+				
+				UtilizarFerramenta(codigoFerramenta, 1);
+				
+				ControleHash(window.location.hash, event);
+			}
+			clear();
+			document.getElementById('cmb_calculo').value = "1";
+			document.getElementById('c1').style.display = "inline-block";
+		}	
+		
+		function resizingTool(){
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			h10 = hScreen * 0.10;
+			h80 = hScreen * 0.80;
+			
+			//Topbar resizing
+			et_topbar.style.height = h10+"px";
+			et_back.style.height = h10+"px";
+			et_menu.style.height = h10+"px";
+			et_space_back.style.height = h10+"px";
+			et_space_menu.style.height = h10+"px";
+			
+			//bottom resizing
+			et_bottom.style.height = h10+"px";
+		}
+		
+		function error_in()
+		{
+			/*error.style.visibility = "visible";
+			error.style.opacity = "1";*/
+			
+			window.location.hash = '#alert';
+		}
+		
+		function error_out()
+		{
+			/*//btn_eout.style.visibility = "hidden";
+			error.style.opacity = "0";
+			error.style.visibility = "hidden";*/
+			
+			history.back();
+		}
+		
+		function UtilizarFerramenta(codigoFerramenta, tipo)
+		{
+			if (ConexaoInternet() && codigoFerramenta != undefined)
+			{
+				Ajax("GET", "https://www.anytech.com.br/et/php/UtilizarFerramenta.php", "codigoFerramenta=" + codigoFerramenta + "&codigoUsuario=" + window.localStorage.getItem('codigo') + "&tipo=" + tipo, "");
+			}
+		}
+		
+		
+		function clear(){
+			c1.style.display = "none";
+			c2.style.display = "none";
+			c3.style.display = "none";
+			c4.style.display = "none";
+			c5.style.display = "none";
+		}
+		
+		function setCalc(calcValue){
+			clear();
+			if(calcValue == 1){
+				c1.style.display = "inline-block";
+				condicao = '>= 2';
+			}
+			else if(calcValue == 2){
+				c2.style.display = "inline-block";
+				condicao = '== 3';
+			}
+			else if(calcValue == 3){
+				c3.style.display = "inline-block";
+				condicao = '>= 1';
+				blueSender(calcValue);
+			}
+			else if(calcValue == 4){
+				c4.style.display = "inline-block";
+				condicao = '== 2';
+			}
+			else if(calcValue == 5){
+				c5.style.display = "inline-block";
+				condicao = '== 2';
+			}
+			else{condicao = '';}
+			
+			btn_calcular.value = "Calcular";
+		}
+		
+		//---- C1
+		
+		txt_tensao_c1.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		
+		txt_corrente_c1.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		
+		txt_resistencia_c1.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		
+		txt_potencia_c1.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		
+		//---- C2
+		
+		txt_resistividade_c2.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		
+		txt_comprimento_c2.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		
+		txt_area_c2.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		
+		txt_resistencia_c2.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		
+		//------- C4
+		
+		txt_r1_c4.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		txt_r2_c4.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		txt_req_c4.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		
+		//------- C5
+		
+		txt_r1_c5.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		txt_r2_c5.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		txt_req_c5.onkeyup = function()
+		{
+			blueSender(this.getAttribute('calculo'));
+		}
+		
+		function blueSender(calculo)
+		{
+			if (calculo == 1)
+			{
+				if ((txt_tensao_c1.value != "" && txt_corrente_c1.value != "" && txt_resistencia_c1.value == "" && txt_potencia_c1.value == "") && (txt_tensao_c1.readOnly == false && txt_corrente_c1.readOnly == false))
+				{
+					txt_resistencia_c1.readOnly = true;
+					txt_resistencia_c1.className = 'txt_result';
+					
+					txt_potencia_c1.readOnly = true;
+					txt_potencia_c1.className = 'txt_result';
+				}
+				else if ((txt_resistencia_c1.value != "" && txt_corrente_c1.value != "" && txt_tensao_c1.value == "" && txt_potencia_c1.value == "") && (txt_resistencia_c1.readOnly == false && txt_corrente_c1.readOnly == false))
+				{
+					txt_tensao_c1.readOnly = true;
+					txt_tensao_c1.className = 'txt_result';
+					
+					txt_potencia_c1.readOnly = true;
+					txt_potencia_c1.className = 'txt_result';
+				}
+				else if ((txt_resistencia_c1.value != "" && txt_tensao_c1.value != "" && txt_corrente_c1.value == "" && txt_potencia_c1.value == "") && (txt_resistencia_c1.readOnly == false && txt_tensao_c1.readOnly == false))
+				{
+					txt_corrente_c1.readOnly = true;
+					txt_corrente_c1.className = 'txt_result';
+					
+					txt_potencia_c1.readOnly = true;
+					txt_potencia_c1.className = 'txt_result';
+				}
+				else if ((txt_potencia_c1.value != "" && txt_corrente_c1.value != "" && txt_tensao_c1.value == "" && txt_resistencia_c1.value == "") && (txt_potencia_c1.readOnly == false && txt_corrente_c1.readOnly == false))
+				{
+					txt_tensao_c1.readOnly = true;
+					txt_tensao_c1.className = 'txt_result';
+					
+					txt_resistencia_c1.readOnly = true;
+					txt_resistencia_c1.className = 'txt_result';
+				}
+				else if ((txt_potencia_c1.value != "" && txt_tensao_c1.value != "" && txt_corrente_c1.value == "" && txt_resistencia_c1.value == "") && (txt_potencia_c1.readOnly == false && txt_tensao_c1.readOnly == false))
+				{
+					txt_corrente_c1.readOnly = true;
+					txt_corrente_c1.className = 'txt_result';
+					
+					txt_resistencia_c1.readOnly = true;
+					txt_resistencia_c1.className = 'txt_result';
+				}
+				else if ((txt_potencia_c1.value != "" && txt_resistencia_c1.value != "" && txt_corrente_c1.value == "" && txt_tensao_c1.value == "") && (txt_potencia_c1.readOnly == false && txt_resistencia_c1.readOnly == false))
+				{
+					txt_corrente_c1.readOnly = true;
+					txt_corrente_c1.className = 'txt_result';
+					
+					txt_tensao_c1.readOnly = true;
+					txt_tensao_c1.className = 'txt_result';
+				}
+				else if ((txt_tensao_c1.value != "" && txt_corrente_c1.value != "" && txt_resistencia_c1.value != "" && txt_potencia_c1.value == "") && (txt_tensao_c1.readOnly == false && txt_corrente_c1.readOnly == false && txt_resistencia_c1.readOnly == false))
+				{
+					txt_potencia_c1.readOnly = true;
+					txt_potencia_c1.className = 'txt_result';
+				}
+				else if ((txt_potencia_c1.value != "" && txt_corrente_c1.value != "" && txt_resistencia_c1.value != "" && txt_tensao_c1.value == "") && (txt_potencia_c1.readOnly == false && txt_corrente_c1.readOnly == false && txt_resistencia_c1.readOnly == false))
+				{
+					txt_tensao_c1.readOnly = true;
+					txt_tensao_c1.className = 'txt_result';
+				}
+				else if ((txt_tensao_c1.value != "" && txt_potencia_c1.value != "" && txt_resistencia_c1.value != "" && txt_corrente_c1.value == "") && (txt_tensao_c1.readOnly == false && txt_potencia_c1.readOnly == false && txt_resistencia_c1.readOnly == false))
+				{
+					txt_corrente_c1.readOnly = true;
+					txt_corrente_c1.className = 'txt_result';
+				}
+				else if ((txt_tensao_c1.value != "" && txt_potencia_c1.value != "" && txt_corrente_c1.value != "" && txt_resistencia_c1.value == "") && (txt_tensao_c1.readOnly == false && txt_potencia_c1.readOnly == false && txt_corrente_c1.readOnly == false))
+				{
+					txt_resistencia_c1.readOnly = true;
+					txt_resistencia_c1.className = 'txt_result';
+				}
+				else
+				{
+					whiteSender(calculo);
+				}
+			}
+			else if (calculo == 2)
+			{
+				if ((txt_resistividade_c2.value != "" && txt_comprimento_c2.value != "" && txt_area_c2.value != "") && (txt_resistencia_c2.value == ""))
+				{
+					txt_resistencia_c2.readOnly = true;
+					txt_resistencia_c2.className = 'txt_result';
+				}
+				else if ((txt_resistencia_c2.value != "" && txt_comprimento_c2.value != "" && txt_area_c2.value != "") && (txt_resistividade_c2.value == ""))
+				{
+					txt_resistividade_c2.readOnly = true;
+					txt_resistividade_c2.className = 'txt_result';
+				}
+				else if ((txt_resistividade_c2.value != "" && txt_resistencia_c2.value != "" && txt_area_c2.value != "") && (txt_comprimento_c2.value == ""))
+				{
+					txt_comprimento_c2.readOnly = true;
+					txt_comprimento_c2.className = 'txt_result';
+				}
+				else if ((txt_resistividade_c2.value != "" && txt_comprimento_c2.value != "" && txt_resistencia_c2.value != "") && (txt_area_c2.value == ""))
+				{
+					txt_area_c2.readOnly = true;
+					txt_area_c2.className = 'txt_result';
+				}
+				else
+				{
+					whiteSender(calculo);
+				}
+			}
+			else if (calculo == 3)
+			{
+				if (cmb_calculo_c3.value == 0)
+				{
+					txt_resistencia_c3.readOnly = true;
+					txt_resistencia_c3.className = 'txt_result';
+					
+					txt_tolerancia_c3.readOnly = true;
+					txt_tolerancia_c3.className = 'txt_result';
+				}
+				/*if ((cmb_faixa1.value != "" && cmb_faixa2.value != "" && cmb_faixa3.value != "" && cmb_faixa4.value != "") && (txt_resistencia_c3.value == "" && txt_tolerancia_c3.value == ""))
+				{
+					txt_resistencia_c3.readOnly = true;
+					txt_resistencia_c3.className = 'txt_result';
+					
+					txt_tolerancia_c3.readOnly = true;
+					txt_tolerancia_c3.className = 'txt_result';
+				}
+				else if ((cmb_faixa1.value != "" && cmb_faixa2.value != "" && cmb_faixa3.value != "") && (txt_resistencia_c3.value == ""))
+				{
+					txt_resistencia_c3.readOnly = true;
+					txt_resistencia_c3.className = 'txt_result';
+				}
+				else if ((cmb_faixa4.value != "") && (txt_tolerancia_c3.value == ""))
+				{
+					txt_tolerancia_c3.readOnly = true;
+					txt_tolerancia_c3.className = 'txt_result';
+				}*/
+				else
+				{
+					whiteSender(calculo);
+				}
+			}
+			else if (calculo == 4)
+			{
+				if ((txt_r1_c4.value != '' && txt_r2_c4.value != '') && (txt_req_c4.value == ""))
+				{
+					txt_req_c4.readOnly = true;
+					txt_req_c4.className = 'txt_result';
+				}
+				else if ((txt_r1_c4.value != '' && txt_req_c4.value != '') && (txt_r2_c4.value == ""))
+				{
+					txt_r2_c4.readOnly = true;
+					txt_r2_c4.className = 'txt_result';
+				}
+				else if ((txt_req_c4.value != '' && txt_r2_c4.value != '') && (txt_r1_c4.value == ""))
+				{
+					txt_r1_c4.readOnly = true;
+					txt_r1_c4.className = 'txt_result';
+				}
+				else
+				{
+					whiteSender(calculo);
+				}
+			}
+			else if (calculo == 5)
+			{
+				if ((txt_r1_c5.value != '' && txt_r2_c5.value != '') && (txt_req_c5.value == ""))
+				{
+					txt_req_c5.readOnly = true;
+					txt_req_c5.className = 'txt_result';
+				}
+				else if ((txt_r1_c5.value != '' && txt_req_c5.value != '') && (txt_r2_c5.value == ""))
+				{
+					txt_r2_c5.readOnly = true;
+					txt_r2_c5.className = 'txt_result';
+				}
+				else if ((txt_req_c5.value != '' && txt_r2_c5.value != '') && (txt_r1_c5.value == ""))
+				{
+					txt_r1_c5.readOnly = true;
+					txt_r1_c5.className = 'txt_result';
+				}
+				else
+				{
+					whiteSender(calculo);
+				}
+			}
+		}
+		
+		function whiteSender(calculo)
+		{
+			if (calculo == 1)
+			{
+				txt_tensao_c1.readOnly = false;
+				txt_tensao_c1.className = 'txt_value';
+				
+				txt_corrente_c1.readOnly = false;
+				txt_corrente_c1.className = 'txt_value';
+				
+				txt_resistencia_c1.readOnly = false;
+				txt_resistencia_c1.className = 'txt_value';
+				
+				txt_potencia_c1.readOnly = false;
+				txt_potencia_c1.className = 'txt_value';
+			}
+			else if (calculo == 2)
+			{
+				txt_resistividade_c2.readOnly = false;
+				txt_resistividade_c2.className = 'txt_value';
+				
+				txt_comprimento_c2.readOnly = false;
+				txt_comprimento_c2.className = 'txt_value';
+				
+				txt_area_c2.readOnly = false;
+				txt_area_c2.className = 'txt_value';
+				
+				txt_resistencia_c2.readOnly = false;
+				txt_resistencia_c2.className = 'txt_value';
+			}
+			else if (calculo == 3)
+			{
+				txt_resistencia_c3.readOnly = false;
+				txt_resistencia_c3.className = 'txt_value';
+				
+				txt_tolerancia_c3.readOnly = false;
+				txt_tolerancia_c3.className = 'txt_value';
+			}
+			else if (calculo == 4)
+			{
+				txt_r1_c4.readOnly = false;
+				txt_r1_c4.className = 'txt_value';
+				
+				txt_r2_c4.readOnly = false;
+				txt_r2_c4.className = 'txt_value';
+				
+				txt_req_c4.readOnly = false;
+				txt_req_c4.className = 'txt_value';
+			}
+			else if (calculo == 5)
+			{
+				txt_r1_c5.readOnly = false;
+				txt_r1_c5.className = 'txt_value';
+				
+				txt_r2_c5.readOnly = false;
+				txt_r2_c5.className = 'txt_value';
+				
+				txt_req_c5.readOnly = false;
+				txt_req_c5.className = 'txt_value';
+			}
+		}
+	</script>
+</html>

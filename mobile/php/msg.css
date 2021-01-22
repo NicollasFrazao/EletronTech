@@ -1,0 +1,38 @@
+*
+{
+	font-family: Century Gothic;
+}
+
+body
+{
+	background-color: #eee;
+	color: black;
+}
+	
+#mensagem
+{
+	display: none;
+	position: absolute;
+	background-color: #eee;
+	width: 30%;
+	height: 10%;
+	padding:5%;
+	margin-left: 30%;
+	margin-top:20%;
+}
+
+#btn_OK, #btn_Sim, #btn_Nao
+{
+	display: inline-block;
+	width: 45%;
+	height: 60%;
+	background-color: #118dd8;
+	border: 0px;
+	color: white;
+	margin-top:5px;
+}
+
+#reenviar
+{
+	text-decoration: none;
+}

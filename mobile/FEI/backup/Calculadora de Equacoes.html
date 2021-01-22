@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>EletronTech - Calculadora de Equações</title>
+		<link rel="stylesheet" type="text/css" href="../css/fei.css">
+		<link rel="shortcut icon" type="image/png" href="../images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="display: none;">
+
+		<div class="et-topbar" id="et_topbar">
+			<table id="tabela" valign="center" width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<tr width="100%"  valign="center" >
+					<td id="et_space_back" valign="center">
+						<input type="image" src="../images/back.png" class="et-back" id="et_back" onclick="history.back();"/>
+					</td>
+					<td width="100%" height="100%" valign="center">
+						<span class="et-fei-name">Calculadora de Equações</span>
+					</td>
+					<td id="et_space_menu" valign="center">
+						<input type="image" src="../images/help.png" class="et-menu" id="et_menu">
+					</td>	
+				</tr>
+			</table>
+		</div>
+
+		<form onkeypress="if (event.keyCode == 13) {btn_calcular.click();}" style="overflow: auto; height: inherit;">
+			<div class="et-medium" id="et_medium">
+				<table width="100%" class="et-tooltable">
+					<tr width="100%" id="bc1">
+						<td width="100%" colspan="6">
+							<label class="lbl_title">Equação</label>						
+							<textarea class="et-text-texto" id="txt_equacao" title="Equação" unidade="" inteiro="true"></textarea>
+						</td>
+					</tr>
+					
+					<tr width="100%" id="bc2" style="display: none;">
+						<td width="100%" colspan="6">
+							<label class="lbl_title">Resultado</label>						
+							<textarea class="et-text-texto2" id="txt_result" title="Equação" unidade="" inteiro="true"></textarea>
+						</td>
+					</tr>
+
+					<style>
+						
+						.et-calc-button{
+
+							display: inline-block;
+							width: 100%;
+							height: 50px;
+							border: 0px;
+
+						}
+
+						.et-calc-button-operator{
+
+							background-color: #00b0f0;
+							color: #fff;
+						}
+
+						.et-calc-button-symbol{
+
+							background-color: #999;
+							color: #fff;
+						}
+
+
+						.et-calc-button-symbol2{
+
+							background-color: #bbb;
+							color: #000;
+						}
+
+						.et-text-texto{
+
+						    display: inline-block;
+						    width: 100%;
+						    font-size: 1.5em;
+						    padding-top: 30px;
+						    margin-bottom: 5%;
+						    margin-top: 2%;
+						    margin-left: 1%;
+						    margin-right: 1%;
+						    padding-left: 4%;
+						    padding-right: 4%;
+						    background-color: #fff;
+						    color: #333;
+						    border: 0px;
+						    text-align: center;
+								padding-left: 0px;
+								padding-bottom: 0px;
+						    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.1);
+						}
+							
+						.et-text-texto2{
+
+						    
+						    width: 100%;
+						    font-size: 1.5em;
+						    padding: 2%;
+						    margin-bottom: 5%;
+						    margin-top: 2%;
+						    margin-left: 1%;
+						    margin-right: 1%;
+						    padding-left: 4%;
+						    padding-right: 4%;
+						    background-color: #fff;
+						    color: #333;
+						    border: 0px;
+						    text-align: center;
+								height: 800px;
+						    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.1);
+						}
+
+					</style>
+
+					<script>
+
+						function sendChar(etChar){
+
+							
+							txt_equacao.value = txt_equacao.value + etChar;
+
+						}
+
+
+						function clearCalc(){
+
+							txt_equacao.value = "";
+
+						}
+
+						function calcularEquacao(){
+							
+							
+							txt_result.value = "";
+							
+							txt_result.value = txt_equacao.value+"\n";
+							
+							calculoCompleto = txt_equacao.value;
+
+							verificaParenteses(calculoCompleto);
+							
+							txt_equacao.value = "";
+							
+							txt_equacao.value = txt_result.value;
+							
+							txt_equacao.value = txt_equacao.value.replace(/^\s*\n/gm, "");
+							
+							auto_grow();
+							
+
+						}
+
+						function verificaParenteses(str){
+							
+							
+									str = str.replace(")(",")*(");
+							
+							
+									str = str.replace("+-","-");
+									str = str.replace("-+","-");
+									str = str.replace("--","+");	
+									str = str.replace("++","+");
+									str = str.replace("1(","1*(");
+									str = str.replace("2(","2*(");
+									str = str.replace("3(","3*(");
+									str = str.replace("4(","4*(");
+									str = str.replace("5(","5*(");
+									str = str.replace("6(","6*(");
+									str = str.replace("7(","7*(");
+									str = str.replace("8(","8*(");
+									str = str.replace("9(","9*(");
+									str = str.replace("0(","0*(");
+							
+							
+									passaParenteses = 1;
+									contaAbreParenteses = str.split('(');
+									contaFechaParenteses = str.split(')');
+							
+							
+							
+									if(contaAbreParenteses.length == contaFechaParenteses.length){
+
+										while(str.indexOf('(') >= 0){											
+											
+											
+											separaParenteses = str.split('(');
+
+											fechaParenteses = separaParenteses[passaParenteses];
+
+											separaFechaParenteses = fechaParenteses.split(')');
+
+											calculoParenteses = separaFechaParenteses[0];
+											
+
+											substituirParenteses = "("+calculoParenteses+")";
+											
+											
+											
+
+											try{
+												
+												resultadoCalculoParenteses = eval(calculoParenteses);
+												
+												resultadoCalculoParenteses = resultadoCalculoParenteses;
+												
+											}
+											catch(e){
+												
+												resultadoCalculoParenteses = "("+calculoParenteses+")";
+												//PAREI AQUI01
+												
+											}
+											
+											if(str.trim() == str.replace(substituirParenteses,resultadoCalculoParenteses).trim()
+												
+												 && ( 
+											
+												(str.indexOf('+(') >= 0) || (str.indexOf('-(') >= 0) || (str.indexOf('*(') >= 0) || (str.indexOf('/(') >= 0)
+												
+											)
+												
+												){
+											
+												//alert("HAS");
+												
+												passaParenteses++;
+												
+												
+											}
+											else if(str.trim() == str.replace(substituirParenteses,resultadoCalculoParenteses).trim()){
+												
+												
+												passaParenteses = 1;
+												charatAbreParenteses = 0;
+												
+												i =0;
+												
+												do{
+													
+													if(str.charAt(i) == "("){
+														
+															str = str.substring(0, i) + 'xxi' + str.substring(i+1);
+														
+															charatAbreParenteses = 1;
+													}
+													
+													i++;
+													
+												}
+												while(charatAbreParenteses == 0);
+												
+												
+												
+												charatAbreParenteses = 0;
+												
+												i = str.length;
+												
+												do{
+													
+													if(str.charAt(i) == ")"){
+														
+															str = str.substring(0, i) + 'xxf' + str.substring(i+1);
+														
+															charatAbreParenteses = 1;
+													}
+													
+													i--;
+													
+												}
+												while(charatAbreParenteses == 0);
+												
+												
+												
+												
+												
+												
+											}
+											else{
+												
+												passaParenteses = 1;
+												str = str.replace(substituirParenteses,resultadoCalculoParenteses);
+												
+											}
+											
+											
+											
+												if(str.indexOf('xxi') >= 0){
+													
+														separaxxi = str.split('xxi');
+														separaxxf = separaxxi[1].split('xxf');
+													
+														calculo = separaxxf[0];
+													
+														//alert(separaxxi[0]);
+													
+														str = resolveEnceptions(calculo);
+													
+														str = separaxxi[0]+"*("+str+")"+separaxxf[1];										
+														
+														str = filtraMultiplicacao(str);
+												}
+												else{
+												
+													//alert("we");
+												
+												}
+											
+												if(passaParenteses == 1){
+													
+													str = str.replace("+-","-");
+													str = str.replace("-+","-");
+													str = str.replace("--","+");	
+													str = str.replace("++","+");
+													
+													str = filtraMultiplicacao(str);
+
+													txt_result.value = txt_result.value + str + "\n";	
+													txt_result.value = txt_result.value.replace(/^\s*\n/gm, "");
+													auto_grow();
+
+												}
+													
+										}
+										
+										
+										
+									}
+									else{
+										
+										txt_result.value = "Cálculo Inválido!";
+
+									}
+							
+									//ESSE PROCEDIMENTO SERÁ SUBSTITUÍDO PELA
+								  //CHAMADA DA FUNÇÃO DE COLCHETES, CHAVES E 
+								  //DEPOIS SIM SERÁ EXECUTADO
+									
+									try{
+										
+										finish = eval(str);
+									}
+									catch(e){
+								
+										finish = str;
+										
+									}
+							
+							
+									
+									txt_result.value = txt_result.value + finish + "\n";	
+							
+									txt_result.value = txt_result.value.replace(/^\s*\n/gm, "");
+							
+									verificaErro = txt_result.value;
+							
+									if(verificaErro.indexOf('Cálculo Inválido!') >= 0){
+										
+										txt_result.value = "Cálculo Inválido!";
+										
+									}
+									auto_grow();
+							
+						}
+						
+						function resolveEnceptions(calc){
+							
+							calc = calc.replace("+-","-");
+							calc = calc.replace("-+","-");
+							calc = calc.replace("--","+");	
+							calc = calc.replace("++","+");
+													
+							//alert(calc);
+							if(calc.indexOf("(") >= 0){
+							
+							separaParenteses = calc.split('(');
+
+							fechaParenteses = separaParenteses[1];
+							
+							separaFechaParenteses = fechaParenteses.split(')');
+
+							calculoParenteses = separaFechaParenteses[0];
+
+							substituirParenteses = "("+calculoParenteses+")";
+								
+							resultadoCalculoParenteses = eval(calculoParenteses);
+							
+							resultadoCalculoParenteses = "*"+resultadoCalculoParenteses;
+							
+							calc = calc.replace(substituirParenteses,resultadoCalculoParenteses);
+								
+							}
+							else{
+							
+								calc = eval(calc);
+								
+							}
+
+							
+							
+							
+							
+							//alert(calc);
+	
+							return calc;	
+							
+
+						}
+						
+						function filtraMultiplicacao(val){
+							
+							val = val.replace('+*','+');
+							val = val.replace('-*','-');
+							val = val.replace('**','*');
+							val = val.replace('/*','/');
+							val = val.replace('(*','(');
+							
+							return val;
+							
+						}
+						
+						function auto_grow(){
+								txt_equacao.style.height = "1px";
+								txt_equacao.style.height = (txt_equacao.scrollHeight)+"px";
+						}
+
+					</script>
+
+					<tr width="100%">
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button" value="7" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button" value="8" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button" value="9" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-operator" value="+" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-symbol" value="(" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-symbol" value=")" onclick="sendChar(this.value)">
+						</td>
+					</tr>	
+
+					<tr width="100%">
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button" value="4" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button" value="5" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button" value="6" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-operator" value="-" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-symbol" value="[" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-symbol" value="]" onclick="sendChar(this.value)">
+						</td>
+					</tr>	
+
+					<tr width="100%">
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button" value="1" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button" value="2" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button" value="3" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-operator" value="*" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-symbol" value="{" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-symbol" value="}" onclick="sendChar(this.value)">
+						</td>
+					</tr>	
+
+
+					<tr width="100%">
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-symbol2" value="," onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button" value="0" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-symbol2" value="C" onclick="clearCalc()">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-operator" value="/" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-symbol" value="<" onclick="sendChar(this.value)">
+						</td>
+						<td width="16.5%">				
+							<input type="button" class="et-calc-button et-calc-button-symbol" value="=" onclick="sendChar(this.value)">
+						</td>
+					</tr>	
+					
+					
+					
+				</table>	
+			</div>
+			<div class="et-bottom" id="et_bottom">
+				<!--<input type="button" value="Calcular" id="btn_calcular" onclick="if (this.value == 'Calcular') {UtilizarFerramenta(codigoFerramenta, 2); blueSender(); Validar(this, '== 2');} else {whiteSender(); Limpar(this);}">-->
+				<input type="button" value="Calcular" id="btn_calcular" onclick="calcularEquacao()">
+			</div>
+		</form>
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error">Por favor, preencha todos os campos corretamente!</label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+		<!--AJUDA-->
+		<div id="termos">
+			<div id="termos_box">
+				<div class="into_termos">
+					<label class="lbl_title">Sobre a Ferramenta</label>
+					<div id="txt_termos" style="text-align: justify;">
+						<p class="fei_desc_bold">Descrição</p> 
+						<!--Descrição-->
+						<p class="fei_desc_comp">Ferramenta que realiza o cálculo para determinar a medida de uma bobina presente em um circuito elétrico para originar um campo magnético
+ou armazenar energia magnética no momento em que transporta uma corrente, através da corrente elétrica e número de bobinas.<p>
+
+						<p class="fei_desc_bold">Atributos</p>
+						<!--Atributos-->
+						<p class="attrb_fei"><b>Número de espirais</b></p>
+						<p class="attrb_fei"><b>Corrente Elétrica (A)</b> - Àmpere</p>
+						<p class="attrb_fei"><b>Indutância Elétrica (H)</b> - Henry</p>
+						<p class="space"></p>
+					</div>
+				</div>
+				<input type="button" id="btn_termos" value="OK">
+			</div>
+		</div>
+		<!--AJUDA-->
+	</body>
+	<script type="text/javascript" src="../cordova.js"></script>
+	<script type="text/javascript" src="js/Indutancia Eletrica - Calculo.js"></script>
+	<script type="text/javascript" src="js/Validacao - Ferramentas.js"></script>
+	<script type="text/javascript" src="js/help.js"></script>
+	<script type="text/javascript" src="../js/banco.js"></script>
+	<script type="text/javascript" src="../js/ajax.js"></script>
+	<script type="text/javascript" src="../js/ControleHash.js"></script>
+	<script type="text/javascript" src="../js/AnyTech - Validacao.js"></script>
+	<script>
+		window.onload = function()
+		{	
+			helpActived = 0;
+			resizingTool();
+			
+			document.body.style.display = "inline-block";
+			
+			AbrirBanco();
+			
+			if (!VerificarLogado())
+			{
+				window.location.href = '../';
+			}
+			else
+			{
+				Parametros = GetParametros();
+				
+				codigoFerramenta = Parametros["codigo"];
+				
+				UtilizarFerramenta(codigoFerramenta, 1);
+				
+				ControleHash(window.location.hash, event);
+			}
+		}	
+		
+		function resizingTool(){
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			h10 = hScreen * 0.10;
+			h80 = hScreen * 0.80;
+			
+			//Topbar resizing
+			et_topbar.style.height = h10+"px";
+			et_back.style.height = h10+"px";
+			et_menu.style.height = h10+"px";
+			et_space_back.style.height = h10+"px";
+			et_space_menu.style.height = h10+"px";
+			
+			//bottom resizing
+			et_bottom.style.height = h10+"px";
+		}
+		
+		function error_in()
+		{
+			/*error.style.visibility = "visible";
+			error.style.opacity = "1";*/
+			
+			window.location.hash = '#alert';
+		}
+		
+		function error_out()
+		{
+			/*//btn_eout.style.visibility = "hidden";
+			error.style.opacity = "0";
+			error.style.visibility = "hidden";*/
+			
+			history.back();
+		}
+		
+		txt_espirais.onkeyup = function(){
+			blueSender();
+		}
+		
+		txt_corrente.onkeyup = function(){
+			blueSender();
+		}
+		
+		txt_indutancia.onkeyup = function(){
+			blueSender();
+		}
+		
+		function blueSender(){
+			/*if(txt_espirais.value != "" && txt_corrente.value != ""){
+				txt_indutancia.disabled = true;
+				txt_indutancia.className = 'txt_result';
+			}
+			else
+			{
+				txt_indutancia.disabled = false;
+				txt_indutancia.className = 'txt_value';
+			}
+			
+			if(txt_espirais.value != "" && txt_indutancia.value != ""){
+				txt_corrente.disabled = true;
+				txt_corrente.className = 'txt_result';
+			}
+			else
+			{
+				txt_corrente.disabled = false;
+				txt_corrente.className = 'txt_value';
+			}
+			
+			if(txt_corrente.value != "" && txt_indutancia.value != ""){
+				txt_espirais.disabled = true;
+				txt_espirais.className = 'txt_result';
+			}
+			else
+			{
+				txt_espirais.disabled = false;
+				txt_espirais.className = 'txt_value';
+			}*/
+			
+			if ((txt_espirais.value != "" && txt_corrente.value != "" && txt_indutancia.value == "") && (txt_espirais.readOnly == false && txt_corrente.readOnly == false))
+			{
+				txt_indutancia.readOnly = true;
+				txt_indutancia.className = 'txt_result';
+			}
+			else if ((txt_espirais.value != "" && txt_indutancia.value != "" && txt_corrente.value == "") && (txt_espirais.readOnly == false && txt_indutancia.readOnly == false))
+			{
+				txt_corrente.readOnly = true;
+				txt_corrente.className = 'txt_result';
+			}
+			else if ((txt_corrente.value != "" && txt_indutancia.value != "" && txt_espirais.value == "") && (txt_corrente.readOnly == false && txt_indutancia.readOnly == false))
+			{
+				txt_espirais.readOnly = true;
+				txt_espirais.className = 'txt_result';
+			}
+			else
+			{
+				whiteSender();
+			}
+		}
+		
+		function whiteSender(){
+			txt_corrente.readOnly = false;
+			txt_corrente.className = 'txt_value';
+			txt_espirais.readOnly = false;
+			txt_espirais.className = 'txt_value';
+			txt_indutancia.readOnly = false;
+			txt_indutancia.className = 'txt_value';
+		}
+		
+		function UtilizarFerramenta(codigoFerramenta, tipo)
+		{
+			if (ConexaoInternet() && codigoFerramenta != undefined)
+			{
+				Ajax("GET", "https://www.anytech.com.br/et/php/UtilizarFerramenta.php", "codigoFerramenta=" + codigoFerramenta + "&codigoUsuario=" + window.localStorage.getItem('codigo') + "&tipo=" + tipo, "");
+			}
+		}
+	</script>
+</html>

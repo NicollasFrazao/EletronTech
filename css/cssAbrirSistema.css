@@ -1,0 +1,65 @@
+*
+{
+	margin: 0px;
+	padding: 0px;
+	font-family: Century Gothic;
+}
+
+body
+{
+	background-color: black;
+	width: 100%;
+	height: 100%;
+}
+
+.all
+{
+	width: 100%;
+	height: 100%;
+}
+
+.caixaAbrir
+{
+	display: inline-block;
+	background-color: black;
+	width: 60%;
+	left: 50%;
+	margin-left: 10%;
+	margin-top: 10%;
+	color: white;	
+	text-align: center;
+}
+
+#esquerda
+{
+	display: inline-block;
+	width: 48%;
+}
+
+#direita
+{
+	display: inline-block;
+	position: absolute;
+	
+	margin-top:5%;
+	
+}
+
+#im_logo
+{
+	width: 60%;
+	margin-top: 10%;
+	margin-bottom: 10%;
+}
+
+#btn_abrir, #btn_sair
+{
+	color: black !important;
+	height: 40px;
+	text-align: center;
+}
+
+#m1
+{
+	font-size: 20px;
+}

@@ -1,0 +1,90 @@
+*
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+body
+{
+	font-family: Century Gothic;
+	font-size: 14px;
+	background-color: #00428b;
+	color: white;
+}
+
+select, input
+{
+	font-family: Century Gothic;
+	font-size: 18px;
+	width: 250px;
+	padding: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
+
+label
+{
+	margin-left: 10px;
+	font-size: 18px;
+}
+
+#btn_limpar, #btn_calcular
+{
+	width: 118px;
+	border: 0px;
+	background-color: #282928;
+	color: #0ca3ff;
+	margin-left: 10px;
+}
+
+#btn_ajuda, #btn_ambiente, #btn_iluminacao, #btn_reflexao
+{
+	display: inline-block;
+	width: 20px;
+	height:20px;
+	background-color: transparent;
+	margin-left: 10px;
+	outline:none;
+}
+
+#btn_ambiente:hover
+{
+	background-color: #0ca3ff;
+}
+
+#btn_iluminacao:hover
+{
+	background-color: #0ca3ff;
+}
+
+#btn_reflexao:hover
+{
+	background-color: #0ca3ff;
+}
+
+#cmb_categoria
+{
+	width: 512px;
+}
+
+#lbl_ajuda
+{
+	position: absolute;
+	margin-left: -40px;
+	margin-top: 10px;
+}
+
+#all
+{
+	display: inline-block;
+}
+
+form
+{
+	display: inline-block;
+	position: absolute;
+	left: 50%;
+	margin-top: 10%;
+	margin-left: -270px;
+	width: 600px;
+}

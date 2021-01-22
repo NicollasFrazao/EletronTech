@@ -1,0 +1,650 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="imagens/logo/logo.ico" />
+		<title>Cadastro</title>
+		<style>
+			#juridica{
+				display: none;
+			}
+			
+			::-webkit-scrollbar {
+				height: 12px;
+				width: 12px;
+				background: white;
+			}
+			
+			::-webkit-scrollbar-thumb
+			{
+				background:  #0ca3ff;
+				-webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+			}
+
+			::-webkit-scrollbar-corner
+			{
+				background:  white;
+			}
+			body
+			{
+				background-attachment: fixed;
+				background-repeat: no-repeat;
+				background-color:#ececec;
+				color: white;
+				font-size: 14px;
+				font-family: Century Gothic;
+			}
+			
+			#fisica
+			{
+				background-color: black;
+				position: absolute;
+				padding: 30px;
+				padding-left: 30px;
+				padding-top: 50px;
+				top: 1%;
+				left:50%;
+				opacity: 0.8;
+				height: 87%;
+				width: 370px;
+			}
+			
+			#fisica input
+			{
+				display: inline-block;
+				width: 100%;
+				height: 30px;
+				padding: 5px;
+				vertical-align: middle;
+				font-size: 14px;
+				font-family: Century Gothic;
+				margin-right: 10px;
+			}
+			
+			#fisica select
+			{
+				width: 100%;
+				height: 30px;
+				padding: 5px;
+				font-size: 14px;
+				font-family: Century Gothic;
+			}
+			
+			#fisica #rdb_sexo_masculino, #fisica #rdb_sexo_feminino
+			{
+				height: 15px;
+				position: relative;
+				margin-top: -17px;
+			}
+			
+			#fisica label
+			{
+				font-size: 14px;
+			}
+			
+			#fisica #btn_limpar, #fisica #btn_enviar
+			{
+				border: 0px;
+				background-color: #0ca3ff;
+				color: black;
+				outline: none;
+				width: 48%;
+				margin: 0;
+			}
+			
+			#fisica #btn_enviar
+			{
+				width: 100%;
+				font-weight: bold;
+			}
+			
+			#fisica #btn_limpar
+			{
+				background-color: transparent;
+				color: white;
+				width: 30%;
+				font-size: 12px;
+			}
+			
+			#btn_limpar:active, #btn_enviar:active
+			{
+				background-color: #201f1f;
+				color: white;
+				
+			}
+			
+			#tit
+			{
+				font-size: 18px;
+			}
+			
+			h1
+			{
+				font-size:12px;
+			}
+			
+			#fundo
+			{
+				display: inline-block;
+				width: 450px;
+				height: 500px;
+				position: absolute;
+				top: 50%;
+				margin-top: -290px;
+				margin-left: -440px;
+				left:50%;
+			}
+			
+			#npass
+			{
+				width: 30px;
+			}
+			
+			#fundo h1
+			{
+				font-size: 30px;
+				color: #0b68ae;
+			}
+			
+			#fundo img
+			{
+				width: 400px;
+			}
+			
+			#Frm_Fisica
+			{
+				position: absolute;
+				width: 420px;
+				height: 550px;
+				top: 50%;
+				margin-top: -280px;
+			}
+			
+			.eu #tu
+			{
+				display: inline-block;
+				width: 15px;
+			}
+			
+			.eu #nns
+			{
+				display: inline-block;
+				font-size: 12px;
+			}
+			
+			.eu #TUP
+			{
+				color: #0ca3ff;
+			}
+			
+			#termos
+			{
+				display: none;
+				width: 500px;
+				height: 500px;
+				margin-left: -250px;
+				margin-top: -250px;
+				left: 50%;
+				top: 50%;
+				background-color: #eee;
+				position: absolute;
+				z-index: 9999;
+				overflow: auto;
+			}
+			
+			#termosText
+			{
+				display: inline-block;
+				padding: 10px;
+				font-size: 12px;
+				align:justify;
+				color: gray;
+				
+			}
+			
+			#kt
+			{
+				display: none;
+				background-color: black;
+				z-index: 9998;
+				width: 100%;
+				height: 100%;
+				top:0;
+				left: 0;
+				position: absolute;
+				opacity: 0.7;
+			}
+			
+			#topoT
+			{
+				display: inline-block;
+				color: black;
+			}
+			
+			
+			
+			#btn_voltar
+			{
+				background-color: transparent;
+				border: 0px;
+				color:#00abff;
+			}
+		</style>
+
+		<!--<script type="text/javascript">
+			function Checked(){
+				document.getElementById("fis").checked = true;
+			}
+
+			function Pessoa(obj) {
+				if (obj == "0") {
+					fisica.style.display = "inline-block";
+					juridica.style.display = "none";					
+				}else{
+					juridica.style.display = "inline-block";
+					fisica.style.display = "none";
+				}
+
+			}
+		</script>-->
+	</head>
+	<body> 
+	<!--onload="();"-->
+		<!-- DE ACORDO COM O ITEM SELECIONADO, MUDA OS CAMPOS-->
+			<!--<table>
+				<tr>
+					<td>
+						<input type="radio" name="pes" value="0" id="jur" onclick="Pessoa('0');" checked>Pessoa Fisica
+						<input type="radio" name="pes" value="1" id="jur" onclick="Pessoa('1');">Pessoa Juridica
+					</td>
+				</tr>
+			</table>-->
+			
+		<div id="fundo">
+			<h1>Faça parte do Eletron Tech!</h1>
+			<img src="imagens/logo/logo.png" href="Eletron Tech/">
+			<h1 align="center">Cadastre-se Já!</h1>
+		</div>
+		
+			<table>
+				<tr>
+					<td>
+						<div id="fisica">
+							<!-- PARA PESSOAS FISICAS-->
+							<form id="Frm_Fisica" method="POST" action="php/Cadastro.php">
+							<table>
+								<tr>
+									<td colspan="2">
+										<h1 id="tit">Dados pessoais</h1>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="2">
+										<label>Nome completo</label>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<input name="nome" type="text" id="txt_nome" required>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>CPF</label>
+									</td>
+									<td>
+										<label>Data de Nascimento</label>
+									<td>
+								</tr>
+								<tr>
+									<td>
+										<input name="cpf" type="text" id="txt_cpf" maxlength="14" required>
+									</td>
+									<td>
+										<input name="datanas" type="text" id="txt_datanas_fisica" maxlength="10" placeholder="DD/MM/AAAA" required>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="2">
+										<label>Telefone</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<select id="cmb_tipo_tel1_fisica" name="tipo_telefone1">
+											<option value="0">Selecione um...</option>
+											<option value="1">Residencial</option>
+											<option value="2">Celular</option>
+											<option value="3">Comercial</option>
+										</select>
+									</td>
+								
+									<td>
+										<input name="telefone1" type="text" id="txt_telefone1_fisica" disabled required>
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>Telefone 2</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<select name="tipo_telefone2" id="cmb_tipo_tel2_fisica">
+											<option value="0">Selecione um...</option>
+											<option value="1">Residencial</option>
+											<option value="2">Celular</option>
+											<option value="3">Comercial</option>
+										</select>
+									</td>
+									<td>
+										<input name="telefone2" type="text" id="txt_telefone2_fisica" disabled>
+									</td>
+								</tr>
+
+								
+
+								<tr>
+									<td id="sexo">
+									</br>
+										<label>Sexo</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label id="sexo">Masculino</label>
+										<input id="rdb_sexo_masculino" type="radio" name="sexo" value="Masculino" checked="true">
+									</td>
+									<td>
+										<label id="sexo">Feminino</label>
+										<input id="rdb_sexo_feminino" type="radio" name="sexo" value="Feminino">
+									</td>
+								</tr>
+							</table></br>
+							<table>
+								<tr>
+									<td colspan="2">
+										<h1 id="tit">Dados de acesso ao EletronTech</h1>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="2">
+										<label>E-mail</label>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<input name="email" type="text" id="txt_email" placeholder="Apenas letras minusculas" maxlength="50" required>
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>Senha</label>
+									</td>
+									<td>
+										<label>Confirmar Senha</label>
+									</td>
+									
+								</tr>
+
+								<tr>
+									<td>
+										<input name="senha" type="password" id="txt_senha" placeholder="" maxlength="12" required>
+									</td>
+									<td>
+										<input type="password" id="txt_conf_senha" placeholder="" maxlength="12" required>
+									</td>
+									
+								</tr>
+								<tr>
+									<td>
+										<h1 id="npass"></h1>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="eu">
+										<input type="checkbox" id="tu"><label id="nns">Li e concordo com os <a id="TUP">Termos de Uso e Privacidade.</a></label>
+									</td>
+								</tr>
+								
+								<tr>
+									<td>
+										<input type="button" value="Voltar" id="btn_voltar" onclick="window.location.href = 'Login.php';"></input>
+									</td>
+									<td align="right">
+										<!--<input type="reset" value="Limpar" id="btn_limpar" onclick="LimparBorda();"></input>-->
+										<input type="button" value="Cadastrar" id="btn_enviar" onclick="doo();"></input>
+									</td>
+								</tr>
+								
+							</table>
+							</form>
+						</div>
+						<div id="termos">						
+							<label id="termosText">
+							<font color="black">Termos de Uso e Privacidade</font><br><br>
+							Declaração de Termos e Responsabilidades <br><br>
+Esta Declaração de Termos e Responsabilidades se baseia nos princípios uso da AnyTech e representa o seu relacionamento com os usuários, referente a EletronTech, definido neste documento como “Serviço”. Ao utilizar este serviço, você concorda com esta Declaração, conforme atualizada periodicamente de acordo com a secção <> abaixo. Uma vez que a EletronTech forneça uma ampla atualização, termos adicionais podem ser acrescentados, conforme é discutido na secção 1.6.<br><br>
+1. Como este contrato funciona<br><br>
+
+1.1 Legislação. A EletronTech é um sistema pertencente a AnyTech Systems, uma empresa brasileira, que é regida pela legislação do Brasil. <br><br>
+1.2 Elegibilidade. Você deve somente utilizar os Serviços se (a) tiver mais de 15 anos de idade e (b) for autorizado por lei a criar um vínculo contratual.<br><br>
+1.3 Privacidade. A política de privacidade presente no endereço http://www.anytech.com.br/termos/eletrontech/privacidade rege qualquer informação pessoal que for fornecida à AnyTech. Ao utilizar o Serviço, você concorda com os termos da política de privacidade.<br><br>
+1.4 Software. O Software é licenciado e não comercializado, estando de acordo com os termos deste contrato.<br><br>
+1.6 Termos adicionais. O Serviço está sujeito a termos adicionais acrescentados periodicamente, que podem ser comunicados para sua ciência. <br><br>
+1.7 Ordem de prioridade. Caso haja algum conflito entre os termos presentes neste contrato e os termos adicionais, prevalecem os termos adicionais em relação ao Serviço em questão.<br><br>
+1.8 Suporte. Toda e qualquer dúvida acerca desse regulamento poderão ser sanadas ao entrar em contato com nosso centro de suporte ao cliente no e-mail: eletrontech.suporte@anytech.com.<br><br>
+1.8 Modificação. A EletronTech pode modificar ou descontinuar a utilização dos Serviço ou ferramenta a qualquer momento, sem se comprometer com você ou com terceiros. Entretanto, faremos um esforço justo para notificá-lo antes de realizar qualquer a modificação. A EletronTech também permite que você transfira seus arquivos num tempo aceitável. Se o Serviço for inteiramente descontinuado, fornecemos a você um reembolso, que será os dias restantes para o termino do pacote contratado previamente.<br><br>
+2 Uso do Serviço<br><br>
+2.1 Licença. Ao acessar o Serviço pela primeira vez, você recebe uma licença que lhe pertencerá até a exclusão total da conta.<br><br>
+2.1 Pacote. Ao acessar o Serviço pela primeira vez, você recebe um “pacote Tester” com duração de 30 dias. Neste pacote contém todas as ferramentas do Serviço.<br><br>
+
+
+Termos de privacidade:<br><br>
+
+2.1	Coletamos o conteúdo e outras informações transmitidas por usuários quando usam nossos Serviços, incluindo quando se cadastram em uma conta ou criam conteúdo. Isso pode incluir informações presentes no conteúdo ou a respeito deles, como a localização de uma foto ou a data que um arquivo foi criado. Também coletamos informações sobre como usuários usam nossos Serviços, por exemplo, os tipos de conteúdo que eles veem ou com que se envolvem e a frequência ou duração de suas atividades.<br><br>
+
+2.2	 Dados pessoais e relação de atividades poderão ser usados para gerar gráficos e estáticas divulgadas a terceiros.<br><br>
+
+
+2.3	Todos os valores de pacotes e ferramentas podem sofrer alteração sem aviso prévio, todos os recursos pré-pagos adquiridos serão mantidos.<br><br>
+
+2.4	Todos conteúdos produzidos por usuários são de total responsabilidade dos mesmos;<br><br>
+2.5	Todos os arquivos fornecidos pelo usuário (fotos, arquivos de texto e arquivos de diagramação) entrarão em posse da Anytech e suas filiais.<br><br>
+
+2.6	Nenhum arquivo pessoal será compartilhado com órgão vigentes sem uma requisição judicial.<br><br>
+
+2.7	Coletamos informações de ou sobre computadores, telefones e outros dispositivos em que são acessados nossos Serviços, dependendo das permissões concedidas. Podemos associar as informações coletadas dos diferentes dispositivos, o que nos ajuda a fornecer Serviços consistentes entre dispositivos. Veja alguns exemplos das informações que coletamos sobre os dispositivos: <br><br>
+
+Atributos, como sistema operacional, versão de hardware, configurações do dispositivo, nomes e tipos de arquivos e softwares, bateria e intensidade de sinal, e identificadores de dispositivo.<br><br>
+
+Localizações do dispositivo, incluindo localizações geográficas específicas, por meio de GPS, Bluetooth ou sinal Wi-Fi.<br><br>
+
+Informações de conexão, como o nome da sua operadora de celular ou ISP (Internet Service Provider), tipo de navegador, idioma, fuso horário, número de celular e endereço IP.<br><br>
+
+Coletaremos informações pessoais para enviar comunicações de marketing, entrar em contato sobre nossos Serviços e lhe informar sobre políticas e termos. Também usamos as informações para responder usuário que entrarem em contato conosco.<br><br>
+
+							</label>
+						</div>
+						
+						<div id="kt">
+						
+						</div>
+						<!--
+						<div id="juridica">
+						<!-- PARA PESSOAS JURIDICAS
+							<form id="Frm_Juridica">
+							<table>
+								<tr>
+									<td>
+										<label>Dados da Empresa</label>
+										<hr/>
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>Razão Social:</label>
+										<br/>
+										<input type="text" id="txt_razao">
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>Nome Fantasia:</label>
+										<br/>
+										<input type="text" id="txt_nome_fantasia">
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>CNPJ:</label>
+										<br/>
+										<input type="text" id="txt_cnpj">
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>Inscrição Estadual:</label>
+										<br/>
+										<input type="text" id="txt_inscricao">
+									</td>
+								</tr>
+
+								<tr>
+									<td>	
+										<input type="checkbox" name="insento">
+										<label>Insento</label>	
+										
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<input type="checkbox" name="op">
+										<label>Optante pelo Simples</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>Telefone:</label>
+										<br/>
+										<select id="cmb_tipo_tel1_juridica">
+											<option value="0">Selecione um...</option>
+											<option value="1">Residencial</option>
+											<option value="2">Celular</option>
+											<option value="3">Comercial</option>
+										</select>
+										<input type="text" id="txt_telefone1_juridica" placeholder="" maxlength="">
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>Telefone 2:</label>
+										<br/>
+										<select id="cmb_tipo_tel2_juridica">
+											<option value="0">Selecione um...</option>
+											<option value="1">Residencial</option>
+											<option value="2">Celular</option>
+											<option value="3">Comercial</option>
+										</select>
+										<input type="text" id="txt_telefone2_juridica">
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>Data de Nascimento:</label>
+										<br/>
+										<input type="text" id="txt_datanas_juridica" maxlength="10" placeholder="DD/MM/AAAA">
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>Site:</label>
+										<br/>
+										<input type="text" name="site" placeholder="http://">
+									</td>
+								</tr>
+							</table>
+							<table>
+								<tr>
+									<td>
+										<label>Dados de acesso ao EletronTech</label>
+										<hr/>
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>E-mail:</label>
+										<br/>
+										<input type="text" id="txt_email">
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>Senha:</label>
+										<br/>
+										<input type="text" id="txt_senha">
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<label>Confirmar Senha:</label>
+										<br/>
+										<input type="text" id="txt_conf_senha">
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<input type="reset" value="Limpar" id="btn_limpar" ></input>
+										<input type="button" value="Calcular" id="btn_calcular" onclick="validar()"></input>
+									</td>
+								</tr>
+							</table>
+							</form>
+						</div>
+						-->
+		<script type="text/javascript" src="script/Cadastro - Validação.js"  onload="Zerar();"></script>
+		<script>
+		TUP.onclick = function()
+		{
+			termos.style.display = "inline-block";
+			kt.style.display = "inline-block";
+		}
+		
+		kt.onclick = function()
+		{
+			termos.style.display = "none";
+			kt.style.display = "none";
+		}
+		
+		function doo()
+		{
+			if(tu.checked == true)
+			{
+				Validar();
+			}
+			else
+			{
+				alert("Você não concordou com os Termos de Utilização e Privacidade do Sistema. Por favor, tique o quadriculo para que seja possível a realização do seu cadastro.");
+				return false;
+			}
+			
+		}
+		</script>
+	</body>	

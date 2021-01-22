@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>EletronTech - Regra de Três</title>
+		<link rel="stylesheet" type="text/css" href="../css/fei.css">
+		<link rel="shortcut icon" type="image/png" href="../images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="display: none;">
+		<div class="et-topbar" id="et_topbar">
+			<table id="tabela" valign="center" width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<tr width="100%"  valign="center" >
+					<td id="et_space_back" valign="center">
+						<input type="image" src="../images/back.png" class="et-back" id="et_back" onclick="history.back();"/>
+					</td>
+					<td width="100%" height="100%" valign="center">
+						<span class="et-fei-name">Regra de Três</span>
+					</td>
+					<td id="et_space_menu" valign="center">
+						<input type="image" src="../images/help.png" class="et-menu" id="et_menu">
+					</td>	
+				</tr>
+			</table>
+		</div>
+		<form onkeypress="if (event.keyCode == 13) {btn_calcular.click();}" style="overflow: auto; height: inherit;">
+			<div class="et-medium" id="et_medium">
+				<div class="typeCalc" id="regra_tres">
+					<table>
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">1º Número</label>
+								<input type="text" class="txt_value" id="txt_num1" title="1º Numero" unidade="" inteiro="false"/>
+							</td>
+						</tr>
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">2º Número</label>
+								<input type="text" class="txt_value" id="txt_num2" title="2º Numero" unidade="" inteiro="false"/>
+							</td>
+						</tr>
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">3º Número</label>
+								<input type="text" class="txt_value" id="txt_num3" title="3º Numero" unidade="" inteiro="false"/>
+							</td>
+						</tr>
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">4º Número</label>
+								<input type="text" class="txt_value" id="txt_num4" title="4º Numero" unidade="" inteiro="false"/>
+							</td>
+						</tr>
+					</table>
+				</div>				
+				
+			</div>
+			
+			<!--BOTÃO CALCULAR-->
+			<div class="et-bottom" id="et_bottom">
+				<input type="button" value="Calcular" id="btn_calcular" onclick="if (this.value == 'Calcular') {UtilizarFerramenta(codigoFerramenta, 2); Validar(this, '>= 1');} else {Limpar(this);}">
+			</div>
+			<!--BOTÃO CALCULAR-->
+			
+		</form>
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error">Por favor, preencha todos os campos corretamente!</label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+		<!--AJUDA-->
+		<div id="termos">
+			<div id="termos_box">
+				<div class="into_termos">
+					<label class="lbl_title">Sobre a Ferramenta</label>
+					<div id="txt_termos" style="text-align: justify;">
+						<p class="fei_desc_bold">Descrição</p> 
+						<!--Descrição-->
+						<p class="fei_desc_comp">Ferramenta que auxilia na escolha de disjuntor e da espessura mais apropriada para um circuito, calculando a corrente elétrica e potência elétrica(potência corrente) 
+máximo suportado por um fio de acordo com sua área do cabo e a Tensão em que está sendo submetido.
+<p>
+
+						<p class="fei_desc_bold">Atributos</p>
+						<!--Atributos-->
+						<p class="attrb_fei"><b>Área do cabo(mm²) </b> - Milímetro Quadrado</p>
+						<p class="attrb_fei"><b>Tensão(V)</b> - Volt</p>
+						<p class="attrb_fei"><b>Corrente Elétrica(A)</b> - Àmpere</p>
+						<p class="attrb_fei"><b>Potência Elétrica(VA)</b> - Volt-Àmpere </p>
+					</div>
+				</div>
+				<input type="button" id="btn_termos" value="OK">
+			</div>
+		</div>
+		<!--AJUDA-->
+	</body>
+	<script type="text/javascript" src="../cordova.js"></script>
+	<script type="text/javascript" src="js/Disjuntor e Fiacao - Calculo.js"></script>
+	<script type="text/javascript" src="js/Validacao - Ferramentas.js"></script>
+	<script type="text/javascript" src="js/help.js"></script>
+	<script type="text/javascript" src="../js/banco.js"></script>
+	<script type="text/javascript" src="../js/ajax.js"></script>
+	<script type="text/javascript" src="../js/ControleHash.js"></script>
+	<script type="text/javascript" src="../js/AnyTech - Validacao.js"></script>
+	<script>
+		window.onload = function()
+		{	
+			helpActived = 0;
+			resizingTool();
+			
+			document.body.style.display = "inline-block";
+			
+			AbrirBanco();
+			
+			/*if (!VerificarLogado())
+			{
+				window.location.href = '../';
+			}
+			else
+			{*/
+				Parametros = GetParametros();
+				
+				codigoFerramenta = Parametros["codigo"];
+				
+				UtilizarFerramenta(codigoFerramenta, 1);
+				
+				ControleHash(window.location.hash, event);
+			//}
+		}	
+		
+		function resizingTool(){
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			h10 = hScreen * 0.10;
+			h80 = hScreen * 0.80;
+			
+			//Topbar resizing
+			et_topbar.style.height = h10+"px";
+			et_back.style.height = h10+"px";
+			et_menu.style.height = h10+"px";
+			et_space_back.style.height = h10+"px";
+			et_space_menu.style.height = h10+"px";
+			
+			//bottom resizing
+			et_bottom.style.height = h10+"px";
+		}
+		
+		function error_in()
+		{
+			/*error.style.visibility = "visible";
+			error.style.opacity = "1";*/
+			
+			window.location.hash = '#alert';
+		}
+		
+		function error_out()
+		{
+			/*//btn_eout.style.visibility = "hidden";
+			error.style.opacity = "0";
+			error.style.visibility = "hidden";*/
+			
+			history.back();
+		}
+		
+		function UtilizarFerramenta(codigoFerramenta, tipo)
+		{
+			if (ConexaoInternet() && codigoFerramenta != undefined)
+			{
+				Ajax("GET", "https://www.anytech.com.br/et/php/UtilizarFerramenta.php", "codigoFerramenta=" + codigoFerramenta + "&codigoUsuario=" + window.localStorage.getItem('codigo') + "&tipo=" + tipo, "");
+			}
+		}
+	</script>
+</html>

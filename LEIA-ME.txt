@@ -1,0 +1,8 @@
+Na parte de  gerar arquivos, o sistema cria uma pasta de arquivos de eventos e salva o arquivo lá dentro com o dia e a hora que foi gerado.
+Na parte que exibe o evento, tem 3 potões la embaixo, um é de voltar, o outro para excluir, e o outro para editar.
+O de Editar, para não precisar fazer outra div e ficar dando display, eu pensei se poderia redirecionar para a div de "Criar Eventos" radirecionar os dados para os campos, e alterar o texto dos botões e da label "Novo Evento"... vê o que da pra fazer nesse caso. 
+
+Temos que pensar em uma forma de fazer deleção em massa.
+
+
+Terminar de validar as funções e ferramentas. Parei na função de ExibirDoc.php

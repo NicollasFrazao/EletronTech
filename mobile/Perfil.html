@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>EletronTech - Perfil</title>
+		<link rel="stylesheet" type="text/css" href="css/fei.css">
+		<link rel="stylesheet" type="text/css" href="css/menu.css">
+		<link rel="shortcut icon" type="image/png" href="images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="display: none;">
+		<div id="cover_menu"></div>
+		<div class="et-menu-bar" id="et_menu_bar">
+			<input type="button" class="et-button-menu et-line" value="Redefinir Senha" onclick="etPassword()"/>
+			<input type="button" class="et-button-menu et-line" value="Desativar Conta" onclick="etDeactivate()"/>
+		</div>
+		<div class="et-topbar" id="et_topbar">
+			<table id="tabela" valign="center" width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<tr width="100%"  valign="center" >
+					<td id="et_space_back" valign="center">
+						<input type="image" src="images/back.png" class="et-back" id="et_back" onclick="history.back();">
+					</td>
+					<td width="100%" height="100%" valign="center">
+						<span class="et-fei-name">Meu Perfil</span>
+					</td>
+					<td id="et_space_menu" valign="center">
+						<input type="image" src="images/menu.png" class="et-menu" id="et_menu">
+					</td>	
+				</tr>
+			</table>
+		</div>
+		<form id="Frm_Perfil" method="POST" action="https://www.anytech.com.br/et/php/AlterarDados.php" style="overflow: auto; height: inherit;" onkeypress="if (event.keyCode == 13) {this.onsubmit();}">
+			<input type="hidden" name="codigo" id="txt_codigo" class="at-valida" tipo="Inteiro" required/>
+			<div class="et-medium" id="et_medium">
+				<table width="100%" class="et-tooltable">
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title black-label">As informações fornecidas abaixo podem melhorar sua experiência nos sistemas desenvolvidos pela ANYTECH!</label>						
+						</td>
+					</tr>				
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Nome Completo *</label>						
+							<input type="text" name="nome" class="txt_value at-valida" tipo="NomeCompleto" id="txt_nome" required/>
+						</td>
+					</tr>
+									
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Data de Nascimento</label>						
+							<input type="text" name="nascimento" class="txt_value at-valida" tipo="Datanas" id="txt_nascimento"/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Sexo</label>						
+							<select name="sexo" class="txt_value at-valida" tipo="combobox" id="cmb_sexo">
+								  <option value="">Selecione uma Opção</option>
+								  <option value="Feminino">Feminino</option>
+								  <option value="Masculino">Masculino</option>
+							</select>
+						</td>
+					</tr>				
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">E-mail *</label>						
+							<input type="text" name="email" class="txt_value at-valida" tipo="E-mail" id="txt_email" required/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Nickname</label>						
+							<input type="text" name="nickname" class="txt_value at-valida" tipo="Nickname" id="txt_nickname"/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Telefone</label>						
+							<input type="text" name="telefone" class="txt_value at-valida" tipo="Telefone" id="txt_telefone"/>
+						</td>
+					</tr>	
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Celular</label>						
+							<input type="text" name="celular" class="txt_value at-valida" tipo="Celular" id="txt_celular"/>
+						</td>
+					</tr>
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">* Campos obrigatórios</label>						
+						</td>
+					</tr>
+					<tr width="100%">
+						<td width="100%">	
+						<!--	<input type="button" value="Desativar Conta" class="et-redbutton" onclick="window.open('Desativar Conta.html','_self');">-->
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="et-bottom" id="et_bottom">
+				<input type="submit" value="Salvar" id="btn_salvar"/>
+			</div>
+		</form>
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error"></label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/ajax.js"></script>
+	<script type="text/javascript" src="js/banco.js"></script>
+	<script type="text/javascript" src="js/menu.js"></script>
+	<script type="text/javascript" src="js/ControleHash.js"></script>
+	<script type="text/javascript" src="js/AnyTech - Validacao.js"></script>
+	<script>
+		window.onload = function(){			
+			resizingTool();
+			menuActived = 0;
+			
+			document.body.style.display = "inline-block";
+			
+			MapearForms();
+			AbrirBanco();
+			
+			if (!VerificarLogado())
+			{
+				window.location.href = 'Login.html';
+			}
+			else
+			{
+				ControleHash(window.location.hash, event);
+				
+				banco.transaction
+				(
+					function (transaction)
+					{
+						transaction.executeSql
+						(
+							'select nm_usuario, dt_nascimento, nm_sexo, nm_email, nm_nickname, cd_telefone, cd_celular from tb_usuario where cd_usuario = ?',
+							[window.localStorage.codigo],
+							function (transaction, results)
+							{
+								var linha = results.rows.item(0);
+								
+								txt_codigo.value = window.localStorage.codigo;
+								txt_nome.value = linha.nm_usuario;
+								
+								var data = new Date(linha.dt_nascimento);
+								txt_nascimento.value = ((data.getDate() < 10) ? '0' : '') + data.getDate() + '/' + (((data.getMonth() + 1) < 10) ? '0' : '') + (data.getMonth() + 1) + '/' + data.getFullYear();
+								
+								cmb_sexo.value = linha.nm_sexo;
+								
+								txt_email.readOnly = true;
+								txt_email.value = linha.nm_email;
+								txt_nickname.value = linha.nm_nickname;
+								txt_telefone.value = linha.cd_telefone;
+								txt_celular.value = linha.cd_celular;
+								
+								VerificarForm(Frm_Perfil);
+							},
+							function (transaction, error)
+							{
+								alert(error.message);
+							}
+							
+						);
+					}
+				);
+			}
+		}
+
+		Frm_Perfil.onsubmit = function()
+		{
+			if (!ConexaoInternet())
+			{
+				error_in('Você está sem conexão com a internet!', 1);
+			}
+			else if (VerificarForm(this))
+			{
+				AjaxForm
+				(
+					this,
+					function()
+					{
+						error_in('Atualizando dados...', 0);
+					},
+					function(ajax)
+					{
+						var retorno = ajax.responseText;
+						var indicador = retorno.split(';-;')[0];
+						var mensagem = retorno.split(';-;')[1];
+						
+						error_in(mensagem, 1);
+						
+						if (indicador == 1)
+						{
+							eval('Usuario = ' + retorno.split(';-;')[2]);
+							
+							Atualizar();
+						}
+					}
+				);
+			}
+			else
+			{
+				error_in("Por favor, preencha os campos obrigatórios corretamente!", 1);
+			}
+			
+			return false;
+		}
+		
+		function Atualizar()
+		{
+			banco.transaction
+			(
+				function (transaction)
+				{
+					transaction.executeSql
+					(
+						'update tb_usuario set nm_usuario = ?, dt_nascimento = ?, nm_sexo = ?, nm_email = ?, nm_nickname = ?, cd_telefone = ?, cd_celular = ? where cd_usuario = ?',
+						[Usuario.nm_usuario, Usuario.dt_nascimento, Usuario.nm_sexo, Usuario.nm_email, Usuario.nm_nickname, Usuario.cd_telefone, Usuario.cd_celular, Usuario.cd_usuario],
+						function (transaction, results)
+						{
+							//window.location.reload();
+						},
+						function(transaction, error)
+						{
+							alert(error.message);
+						}
+					);
+				}
+			);
+		}
+		
+		function resizingTool(){
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			h10 = hScreen * 0.10;
+			h80 = hScreen * 0.80;
+			
+			//Topbar resizing
+			et_topbar.style.height = h10+"px";
+			et_back.style.height = h10+"px";
+			et_menu.style.height = h10+"px";
+			et_space_back.style.height = h10+"px";
+			et_space_menu.style.height = h10+"px";
+			
+			//bottom resizing
+			et_bottom.style.height = h10+"px";
+		}
+		
+		function error_in(texto, ic)
+		{
+			if (ic == 1)
+			{
+				btn_eout.style.visibility = "visible";
+			}
+			else
+			{
+				btn_eout.style.visibility = "hidden";
+			}
+			
+			//"Por favor, preencha os campos obrigatórios corretamente!"
+			txt_error.innerHTML = texto;
+			/*error.style.visibility = "visible";
+			error.style.opacity = "1";*/
+			
+			window.location.hash = '#alert';
+		}
+		
+		function error_out()
+		{
+			/*btn_eout.style.visibility = "hidden";
+			error.style.opacity = "0";
+			error.style.visibility = "hidden";*/
+			
+			history.back();
+		}
+		
+	</script>
+</html>

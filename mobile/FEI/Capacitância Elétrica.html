@@ -1,0 +1,99 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/css.css">
+	</head>
+	<body>
+		<div id="all">
+			<div id="et_topbar">
+				<table width="100%" height="100%">
+					<tr width="100%">
+						<td width="10%" align="center">
+							<input type="image" src="imagens/return.png" id="btn_return">
+						</td>
+						<td width="80%" align="center">
+							<label id="nm_fei">Capacitância Elétrica</label>
+						</td>
+						<td width="10%" align="center">
+							<input type="image" src="imagens/ajuda.png" id="btn_help" onclick="help_in()">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="et_tool">
+				<table width="100%">				
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Quantidade de Carga (C)</label>						
+							<input type="text" class="txt_value" id="txt_carga" title="Quantidade de Carga (C)" unidade="C" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Corrente Elétrica (A)</label>						
+							<input type="text" class="txt_value" id="txt_corrente" title="Corrente Elétrica (A)" unidade="A" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Potência Elétrica (VA)</label>						
+							<input type="text" class="txt_value" id="txt_potencia" title="Potência Elétrica (VA)" unidade="VA" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Capacitância Elétrica (F)</label>						
+							<input type="text" class="txt_result" id="txt_capacitancia" title="Capacitância Elétrica (F)" unidade="F" inteiro="false" disabled>
+						</td>
+					</tr>					
+				</table>
+			</div>
+			<div id="et_bottombar">				
+				<input type="button" value="Calcular" id="btn_calcular" onclick="if (this.value == 'Calcular') {Validar(this, '== 3');} else {Limpar(this);}">
+			</div>
+		</div>
+		<div id="help">
+			<div id="help_box">
+				<label id="txt_help">Adicionar uma legenda maneira aqui!</label>
+				<input type="button" id="btn_hout" value="OK" onclick="help_out()">
+			</div>
+		</div>
+		
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error">Por favor, preencha todos os campos corretamente!</label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="script/Capacitância Elétrica - Cálculo.js"></script>
+	<script type="text/javascript" src="script/Validação - Ferramentas.js"></script>
+	<script>
+	
+		function help_in()
+		{
+			help.style.display = "inline-block";
+		}
+		
+		function help_out()
+		{
+			help.style.display = "none";
+		}
+		
+		function error_in()
+		{
+			error.style.display = "inline-block";
+			txt_capacitancia.value = null;
+		}
+		
+		function error_out()
+		{
+			error.style.display = "none";
+		}
+	</script>
+</html>

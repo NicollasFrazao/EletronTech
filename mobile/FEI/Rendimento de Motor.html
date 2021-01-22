@@ -1,0 +1,98 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/css.css">
+	</head>
+	<body>
+		<div id="all">
+			<div id="et_topbar">
+				<table width="100%" height="100%">
+					<tr width="100%">
+						<td width="10%" align="center">
+							<input type="image" src="imagens/return.png" id="btn_return">
+						</td>
+						<td width="80%" align="center">
+							<label id="nm_fei">Rendimento de Motor</label>
+						</td>
+						<td width="10%" align="center">
+							<input type="image" src="imagens/ajuda.png" id="btn_help" onclick="help_in()">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="et_tool">
+				<table width="100%">				
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Potência Útil (VA)</label>						
+							<input type="text" class="txt_value" id="txt_potencia_util" title="Potência Útil (VA)" unidade="VA" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Potência Total (VA)</label>						
+							<input type="text" class="txt_value" id="txt_potencia_total" title="Potência Total (VA)" unidade="VA" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Potência Dissipada (VA)</label>						
+							<input type="text" class="txt_value" id="txt_potencia_dissipada" title="Potência Dissipada (VA)" unidade="VA" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Rendimento do Motor</label>						
+							<input type="text" class="txt_result" id="txt_rendimento" title="Rendimento do Motor"disabled>
+						</td>
+					</tr>					
+				</table>
+			</div>
+			<div id="et_bottombar">				
+				<input type="button" value="Calcular" id="btn_calcular" onclick="if (this.value == 'Calcular') {Validar(this, '== 3');} else {Limpar(this);}">
+			</div>
+		</div>
+		<div id="help">
+			<div id="help_box">
+				<label id="txt_help">Adicionar uma legenda maneira aqui!</label>
+				<input type="button" id="btn_hout" value="OK" onclick="help_out()">
+			</div>
+		</div>
+		
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error">Por favor, preencha todos os campos corretamente!</label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="script/Rendimento de Motor - Cálculo.js"></script>
+	<script type="text/javascript" src="script/Validação - Ferramentas.js"></script>
+	<script>
+		function help_in()
+		{
+			help.style.display = "inline-block";
+		}
+		
+		function help_out()
+		{
+			help.style.display = "none";
+		}
+		
+		function error_in()
+		{
+			error.style.display = "inline-block";
+			txt_rendimento.value = null;
+		}
+		
+		function error_out()
+		{
+			error.style.display = "none";
+		}
+	</script>
+</html>

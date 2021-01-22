@@ -1,0 +1,78 @@
+body{
+background-color:#163E73;
+
+}
+
+*
+{
+	font-family: Centuty Gothic;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+#agenda
+{
+	display: inline-block;
+	width: 300px;
+	height: 300px;
+	left: 50%;
+	top: 50%;
+	margin-left: -150px;
+	margin-top: -180px;
+	font-family: Centuty Gothic;
+	position: absolute;
+}
+
+#agenda form{
+font-family: Centuty Gothic;
+font-size:20px;
+color:white;
+}
+
+#evento{
+width: 261px;
+display: inline-block;
+font-size: 18px;
+padding: 5px;
+border: 0px;
+font-family: Centuty Gothic;
+}
+
+#agenda img
+{
+	display: inline-block;
+	height: 31px;
+	position: absolute;
+	background-color: black;
+}	
+
+#agenda textarea
+{
+	width: 180px;
+	height: 130px;
+	resize: none;
+	padding: 5px;
+	border: 0px;
+	font-family: Centuty Gothic;
+}
+
+h1
+{
+	font-family: Centuty Gothic;
+}
+
+label
+{
+	font-family: Centuty Gothic;
+}
+
+#btnCancel, #btnConfirma
+{
+	display: inline-block;
+	width: 100%;
+	height: 40px;
+	font-family: Century Gothic;
+	font-size: 18px;
+	color: black;
+}

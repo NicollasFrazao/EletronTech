@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>EletronTech - Condutância Elétrica</title>
+		<link rel="stylesheet" type="text/css" href="../css/fei.css">
+		<link rel="shortcut icon" type="image/png" href="../images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="display: none;">
+		<div class="et-topbar" id="et_topbar">
+			<table id="tabela" valign="center" width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<tr width="100%"  valign="center" >
+					<td id="et_space_back" valign="center">
+						<input type="image" src="../images/back.png" class="et-back" id="et_back" onclick="history.back();"/>
+					</td>
+					<td width="100%" height="100%" valign="center">
+						<span class="et-fei-name">Condutância Elétrica</span>
+					</td>
+					<td id="et_space_menu" valign="center">
+						<input type="image" src="../images/help.png" class="et-menu" id="et_menu">
+					</td>	
+				</tr>
+			</table>
+		</div>
+		<form onkeypress="if (event.keyCode == 13) {btn_calcular.click();}" style="overflow: auto; height: inherit;">
+			<div class="et-medium" id="et_medium">
+				<table width="100%" class="et-tooltable">
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Intensidade da Corrente (A)</label>						
+							<input type="text" class="txt_value" id="txt_intensidade" title="Intensidade da Corrente (A)" unidade="A" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Tensão Elétrica (V)</label>						
+							<input type="text" class="txt_value" id="txt_tensao" title="Tensão Elétrica (V)"  unidade="V" inteiro="false">
+						</td>
+					</tr>
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Condutância Elétrica (S)</label>						
+							<input type="text" class="txt_value" id="txt_condutancia" title="Condutância Elétrica (S)" unidade="S" inteiro="false">
+						</td>
+					</tr>					
+				</table>	
+			</div>
+			<div class="et-bottom" id="et_bottom">
+				<input type="button" value="Calcular" id="btn_calcular" onclick="if (this.value == 'Calcular') {UtilizarFerramenta(codigoFerramenta, 2); blueSender(); Validar(this, '== 2');} else {whiteSender(); Limpar(this);}">
+			</div>
+		</form>
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error">Por favor, preencha todos os campos corretamente!</label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+		<!--AJUDA-->
+		<div id="termos">
+			<div id="termos_box">
+				<div class="into_termos">
+					<label class="lbl_title">Sobre a Ferramenta</label>
+					<div id="txt_termos" style="text-align: justify;">
+						<p class="fei_desc_bold">Descrição</p> 
+						<!--Descrição-->
+						<p class="fei_desc_comp">Ferramenta que realiza o cálculo de condutância elétrica, resultando em um valor que representa a facilidade quanto a condutividade que a corrente tem em passar por um condutor segundo sua Intensidade e Tensão, este valor é inverso a Resistência do circuito.<p>
+
+						<p class="fei_desc_bold">Atributos</p>
+						<!--Atributos-->
+						<p class="attrb_fei"><b>Intensidade da Corrente (A)</b> - Àmpere</p>
+						<p class="attrb_fei"><b>Tensão Elétrica (V)</b> - Volt</p>
+						<p class="attrb_fei"><b>Condutância Elétrica (S)</b> - Siemen</p>
+						<p class="space"></p>
+					</div>
+				</div>
+				<input type="button" id="btn_termos" value="OK">
+			</div>
+		</div>
+		<!--AJUDA-->	
+	</body>
+	<script type="text/javascript" src="../cordova.js"></script>
+	<script type="text/javascript" src="js/Condutancia Eletrica - Calculo.js"></script>
+	<script type="text/javascript" src="js/Validacao - Ferramentas.js"></script>
+	<script type="text/javascript" src="js/help.js"></script>
+	<script type="text/javascript" src="../js/banco.js"></script>
+	<script type="text/javascript" src="../js/ajax.js"></script>
+	<script type="text/javascript" src="../js/ControleHash.js"></script>
+	<script type="text/javascript" src="../js/AnyTech - Validacao.js"></script>
+	<script>
+		window.onload = function()
+		{	
+			helpActived = 0;
+			resizingTool();
+			
+			document.body.style.display = "inline-block";
+			
+			AbrirBanco();
+			
+			if (!VerificarLogado())
+			{
+				window.location.href = '../';
+			}
+			else
+			{
+				Parametros = GetParametros();
+				
+				codigoFerramenta = Parametros["codigo"];
+				
+				UtilizarFerramenta(codigoFerramenta, 1);
+				
+				ControleHash(window.location.hash, event);
+			}
+		}	
+		
+		function resizingTool(){
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			h10 = hScreen * 0.10;
+			h80 = hScreen * 0.80;
+			
+			//Topbar resizing
+			et_topbar.style.height = h10+"px";
+			et_back.style.height = h10+"px";
+			et_menu.style.height = h10+"px";
+			et_space_back.style.height = h10+"px";
+			et_space_menu.style.height = h10+"px";
+			
+			//bottom resizing
+			et_bottom.style.height = h10+"px";
+		}
+		
+		function error_in()
+		{
+			/*error.style.visibility = "visible";
+			error.style.opacity = "1";*/
+			
+			window.location.hash = '#alert';
+		}
+		
+		function error_out()
+		{
+			/*//btn_eout.style.visibility = "hidden";
+			error.style.opacity = "0";
+			error.style.visibility = "hidden";*/
+			
+			history.back();
+		}
+		
+		txt_intensidade.onkeyup = function(){
+			blueSender();
+		}
+		
+		txt_tensao.onkeyup = function(){
+			blueSender();
+		}
+		
+		txt_condutancia.onkeyup = function(){
+			blueSender();
+		}
+		
+		function blueSender()
+		{
+			if ((txt_intensidade.value != "" && txt_tensao.value != "" && txt_condutancia.value == "") && (txt_intensidade.readOnly == false && txt_tensao.readOnly == false))
+			{
+				txt_condutancia.readOnly = true;
+				txt_condutancia.className = 'txt_result';
+			}
+			else if ((txt_intensidade.value != "" && txt_condutancia.value != "" && txt_tensao.value == "") && (txt_intensidade.readOnly == false && txt_condutancia.readOnly == false))
+			{
+				txt_tensao.readOnly = true;
+				txt_tensao.className = 'txt_result';
+			}
+			else if ((txt_tensao.value != "" && txt_condutancia.value != "" && txt_intensidade.value == "") && (txt_tensao.readOnly == false && txt_condutancia.readOnly == false))
+			{
+				txt_intensidade.readOnly = true;
+				txt_intensidade.className = 'txt_result';
+			}
+			else
+			{
+				whiteSender();
+			}
+		}
+		
+		function whiteSender()
+		{
+			txt_tensao.readOnly = false;
+			txt_tensao.className = 'txt_value';
+			txt_intensidade.readOnly = false;
+			txt_intensidade.className = 'txt_value';
+			txt_condutancia.readOnly = false;
+			txt_condutancia.className = 'txt_value';
+		}
+		
+		function UtilizarFerramenta(codigoFerramenta, tipo)
+		{
+			if (ConexaoInternet() && codigoFerramenta != undefined)
+			{
+				Ajax("GET", "https://www.anytech.com.br/et/php/UtilizarFerramenta.php", "codigoFerramenta=" + codigoFerramenta + "&codigoUsuario=" + window.localStorage.getItem('codigo') + "&tipo=" + tipo, "");
+			}
+		}
+	</script>
+</html>

@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>EletronTech - Painel</title>
+		<link rel="stylesheet" type="text/css" href="css/fei.css">
+		<link rel="stylesheet" type="text/css" href="css/menu.css">
+		<link rel="stylesheet" type="text/css" href="css/painel.css">
+		<link rel="shortcut icon" type="image/png" href="images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="display: none;">
+		<div id="cover_menu"></div>
+		<div id="cover_black"></div>
+			<div class="et-menu-bar" id="et_menu_bar">
+				<input type="button" class="et-button-menu et-line" value="Meu Perfil" onclick="etProfile()"/>
+				<input type="button" class="et-button-menu et-line" value="Sobre Nós" onclick="etAbout()"/>
+				<input type="button" class="et-button-menu et-line" value="Feedback" onclick="etFeedback()"/>
+				<input type="button" class="et-button-menu et-line" value="Ordenar por..." onclick="etOrder()"/>
+				<input type="button" class="et-button-menu et-line" value="Sincronizar Dados" onclick="etSynchro()"/>				
+				<input type="button" class="et-button-menu" value="Sair" onclick="etLogout()"/>
+			</div>
+		
+		<div class="et-topbar" id="et_topbar">
+			<table id="tabela" valign="center" width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<tr width="100%"  valign="center" >
+					<td id="et_space_back" valign="center">
+						<input type="image" src="images/eletrontech-anytech-logo-bar.png" class="et-back" id="et_back">
+					</td>
+					<td width="100%" height="100%" valign="left">
+						<span class="et-fei-name-painel">EletronTech</span>
+					</td>
+					<td id="et_space_refresh" valign="center">
+						<input type="image" src="images/refresh.png" class="et-refresh" id="et_refresh" onclick="etSynchro()">
+					</td>	
+					<td id="et_space_menu" valign="center">
+						<input type="image" src="images/menu.png" class="et-menu" id="et_menu">
+					</td>	
+				</tr>
+			</table>
+		</div>
+		
+		<div id="options-fei" style="display: none;">
+			<input type="button" value="Nome" class="Options" valor="1" style="margin-top:5%;" onclick="history.back(); setTimeout(GerarFerramentas(this.getAttribute('valor')), 500);" >
+			<input type="button" value="Mais Utilizadas" class="Options" valor="2"  onclick="history.back(); setTimeout(GerarFerramentas(this.getAttribute('valor')), 500);" >
+			<input type="button" value="Categorias" class="Options" valor="3" onclick="history.back(); setTimeout(GerarFerramentas(this.getAttribute('valor')), 500);" >
+			<input type="button" value="Habilitadas" class="Options" valor="4" onclick="history.back(); setTimeout(GerarFerramentas(this.getAttribute('valor')), 500);" >			
+		</div>
+		
+		<div class="et-medium et-tools" id="et_medium">					
+			<table width="97%" class="et-tooltable" style=" margin-top: 0px;">
+				
+			</table>
+			
+			<!--<div class="et-fei" align="center" codigo="?" url="" onclick="window.location.href = this.getAttribute('url') + '?codigo=' + this.getAttribute('codigo');">
+				<input type="image" class="et-fei-img feiBlue" src="fei/images/areaEPerimetro.png">
+				<span class="et-fei-title">Área e Perímetro</span>
+			</div>-->
+			
+			<div id="et_feis">
+			</div>
+		</div>
+		
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error"></label>
+				<br/>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+		
+		<div id="question">
+			<div id="question_box">
+				<label id="txt_question"></label>
+				<br/>
+				<input type="button" id="btn_qsout" value="Sim" onclick="question_out(1)">
+				<input type="button" id="btn_qnout" value="Não" onclick="question_out(0)">
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/ajax.js"></script>
+	<script type="text/javascript" src="js/menu.js"></script>
+	<script type="text/javascript" src="js/banco.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/AnyTech - Validacao.js"></script>
+	<script type="text/javascript" src="js/ControleHash.js"></script>
+	<script>
+		var ev;
+		var orderOPT;
+		
+		window.onload = function()
+		{	
+			ev = event;
+			
+			resizingTool();
+			menuActived = 0;
+			
+			document.body.style.display = "inline-block";
+			
+			AbrirBanco();
+			
+			if (!VerificarLogado())
+			{
+				window.location.href = 'index.html';
+			}
+			else
+			{
+				Synchro();
+			}
+			
+			document.getElementById("et_menu_bar").style.display = "none";
+		}
+		
+		function Synchro()
+		{
+			try
+			{
+				banco.transaction
+				(
+					function (transaction)
+					{
+						transaction.executeSql
+						(
+							'select dt_ultima_sincronizacao from tb_sistema limit 1',
+							[],
+							function (transaction, results)
+							{
+								var linha = results.rows.item(0);
+								var data = linha.dt_ultima_sincronizacao;
+								
+								if (data == '')
+								{
+									SincronizarDados(window.localStorage.getItem('codigo'));
+								}
+								else if ((new Date().getTime() - new Date(data).getTime())/(60*60*1000) > 24)
+								{
+									SincronizarDados(window.localStorage.getItem('codigo'));
+								}
+								else
+								{
+									/*banco.transaction(function(tx) {
+										tx.executeSql('SELECT * FROM ordenar WHERE id=?', [id]);
+										orderOPT = document.write(id);
+									});*/
+									
+									GerarFerramentas();
+				
+									try
+									{
+										ControleHash(window.location.hash, ev);
+									}
+									catch (e)
+									{
+										console.log(e.message);
+									}
+								}	
+							},
+							function (transaction, error)
+							{
+								error_in(error.message, 1, 1);
+							}
+						);
+					}
+				);
+			}
+			catch (e)
+			{
+				console.log(e.message);
+			}
+		}
+		
+		function GerarFerramentas(valor)
+		{
+			//outOrderMenu();
+			order = valor;
+			
+			if (order >= 0 && order != null)
+			{
+				banco.transaction
+				(
+					function (transaction)
+					{
+						transaction.executeSql
+						(
+							"update tb_usuario set ic_ordenar = ?",
+							[order],
+							null,
+							function (transaction, error)
+							{
+								alert(error.message);
+							}
+						);
+					}
+				);
+			}
+			else
+			{
+				banco.transaction
+				(
+					function (transaction)
+					{
+						transaction.executeSql
+						(
+							"select ic_ordenar from tb_usuario limit 1",
+							[],
+							function (transaction, results)
+							{
+								linha = results.rows.item(0);
+								order = linha.ic_ordenar;
+								
+								if (order >= 0 && order != null)
+								{
+								}
+								else
+								{
+									order = 1;
+									
+									transaction.executeSql
+									(
+										"update tb_usuario set ic_ordenar = ?",
+										[order],
+										null,
+										function (transaction, error)
+										{
+											alert(error.message);
+										}
+									);
+								}
+							},
+							function (transaction, error)
+							{
+								alert(error.message);
+							}
+						);
+					}
+				);
+			}
+			
+			/*banco.transaction(function(transaction){
+				transaction.executeSql('CREATE TABLE IF NOT EXISTS ordenar ("id" INTEGER PRIMARY KEY)');
+			})
+			
+			banco.transaction(function(transaction){
+				transaction.executeSql('INSERT INTO ordenar(id) VALUES(?)', [order]);
+			})
+			
+			if (valor == 1)
+			{
+				order = '';
+			}
+			else if (valor == 2)
+			{
+				order = 'order by qt_utilizacao desc';
+			}
+			else if (valor == 3)
+			{
+				order = "where ds_classe_cor != '' order by ds_classe_cor asc";
+			}
+			else
+			{
+				order = '';
+			}*/
+			
+			Ferramentas = [];
+			
+			banco.transaction
+			(
+				function (transaction)
+				{
+					transaction.executeSql
+					(
+						'select cd_ferramenta, nm_ferramenta, im_ferramenta, ds_url, ic_ativada, ds_classe_cor, qt_utilizacao, cd_ordem_categoria from tb_ferramenta',
+						[],
+						function (transaction, results)
+						{
+							var cont;
+							
+							for (cont = 0; cont <= results.rows.length - 1; cont = cont + 1)
+							{
+								var linha = results.rows.item(cont);
+								
+								/*var aux = linha.ds_classe_cor;
+								
+								switch (*/
+								
+								Ferramentas[cont] = 
+								{
+									cd_ferramenta: linha.cd_ferramenta,
+									nm_ferramenta: linha.nm_ferramenta,
+									im_ferramenta: linha.im_ferramenta,
+									ds_url: linha.ds_url,
+									ic_ativada: linha.ic_ativada,
+									ds_classe_cor: linha.ds_classe_cor,
+									qt_utilizacao: linha.qt_utilizacao,
+									cd_ordem_categoria: linha.cd_ordem_categoria
+								};
+							}
+							
+							GerarPacoteFerramentas();
+						},
+						function (transaction, error)
+						{
+							error_in(error.message, 1, 1);
+						}
+					);
+				}
+			);			
+			document.getElementById('options-fei').style.display = "none";
+			//document.getElementById('et_menu_bar').style.display = "inline-block";
+		}
+
+		function GerarPacoteFerramentas()
+		{
+			PacoteFerramenta = [];
+			
+			banco.transaction
+			(
+				function (transaction)
+				{
+					transaction.executeSql
+					(
+						'select pacote_ferramenta.cd_pacote, pacote_ferramenta.cd_ferramenta from tb_usuario inner join usuario_pacote on tb_usuario.cd_usuario = usuario_pacote.cd_usuario inner join tb_pacote on usuario_pacote.cd_pacote = tb_pacote.cd_pacote inner join pacote_ferramenta on tb_pacote.cd_pacote = pacote_ferramenta.cd_pacote',
+						[],
+						function (transaction, results)
+						{
+							var cont;
+							
+							for (cont = 0; cont <= results.rows.length - 1; cont = cont + 1)
+							{
+								var linha = results.rows.item(cont);
+								
+								PacoteFerramenta[cont] = 
+								{
+									cd_pacote: linha.cd_pacote,
+									cd_ferramenta: linha.cd_ferramenta
+								};
+							}
+							
+							while (et_feis.firstChild) {et_feis.removeChild(et_feis.firstChild);}
+							
+							if (order == 2)
+							{
+								var aux;
+								var cont;
+								
+								do
+								{
+									var trocou = false;
+									
+									for (cont = 0; cont <= Ferramentas.length - 1; cont = cont + 1)
+									{
+										Ferramentas[cont].qt_utilizacao = parseInt(Ferramentas[cont].qt_utilizacao);
+										
+										if (cont + 1 <= Ferramentas.length - 1 && Ferramentas[cont].qt_utilizacao < Ferramentas[cont + 1].qt_utilizacao)
+										{
+											var aux = Ferramentas[cont];
+											Ferramentas[cont] = Ferramentas[cont + 1];
+											Ferramentas[cont + 1] = aux;
+											
+											trocou = true;
+										}
+									}
+								}
+								while (trocou == true);	
+							}
+							else if (order == 3)
+							{
+								var cont;
+								var aux = [];
+								
+								do
+								{
+									var trocou = false;
+									
+									for (cont = 0; cont <= Ferramentas.length - 1; cont = cont + 1)
+									{
+										Ferramentas[cont].cd_ordem_categoria = parseInt(Ferramentas[cont].cd_ordem_categoria);
+										
+										if (cont + 1 <= Ferramentas.length - 1 && Ferramentas[cont].cd_ordem_categoria > Ferramentas[cont + 1].cd_ordem_categoria)
+										{
+											var aux = Ferramentas[cont];
+											Ferramentas[cont] = Ferramentas[cont + 1];
+											Ferramentas[cont + 1] = aux;
+											
+											trocou = true;
+										}
+									}
+								}
+								while (trocou == true);	
+							}
+							
+							if (order != 1)
+							{
+								var i, j, cont, achou;
+								var aux = [];
+								
+								for (i = 0; i <= Ferramentas.length - 1; i = i + 1)
+								{
+									achou = 0;
+									
+									for (j = 0; j <= PacoteFerramenta.length - 1; j = j + 1)
+									{
+										if (PacoteFerramenta[j].cd_ferramenta == Ferramentas[i].cd_ferramenta)
+										{
+											achou = 1;
+											break;
+										}
+										else
+										{
+											achou = 0;
+										}
+									}
+									
+									if (achou == 0)
+									{
+										aux.push(Ferramentas[i]);
+										Ferramentas.splice(i, 1);
+										i = i - 1;
+									}
+								}
+								
+								while (aux.length != 0)
+								{
+									Ferramentas.push(aux[0]);
+									aux.splice(0, 1);
+								}
+							}
+							
+							GerarPainel(Ferramentas.slice(), PacoteFerramenta.slice());
+						},
+						function (transaction, error)
+						{
+							error_in(error.message, 1, 1);
+						}
+					);
+				}
+			);
+		}
+		
+		function GerarPainel(ferramentas, pacote_ferramentas)
+		{
+			var cont, aux;
+			
+			if (ferramentas.length > 0)
+			{
+				div = document.createElement('div');
+					$(div).addClass('et-fei');
+					div.setAttribute('align', 'center');
+					div.setAttribute('codigo', ferramentas[0].cd_ferramenta);
+						
+				input = document.createElement('input');
+					input.type = 'image';
+					$(input).addClass('et-fei-img');
+				
+				span = document.createElement('span');
+					$(span).addClass('et-fei-title');
+					span.textContent = ferramentas[0].nm_ferramenta;
+					
+				if (ferramentas[0].ic_ativada == 1)
+				{
+					for (cont = 0; cont <= pacote_ferramentas.length - 1; cont = cont + 1)
+					{
+						if (pacote_ferramentas[cont].cd_ferramenta == ferramentas[0].cd_ferramenta)
+						{
+							aux = 1;
+							break;
+						}
+						else
+						{
+							aux = 0;
+						}
+					}
+					
+					if (ferramentas[0].ds_url == '' && aux == 1)
+					{
+						NaoExiste(ferramentas.slice(), pacote_ferramentas.slice());
+					}
+					else if (aux == 0)
+					{
+						Existe(ferramentas.slice(), pacote_ferramentas.slice(), aux);
+					}
+					else
+					{
+						if (window.XMLHttpRequest)
+						{// code for IE7+, Firefox, Chrome, Opera, Safari
+						   aj = new XMLHttpRequest();
+						}
+						else
+						{// code for IE6, IE5
+						   aj = new ActiveXObject("Microsoft.XMLHTTP");
+						}
+							
+						aj.onreadystatechange = function() {VerificaAjax(aj, ferramentas.slice(), pacote_ferramentas.slice(), aux);}
+						
+						aj.open('GET', ferramentas[0].ds_url)
+						aj.send();
+					}			
+				}
+			}
+		}
+		
+		function VerificaAjax(ajax, ferramentas, pacote_ferramentas, aux)
+		{
+			if (ajax.readyState == 4 && ajax.status == 200)
+			{
+				Existe(ferramentas.slice(), pacote_ferramentas.slice(), aux);	
+			}
+			else if (ajax.status == 404)
+			{
+				if (aux == 1)
+				{
+					NaoExiste(ferramentas.slice(), pacote_ferramentas.slice());
+				}
+				else
+				{
+					Existe(ferramentas.slice(), pacote_ferramentas.slice(), aux);	
+				}
+			}
+		}
+		function NaoExiste(ferramentas, pacote_ferramentas)
+		{
+			div.setAttribute('url', ferramentas[0].ds_url);
+			div.setAttribute('onclick', "error_in('Ferramenta indisponível nessa versão. Atualize o EletronTech para desfrutar dessa ferramenta.', 1, 1);");
+			
+			$(input).addClass('feiGray');
+			input.src = 'images/close.png';
+			
+			div.setAttribute('ativada', 1);
+			
+			AdicionarFei(ferramentas.slice(), pacote_ferramentas.slice());
+		}
+		
+		function Existe(ferramentas, pacote_ferramentas, aux)
+		{
+			if (aux == 1)
+			{
+				div.setAttribute('url', ferramentas[0].ds_url);
+				div.setAttribute('onclick', "window.location.href = this.getAttribute('url') + '?codigo=' + this.getAttribute('codigo');");
+				
+				$(input).addClass(ferramentas[0].ds_classe_cor);
+				
+				if (ferramentas[0].im_ferramenta != "")
+				{
+					input.src = 'fei/' + ferramentas[0].im_ferramenta;
+				}
+				else
+				{
+					input.src = 'images/ferramentas.png';
+				}
+				
+				div.setAttribute('ativada', 1);
+			}
+			else
+			{
+				$(input).addClass('feiGray');
+				input.src = 'images/block.png';
+				
+				div.setAttribute('onclick', "error_in('Ferramenta não habilitada!', 1, 1); UtilizarFerramenta(this.getAttribute('codigo'), 0, this.getAttribute('ativada'), '');");
+				
+				div.setAttribute('ativada', 0);
+			}
+			
+			AdicionarFei(ferramentas.slice(), pacote_ferramentas.slice());
+		}
+		
+		function AdicionarFei(ferramentas, pacote_ferramentas)
+		{
+			div.insertAdjacentElement('beforeend', input);
+			div.insertAdjacentElement('beforeend', span);
+			
+			et_feis.insertAdjacentElement('beforeend', div);
+			
+			ferramentas.splice(0, 1);
+			
+			GerarPainel(ferramentas.slice(), pacote_ferramentas.slice());
+		}
+		
+		function resizingTool(){
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			h10 = hScreen * 0.10;
+			h80 = hScreen * 0.80;
+			
+			//Topbar resizing
+			et_topbar.style.height = h10+"px";
+			et_back.style.height = h10+"px";
+			et_menu.style.height = h10+"px";
+			et_refresh.style.height = h10+"px";
+			et_space_back.style.height = h10+"px";
+			et_space_menu.style.height = h10+"px";
+			et_space_refresh.style.height = h10+"px";
+			
+		}
+		
+		function error_in(texto, ic, tipo)
+		{
+			txt_error.innerHTML = texto;
+			
+			if (ic == 0)
+			{
+				btn_eout.style.visibility = "hidden";
+			}
+			else
+			{
+				btn_eout.style.visibility = "visible";
+			}
+			
+			if (tipo == 1)
+			{
+				window.location.hash = '#alert';
+			}
+			else if (tipo == 0)
+			{
+				window.location.hash = '#loading';
+			}
+			else if (tipo == 2)
+			{
+				window.location.hash = '#synchro';
+			}
+		}
+		
+		function error_out()
+		{
+			if (window.location.hash == '#synchro')
+			{
+				//GerarFerramentas();
+			}
+			
+			history.back();
+		}
+		
+		function question_in(texto, tipo)
+		{
+			txt_question.innerHTML = texto;
+			
+			if (window.location.hash == "#et_menu_bar")
+			{
+				history.back();
+			}
+			
+			setTimeout(function() {window.location.hash = '#question';}, 500);
+		}
+		
+		function question_out(ic)
+		{
+			history.back();
+			
+			if (ic == 1)
+			{
+				try
+				{
+					if (!ConexaoInternet())
+					{
+						error_in('Você está sem conexão com a internet!', 1, 1);
+					}
+					else 
+					{
+						SincronizarDados(window.localStorage.getItem('codigo'));
+					}
+				}
+				catch (e)
+				{
+					console.log(e.message);
+				}
+			}
+		}
+		
+		function UtilizarFerramenta(codigoFerramenta, tipo, ativada, url)
+		{
+			if (ConexaoInternet())
+			{
+				if (ativada == 1)
+				{
+					error_in("Abrindo a ferramenta...", 0);
+				}
+				
+				Ajax("GET", "https://www.anytech.com.br/et/php/UtilizarFerramenta.php", "codigoFerramenta=" + codigoFerramenta + "&codigoUsuario=" + window.localStorage.getItem('codigo') + "&tipo=" + tipo, "//AbrirFerramenta('" + url + "');");
+			}
+		}
+		
+		function AbrirFerramenta(url)
+		{
+			window.location.href = url;
+		}
+		
+		
+	</script>
+</html>

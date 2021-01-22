@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>EletronTech - Formas Superficiais</title>
+		<link rel="stylesheet" type="text/css" href="../css/fei.css">
+		<link rel="shortcut icon" type="image/png" href="../images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body style="display: none;">
+		<div class="et-topbar" id="et_topbar">
+			<table id="tabela" valign="center" width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<tr width="100%"  valign="center" >
+					<td id="et_space_back" valign="center">
+						<input type="image" src="../images/back.png" class="et-back" id="et_back" onclick="history.back();"/>
+					</td>
+					<td width="100%" height="100%" valign="center">
+						<span class="et-fei-name">Formas Superficiais</span>
+					</td>
+					<td id="et_space_menu" valign="center">
+						<input type="image" src="../images/help.png" class="et-menu" id="et_menu">
+					</td>	
+				</tr>
+			</table>
+		</div>
+		<form onkeypress="if (event.keyCode == 13) {btn_calcular.click();}" style="overflow: auto; height: inherit;">
+			<div class="et-medium" id="et_medium">
+				<table width="100%" class="et-tooltable">
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Forma</label>						
+							<select type="text" class="txt_value" id="cmb_area" title="Area" onchange="etOptionsArea()">
+									<!--<option value="0">Selecione uma Opção</option>-->
+									<option value="1">Círculo</option>
+									<option value="2">Hexagono</option>
+									<option value="3">Losango</option>
+									<option value="4">Pentágono</option>
+									<option value="5">Quadrado</option>
+									<option value="6">Retângulo</option>
+									<option value="7">Rombóide</option>
+									<option value="8">Trapézio</option>
+									<option value="9">Triângulo</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+				
+				<div class="typeCalc" id="c1">
+					<table>
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Raio (m²)</label>
+								<input type="text" class="txt_value" id="txt_raio_c1" title="Raio (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Área (m²)</label>
+								<input type="text" class="txt_value" id="txt_area_c1" title="Área (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Perímetro (m²)</label>
+								<input type="text" class="txt_value" id="txt_perimetro_c1" title="Perímetro (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="typeCalc" id="c2">
+					<table>
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Perímetro (m)</label>
+								<input type="text" class="txt_value" id="txt_perimetro_c2" title="Perímetro (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>	
+					
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Apótema (m)</label>
+								<input type="text" class="txt_value" id="txt_apotema_c2" title="Apótema (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Área (m²)</label>
+								<input type="text" class="txt_value" id="txt_area_c2" title="Área (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="typeCalc" id="c3">
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Diagonal Maior (m)</label>
+							<input type="text" class="txt_value" id="txt_diagonal_maior_c3" title="Diagonal Maior (m)" unidade="m" inteiro="false"/>
+						</td>
+					</tr>	
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Diagonal Menor (m)</label>
+							<input type="text" class="txt_value" id="txt_diagonal_menor_c3" title="Diagonal Menor (m)" unidade="m" inteiro="false"/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Área (m²)</label>
+							<input type="text" class="txt_value" id="txt_area_c3" title="Área (m²)" unidade="m²" inteiro="false"/>
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Perímetro (m²)</label>
+							<input type="text" class="txt_value" id="txt_perimetro_c3" title="Perímetro (m²)" unidade="m²" inteiro="false"/>
+						</td>
+					</tr>
+				</div>
+				
+				<div class="typeCalc" id="c4">
+					<table>
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Perímetro (m)</label>
+								<input type="text" class="txt_value" id="txt_perimetro_c4" title="Perímetro (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>	
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Apótema (m)</label>
+								<input type="text" class="txt_value" id="txt_apotema_c4" title="Apótema (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>
+
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Área (m²)</label>
+								<input type="text" class="txt_value" id="txt_area_c4" title="Área (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="typeCalc" id="c5">
+					<table>
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Largura (m)</label>
+								<input type="text" class="txt_value" id="txt_largura_c5" title="Largura (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>	
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Lado (m)</label>
+								<input type="text" class="txt_value" id="txt_lado_c5" title="Lado (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>
+							
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Área (m²)</label>
+								<input type="text" class="txt_value" id="txt_area_c5" title="Área (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Perímetro (m²)</label>
+								<input type="text" class="txt_value" id="txt_perimetro_c5" title="Perímetro (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="typeCalc" id="c6">
+					<table>
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Base (m)</label>
+								<input type="text" class="txt_value" id="txt_base_c6" title="Base (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>	
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Altura (m)</label>
+								<input type="text" class="txt_value" id="txt_altura_c6" title="Altura (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>
+
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Área (m²)</label>
+								<input type="text" class="txt_value" id="txt_area_c6" title="Área (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Perímetro (m²)</label>
+								<input type="text" class="txt_value" id="txt_perimetro_c6" title="Perímetro (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>						
+					</table>
+				</div>
+				
+				<div class="typeCalc" id="c7">
+					<table>
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Base (m)</label>
+								<input type="text" class="txt_value" id="txt_base_c7" title="Base (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>	
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Altura (m)</label>
+								<input type="text" class="txt_value" id="txt_altura_c7" title="Altura (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>
+
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Área (m²)</label>
+								<input type="text" class="txt_value" id="txt_area_c7" title="Área (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Perímetro (m²)</label>
+								<input type="text" class="txt_value" id="txt_perimetro_c7" title="Perímetro (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="typeCalc" id="c8">
+					<table>
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Base Maior (m)</label>
+								<input type="text" class="txt_value" id="txt_base_maior_c8" title="Base Maior (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>	
+					
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Base Menor (m)</label>
+								<input type="text" class="txt_value" id="txt_base_menor_c8" title="Base Menor (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>	
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Altura (m)</label>
+								<input type="text" class="txt_value" id="txt_altura_c8" title="Altura (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>
+							
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Área (m²)</label>
+								<input type="text" class="txt_value" id="txt_area_c8" title="Área (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Perímetro (m²)</label>
+								<input type="text" class="txt_value" id="txt_perimetro_c8" title="Perímetro (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="typeCalc" id="c9">
+					<table>
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Base (m)</label>
+								<input type="text" class="txt_value" id="txt_base_c9" title="Base (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>	
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Altura (m)</label>
+								<input type="text" class="txt_value" id="txt_altura_c9" title="Altura (m)" unidade="m" inteiro="false"/>
+							</td>
+						</tr>
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Área (m²)</label>
+								<input type="text" class="txt_value" id="txt_area_c9" title="Área (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+						
+						<tr width="100%">
+							<td width="100%">
+								<label class="lbl_title">Perímetro (m²)</label>
+								<input type="text" class="txt_value" id="txt_perimetro_c9" title="Perímetro (m²)" unidade="m²" inteiro="false"/>
+							</td>
+						</tr>
+					</table>
+				</div>				
+				
+			</div>
+			
+			<!--BOTÃO CALCULAR-->
+			<div class="et-bottom" id="et_bottom">
+				<input type="button" value="Calcular" id="btn_calcular" onclick="if (this.value == 'Calcular') {UtilizarFerramenta(codigoFerramenta, 2); Validar(this, '>= 1');} else {Limpar(this);}">
+			</div>
+			<!--BOTÃO CALCULAR-->
+			
+		</form>
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error">Por favor, preencha todos os campos corretamente!</label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+		<!--AJUDA-->
+		<div id="termos">
+			<div id="termos_box">
+				<div class="into_termos">
+					<label class="lbl_title">Sobre a Ferramenta</label>
+					<div id="txt_termos" style="text-align: justify;">
+						<p class="fei_desc_bold">Descrição</p> 
+						<!--Descrição-->
+						<p class="fei_desc_comp">Ferramenta que possibilita o cálculo da área de formas em duas dimensões.
+<p>
+
+						
+					</div>
+				</div>
+				<input type="button" id="btn_termos" value="OK">
+			</div>
+		</div>
+		<!--AJUDA-->
+	</body>
+	<script type="text/javascript" src="../cordova.js"></script>
+	<script type="text/javascript" src="js/Disjuntor e Fiacao - Calculo.js"></script>
+	<script type="text/javascript" src="js/Validacao - Ferramentas.js"></script>
+	<script type="text/javascript" src="js/help.js"></script>
+	<script type="text/javascript" src="../js/banco.js"></script>
+	<script type="text/javascript" src="../js/ajax.js"></script>
+	<script type="text/javascript" src="../js/ControleHash.js"></script>
+	<script type="text/javascript" src="../js/AnyTech - Validacao.js"></script>
+	<script>
+		window.onload = function()
+		{	
+			helpActived = 0;
+			resizingTool();
+			
+			document.body.style.display = "inline-block";
+			
+			AbrirBanco();
+			
+			/*if (!VerificarLogado())
+			{
+				window.location.href = '../';
+			}
+			else
+			{*/
+				Parametros = GetParametros();
+				
+				codigoFerramenta = Parametros["codigo"];
+				
+				UtilizarFerramenta(codigoFerramenta, 1);
+				
+				ControleHash(window.location.hash, event);
+			//}
+			
+			document.getElementById('c1').style.display = "inline-block";
+			document.getElementById('cmb_area').value="1";
+			
+		}	
+		
+		function resizingTool(){
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			h10 = hScreen * 0.10;
+			h80 = hScreen * 0.80;
+			
+			//Topbar resizing
+			et_topbar.style.height = h10+"px";
+			et_back.style.height = h10+"px";
+			et_menu.style.height = h10+"px";
+			et_space_back.style.height = h10+"px";
+			et_space_menu.style.height = h10+"px";
+			
+			//bottom resizing
+			et_bottom.style.height = h10+"px";
+		}
+		
+		function error_in()
+		{
+			/*error.style.visibility = "visible";
+			error.style.opacity = "1";*/
+			
+			window.location.hash = '#alert';
+		}
+		
+		function error_out()
+		{
+			/*//btn_eout.style.visibility = "hidden";
+			error.style.opacity = "0";
+			error.style.visibility = "hidden";*/
+			
+			history.back();
+		}
+		
+		function UtilizarFerramenta(codigoFerramenta, tipo)
+		{
+			if (ConexaoInternet() && codigoFerramenta != undefined)
+			{
+				Ajax("GET", "https://www.anytech.com.br/et/php/UtilizarFerramenta.php", "codigoFerramenta=" + codigoFerramenta + "&codigoUsuario=" + window.localStorage.getItem('codigo') + "&tipo=" + tipo, "");
+			}
+		}
+		
+		function etOptionsArea(){
+			var area = document.getElementById('cmb_area').value;
+			
+			for(i=1; i<= 9;i++){					
+					document.getElementById("c"+i).style.display = "none";
+			}
+			
+			if(area == 1){
+				document.getElementById('c1').style.display = "inline-block";
+			}
+			
+			if(area == 2){
+				document.getElementById('c2').style.display = "inline-block";
+			}
+			
+			if(area == 3){
+				document.getElementById('c3').style.display = "inline-block";
+			}
+			
+			if(area == 4){
+				document.getElementById('c4').style.display = "inline-block";
+			}
+			
+			if(area == 5){
+				document.getElementById('c5').style.display = "inline-block";
+			}
+			
+			if(area == 6){
+				document.getElementById('c6').style.display = "inline-block";
+			}
+			
+			if(area == 7){
+				document.getElementById('c7').style.display = "inline-block";
+			}
+			
+			if(area == 8){
+				document.getElementById('c8').style.display = "inline-block";
+			}
+			
+			if(area == 9){
+				document.getElementById('c9').style.display = "inline-block";
+			}
+		}
+	</script>
+</html>

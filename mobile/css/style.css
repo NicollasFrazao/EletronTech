@@ -1,0 +1,317 @@
+*{
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	outline: none;
+	font-family: century gothic;
+}
+
+html, body{
+	width: 100%;
+	height: 100%;
+	background-color: #00b0f0;
+}
+
+
+/* EletronTech Font Colors*/
+
+.fWhite{
+	color: #fff;
+}
+
+.fBlue{
+	color: #00b0f0;
+}
+
+.fLightGray{
+	color: #999;
+}
+
+.fGray{
+	color: #333;
+}
+
+.fBlack{
+	color: #000;
+}
+
+/* EletronTech Background Colors*/
+
+.bWhite{
+	background-color: #fff;
+}
+
+.bBlue{
+	background-color: #00b0f0;
+}
+
+.bLightGray{
+	background-color: #999;
+}
+
+.bGray{
+	background-color: #333;
+}
+
+.bBlack{
+	background-color: #000;
+}
+
+/* EletronTech Shadows */
+
+.buttonShadow{
+	box-shadow: 0px 3px 2px rgba(0,0,0,0.3);
+}
+
+.textShadow{
+	text-shadow: 0px 3px 2px rgba(0,0,0,0.3);
+}
+
+/* Login Screen */
+.et-main{
+	display: inline-block;
+}	
+
+
+.et-main-top{
+	display: inline-block;
+	width: 100%;
+	height: 40%;
+}
+
+.et-logo{
+	display: inline-block;
+	height: 50%;
+	margin-top: 10%;
+}
+
+.et-name{
+	color: rgba(255,255,255,1);
+	font-weight: 100;
+	font-size: 1.5em;
+	letter-spacing: 1px;
+}
+
+.et-main-bottom{
+	display: inline-block;
+	height: auto;
+	width: 90%;
+	padding-left: 5%;
+	padding-right: 5%;	
+}
+
+
+/* Inputs */
+
+.et-input{
+	display: inline-block;
+	width: 90%;
+	height: 8.50%;
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-top: 3.19%;
+	padding-bottom: 3.19%;
+	margin-bottom: 10px;
+	border: 0px;
+	box-shadow: 0px 1px 10px rgba(0,0,0,0.1);
+	font-size: 13px;
+}
+
+.et-input:focus{
+	box-shadow: 0px 5px 5px rgba(0,89,240,0.5);
+}
+
+.et-button{
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-top: 3.19%;
+	padding-bottom: 3.19%;
+	margin-bottom: 10px;
+	border: 0px;
+	color: rgb(255,255,255);
+	font-size: 13px;
+	text-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+	font-size: 0.9em;
+}
+
+.btnTrue{
+	background-color: #00b8ff;
+	color: #fff;
+	box-shadow: 0px 1px 10px rgba(0,0,0,0.1);
+}
+
+.btnTrue:focus{
+	background-color: #00c5ff;
+}
+
+.btnFalse{
+	background-color: transparent;
+	color: white;
+	margin-top: 20px;
+	font-size: 0.7em;
+	box-shadow: 0px 3px 2px rgba(0,0,0,0.0);
+}
+
+.btnTrue2{
+	background-color: rgba(0,0,0,0);
+	color: white;
+	font-size: 0.7em;
+	border: 1px solid #fff;
+	width: auto;
+	padding-left: 15%;
+	padding-right: 15%;
+}
+
+.btnTrue2:focus{
+	background-color: #00c5ff;
+}
+
+.et-forgot{
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	width: 80%;
+	height: 40%;
+	top: 15%;
+	left: 5%;
+	padding: 5%;
+	background-color: #fff;
+	position: fixed;
+	z-index: 9970;
+	box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+	transition: opacity 0.3s, visibility 0.3s;
+}
+
+
+.et-message{
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	width: 80%;
+	height: auto;
+	top: 15%;
+	left: 5%;
+	padding: 5%;
+	background-color: #fff;
+	position: fixed;
+	z-index: 9990;
+	box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+	transition: opacity 0.3s, visibility 0.3s;
+}
+
+.rec{
+	margin-top: 20px;
+}
+
+.et-cover{
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	position: absolute;
+	z-index: 9980;
+	background-color: rgba(0,0,0,0.5);
+	transition: opacity 0.5s, visibility 0.5s;
+}
+
+.et-forgot-title{
+	display: inline-block;
+	width: 100%;
+	padding-bottom: 0px;
+	height: 8.50%;
+	font-size: 1em;
+	font-weight: bold;
+	text-align: center;
+	color: #00b0f0;
+}
+
+.et-message-title{
+	display: inline-block;
+	width: 100%;
+	padding-bottom: 0px;
+	height: 8.50%;
+	font-size: 1em;
+	font-weight: bold;
+	text-align: center;
+	color: #00b0f0;
+}
+
+.et-message-desc{
+	display: inline-block;
+	width: 100%;
+	padding-top: 0px;
+	height: auto;
+	max-height: 25%;
+	margin-top: 5%;
+	text-align: justify;
+	color: #555;
+	font-size: 0.8em;
+	text-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+}
+
+
+.et-forgot-desc{
+	display: inline-block;
+	width: 100%;
+	padding-top: 0px;
+	height: auto;
+	max-height: 25%;
+	margin-top: 5%;
+	text-align: justify;
+	color: #555;
+	font-size: 0.8em;
+	text-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+}
+
+.et-input-forgot{
+	display: inline-block;
+	width: 90%;
+	height: 8%;
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-top: 3.19%;
+	padding-bottom: 3.19%;
+	margin-bottom: 10px;
+	margin-top: 5%;
+	border: 1px solid rgba(0,0,0,0.2);
+	box-shadow: 0px 1px 3px rgba(0,0,0,0);
+	font-size: 13px;
+}
+
+.et-input-forgot:focus{
+	box-shadow: 0px 2px 5px rgba(0,89,240,0.5);
+}
+
+.btnTrue2-forgot{
+	background-color: rgba(0,0,0,0);
+	color: #00b0f0;
+	font-size: 0.9em;
+	width: 100%;
+	padding-left: 15%;
+	padding-right: 15%;
+	text-shadow: 0px 0px 0px rgba(0,0,0,0);
+}
+
+/* Place holders*/
+
+::-webkit-input-placeholder {
+   color: #888;
+}
+
+:-moz-placeholder {
+   color: #888;
+}
+
+::-moz-placeholder {
+   color: #888;
+}
+
+:-ms-input-placeholder {  
+   color: #888;
+}

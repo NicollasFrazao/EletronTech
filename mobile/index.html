@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>EletronTech</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="shortcut icon" type="image/png" href="images/eletrontech-anytech-logo-blue.png"/>
+	</head>
+	<body>
+		<div class="et-main bBlue" id="et_main">
+			<div class="et-main-top" id="et_main_top" align="center">
+				<img src="images/eletrontech-anytech-logo.png" class="et-logo">
+			</div>
+		</div>
+		<div class="et-main-bottom" id="et_main_bottom" align="center">
+		</div>
+	</body>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script src="js/banco.js"></script>
+	<script>
+		window.onload = function()
+		{
+			resize();
+			
+			AbrirBanco();
+			
+			setTimeout
+			(
+				function()
+				{
+					if (!VerificarLogado())
+					{
+						window.location.href = 'Login.html';
+					}
+					else
+					{
+						window.location.href = 'Painel.html';
+					}
+				},
+				1000
+			);
+		}
+		
+		function resize(){
+			
+			//Capturando a dimensão da tela
+			wScreen = window.innerWidth;
+			hScreen = window.innerHeight;
+			
+			//aplicando tamanho total da tela
+			document.getElementById('et_main').style.width = wScreen+"px";
+			document.getElementById('et_main').style.height = hScreen+"px";
+			
+			hTop = et_main_top.scrollHeight;
+			hBottom = et_main_bottom.scrollHeight;
+			
+			hPd = ((hScreen * 6.6)/100) * 6;
+			hSoma = hTop + hBottom;
+			
+			
+			hInner = (100 * hSoma)/hScreen; 
+			
+			hPadding = (100 - hInner) /2;
+			document.getElementById('et_main').style.paddingTop = hPadding+"%";
+			
+			h40 = hScreen * 0.40;
+			//document.getElementById('et_forgot').style.height = h40+"px";
+		}
+		
+		window.onresize = function(){
+			hNow = window.innerHeight;
+			if(hNow == hScreen){
+				logoVisible();				
+			}
+		}
+	</script>
+</html>

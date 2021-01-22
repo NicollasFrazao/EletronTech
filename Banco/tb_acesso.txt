@@ -1,0 +1,22 @@
+use db_eletrontech;
+
+create table tb_acesso
+(
+  cd_acesso int not null,
+  nm_ip_remoto varchar(15),
+  nm_ip_servidor varchar(15),
+  nm_servidor varchar(200),
+  nm_navegador varchar(15),
+  cd_porta int(10),
+  cd_porta_remota int(10),
+  dt_acesso datetime,
+  qt_erros tinyint(1),
+  dt_reativar datetime,
+  cd_usuario int,
+  constraint pk_acesso
+    primary key (cd_acesso),
+  constraint fk_acesso_usuario
+    foreign key (cd_usuario)
+      references tb_usuario(cd_usuario)
+);
+

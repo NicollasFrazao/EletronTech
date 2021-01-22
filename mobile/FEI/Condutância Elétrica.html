@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/css.css">
+	</head>
+	<body>
+		<div id="all">
+			<div id="et_topbar">
+				<table width="100%" height="100%">
+					<tr width="100%">
+						<td width="10%" align="center">
+							<input type="image" src="imagens/return.png" id="btn_return">
+						</td>
+						<td width="80%" align="center">
+							<label id="nm_fei">Condutância Elétrica</label>
+						</td>
+						<td width="10%" align="center">
+							<input type="image" src="imagens/ajuda.png" id="btn_help" onclick="help_in()">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="et_tool">
+				<table width="100%">				
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Intensidade da Corrente (A)</label>						
+							<input type="text" class="txt_value" id="txt_intensidade" title="Intensidade da Corrente (A)" unidade="A" inteiro="false">
+						</td>
+					</tr>
+					
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Tensão Elétrica (V)</label>						
+							<input type="text" class="txt_value" id="txt_tensao" title="Tensão Elétrica (V)"  unidade="V" inteiro="false">
+						</td>
+					</tr>
+					<tr width="100%">
+						<td width="100%">
+							<label class="lbl_title">Condutância Elétrica (S)</label>						
+							<input type="text" class="txt_value" id="txt_condutancia" title="Condutância Elétrica (S)" unidade="S" inteiro="false">
+						</td>
+					</tr>					
+				</table>
+			</div>
+			<div id="et_bottombar">				
+				<input type="button" value="Calcular" id="btn_calcular" onclick="if (this.value == 'Calcular') {Validar(this, '== 2');} else {Limpar(this);}">
+			</div>
+		</div>
+		<div id="help">
+			<div id="help_box">
+				<label id="txt_help">Adicionar uma legenda maneira aqui!</label>
+				<input type="button" id="btn_hout" value="OK" onclick="help_out()">
+			</div>
+		</div>
+		
+		<div id="error">
+			<div id="error_box">
+				<label id="txt_error">Por favor, preencha todos os campos corretamente!</label>
+				<input type="button" id="btn_eout" value="OK" onclick="error_out()">
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="script/Condutância Elétrica - Cálculo.js"></script>
+	<script type="text/javascript" src="script/Validação - Ferramentas.js"></script>
+	<script>
+		function help_in()
+		{
+			help.style.display = "inline-block";
+		}
+		
+		function help_out()
+		{
+			help.style.display = "none";
+		}
+		
+		function error_in()
+		{
+			error.style.display = "inline-block";
+		}
+		
+		function error_out()
+		{
+			error.style.display = "none";
+		}
+	</script>
+	</html>

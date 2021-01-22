@@ -1,0 +1,275 @@
+*
+{
+	margin: 0;
+	padding: 0;
+	outline: none;
+	
+}
+
+body
+{
+	display: inline-block;
+	background-color: #eeeeee;
+	
+}
+
+#all
+{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: #eeeeee;
+	
+}
+
+
+#menuEsquerda
+{
+	display: inline-block;
+	float: left;
+	width: 40px;
+	background-color: black;
+	z-index: 9999;
+	position: absolute;
+	height: 100%;
+	box-shadow: 0px 0px 4px 0px #404040;
+}
+
+#central
+{
+	display: inline-block;
+	width:775px;
+	position: absolute;
+	margin-left: 5px;
+	background-color: green;
+	
+}
+
+#barraDireita
+{
+	display: inline-block;
+	width: 230px;
+	height: 100%;
+	position:absolute;
+	right: 0;
+	background-color: black;
+	z-index: 9999;
+	box-shadow: 0px 0px 4px 0px #404040;
+}
+
+#barraDireita label
+{
+	color: white;
+	z-index: 9999;
+}
+
+#menu
+{
+	display: inline-block;
+	width: 100%;
+	z-index: 9999;
+	background-color: black;
+	
+}
+
+#menuEsquerda input:hover
+{
+	background: linear-gradient(#00abff, #00abff);
+}
+
+#menu input
+{
+	display: inline-block;
+	width:  100%;
+	background-color: transparent;
+}
+
+
+
+
+
+#subMenuEsquadria
+{
+	display: none;
+	width:78px;
+	position: absolute;
+	margin-top:114px;
+	z-index: 9999;
+	margin-left: 40px;
+}
+
+#subMenuEsquadria input
+{
+	display: inline-block;
+	width:  100%;
+	background-color: #2eb2f2;
+	z-index: 9999;
+	
+}
+
+#subMenuLampadas
+{
+	display: none;
+	width:234px;
+	position: absolute;
+	margin-top:152px;
+	z-index: 9999;
+	margin-left: 40px;
+}
+
+#subMenuLampadas input
+{
+	display: inline-block;
+	width:  100%;
+	background-color: #2eb2f2;
+}
+
+#subMenuTomadas
+{
+	display: none;
+	width: 117px;
+	position: absolute;
+	margin-top:190px;
+	z-index: 9999;
+	margin-left: 40px;
+}
+
+#subMenuTomadas input
+{
+	display: inline-block;
+	width:  100%;
+	background-color: #2eb2f2;
+	
+}
+
+#subMenuInterruptores
+{
+	display: none;
+	width: 195px;
+	position: absolute;
+	margin-top:228px;
+	z-index: 9999;
+	margin-left: 40px;
+}
+
+#subMenuInterruptores input
+{
+	display: inline-block;
+	width:  100%;
+	background-color: #2eb2f2;
+}
+
+#subMenuCondutores
+{
+	display: none;
+	width: 156px;
+	position: absolute;
+	margin-top:266px;
+	z-index: 9999;
+	margin-left: 40px;
+}
+
+#subMenuCondutores input
+{
+	display: inline-block;
+	width:  100%;
+	background-color: #2eb2f2;
+}
+
+
+#subMenuQuadros
+{
+	display: none;
+	width: 78px;
+	position: absolute;
+	margin-top:304px;
+	z-index: 9999;
+	margin-left: 40px;
+}
+
+#subMenuQuadros input
+{
+	display: inline-block;
+	width:  100%;
+	background-color: #2eb2f2;
+}
+
+#subMenuConduites
+{
+	display: none;
+	width: 156px;
+	position: absolute;
+	margin-top:342px;
+	z-index: 9999;
+	margin-left: 40px;
+}
+
+#subMenuConduites input
+{
+	display: inline-block;
+	width:  100%;
+	background-color: #2eb2f2;
+}
+
+#subMenuZoom
+{
+	display: none;
+	width: 78px;
+	position: absolute;
+	margin-top:418px;
+	z-index: 9999;
+	margin-left: 40px;
+}
+
+#subMenuZoom input
+{
+	display: inline-block;
+	width:  100%;
+	background-color: #2eb2f2;
+}
+
+#painelDesenho
+{
+	display: none;
+	margin-left: 5px;
+	width: 760px;
+	height: 570px;
+	margin-top: 40px;
+	background-color: black;
+	border: 0px solid white;
+	z-index: 0;
+	margin-left: 45px;
+	border: 2px solid white;
+	box-shadow: 0px 0px 2px 0px black;
+}
+
+#selComodo
+{
+	display: none;
+	width: 100%;
+}
+
+#nomeComodo
+{
+	font-size: 18px;
+	color: white;
+}
+
+#atual
+{
+	display: inline-block;
+	width: 100%;
+	font-size:26px;
+	background-color: transparent;
+	border: 0px;
+	font-size: 18px;
+	color: white;
+	margin-left: 50px;
+	position: absolute;
+}
+
+#point1
+{
+	z-index: 9999;
+}

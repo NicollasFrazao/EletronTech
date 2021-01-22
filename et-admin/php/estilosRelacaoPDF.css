@@ -1,0 +1,148 @@
+*
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+body
+{
+	background-color: transparent;
+}
+
+
+#barra
+{
+	display: inline-block;
+	width: 100%;
+}
+
+#et
+{
+	display: inline;
+	position: absolute;
+	height: 4%;
+	width: 50%;
+	top: 0;
+	margin-left: 25%;
+	box-shadow: 0px 0px 5px 5px black;
+}
+
+#user
+{
+	display: inline-block;
+	position:relative;
+	width: 100%;
+	color: white;
+	font-family: Century Gothic;
+	opacity: 0.9;
+	margin-left: 15%;
+}
+
+#user h1
+{
+	display: inline-block;
+	font-size: 32px;
+	color: #40c1f2;
+	font-weight: bold;
+	margin-left: 20px;
+	margin-bottom: 10px;
+}
+
+#user label
+{
+	font-size: 14px;
+	color:white;
+	margin-left:20px;
+	font-weight: bold;
+}
+
+#user #data
+{
+	font-size: 14px;
+	color:white;
+	font-weight: normal;
+	margin-left:20px;
+}
+
+td
+{
+	height: 10px;
+}
+
+#imgUser
+{
+	background-color: #5a5a5a;
+	width: 200px;
+	height: 200px;
+	margin-left: 20px;
+	margin-right: 5px;
+}
+
+#btn_editar
+{
+	margin-left: 20px;
+	width: 40px;
+}
+
+#btn_excluir
+{
+	width: 40px;
+}
+
+#btn_ativarDesativar
+{
+	width: 40px;
+}
+
+#barraBusca
+{
+	display: inline-block;
+	height: 40px;
+	width: 655px;
+	font-size: 20px;
+	font-family: Century Gothic;
+	border: 2px solid black;
+	background-color: black;
+	margin-right: 5px;
+	color: white;
+	padding: 5px;
+}
+
+
+#Frm_Busca
+{
+	width: 750px;
+	height: 40px;
+	margin-left: -400px;
+	left: 50%;
+	position: absolute;
+	margin-bottom: -50px;
+}
+
+#btn_busca, #btn_limpar, #btn_gerar
+{
+	width:40px;
+	background-color: #1492df;
+}
+
+#btn_limpar, #btn_gerar
+{
+	margin-left:5px;
+	background-color: #474747;
+}
+
+h1
+{
+	font-family: Century Gothic;
+	color: black;
+	
+}
+
+#User #EE
+{
+	position: absolute;
+	margin-top:12px;
+	margin-left: -50px;
+	font-family: Century Gothic;
+	font-size: 18px;
+}

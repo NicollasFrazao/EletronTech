@@ -1,0 +1,90 @@
+<style>
+	#leftMenu
+	{
+		display: inline-block;
+		width: 200px;
+		height: 200px;
+		background-color: black;
+		padding:10px
+		border: 2px solid;
+	}
+	
+	#leftMenu input
+	{
+		display: inline-block;
+		width: 60px;
+		height: 60px;
+	}
+	
+	#leftMenu input:hover
+	{
+		background-color:#0e90df;
+	}
+	
+	#leftMenu #btn_fechar
+	{
+		display: inline-block;
+		background-color: black;
+		width: 30px;
+		height: 30px;
+	}
+	
+	#leftMenu #btn_fechar:hover
+	{
+		background-color: red;
+	}
+</style>
+<div id="leftMenu">
+<table>
+	<tr>
+		<td>
+			
+		</td>
+		<td>
+			<input id="btn_top" type="image" src="imagens/calculadora.png" onclick="calc()">
+		</td>
+		<td>
+			
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input id="btn_top" type="image" src="imagens/calendario.png">
+		</td>
+		<td align="center">
+			<input id="btn_fechar" type="image" src="imagens/fechar.png">
+		</td>
+		<td>
+			<input id="btn_top" type="image" src="imagens/cronometro.png">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			
+		</td>
+		<td>
+			<input id="btn_top" type="image" src="imagens/bloco.png">
+		</td>
+		<td>
+			
+		</td>
+	</tr>
+</table>
+<script>
+	btn_fechar.onmousedown = function()
+	{
+		parent.fechaMenu();
+	}
+	
+	function calc()
+	{
+		parent.mouseMenu.src="FEI/EletronTech Calc.html";
+		parent.mouseMenu.style.width="250px";
+		parent.mouseMenu.style.height="380px";
+		parent.mouseMenu.style.top="50%";
+		parent.mouseMenu.style.left="50%";
+		parent.mouseMenu.style.marginTop="-190px";
+		parent.mouseMenu.style.marginLeft="-125px";
+	}
+</script>
+</div>

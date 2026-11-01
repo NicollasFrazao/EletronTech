@@ -6,6 +6,8 @@ Final project (TCC) of the IT technical course (Técnico em Informática) at ETE
 
 The idea, from the project documentation: give electricians, electrical technicians and students simple web tools for the calculations and the low-voltage residential electrical projects they do by hand, following the Brazilian standard ABNT NBR 5410 and using simplified symbols, as an affordable alternative to commercial tools that are expensive, complex or tied to AutoCAD. The team surveyed similar software and interviewed 17 students of the school's building-construction course, who named wiring calculations and the time a project takes as their main difficulties.
 
+The technical documentation submitted with the project (in Portuguese) is in [`docs/technical-documentation-pt-BR.pdf`](docs/technical-documentation-pt-BR.pdf): research, business rules, use cases, class and activity diagrams, requirements per screen, the database diagram, the data dictionary and the WBS. The page with the students' registration numbers was removed, and the birth date, phone and ID number of the test user in two screenshots were blanked.
+
 ## Team
 
 Gustavo Alves de Araújo, João Gabriel de Almindo Vasconcelos, Lucas Sérgio Denhei Alexandre, Luiz Carlos Marcelino Junior and Nícollas Frazão.
@@ -67,7 +69,7 @@ This is not practical as-is, because the database schema and the mPDF library ar
 
 1. Use PHP 5.6 with Apache (for example the `php:5.6-apache` Docker image) and MySQL 5.x.
 2. Create a database named `db_eletrontech`. Every `Conexao.php` holds its own connection settings, with `***REMOVED***` as user and password: `php/`, `ETS/php/`, `et-admin/php/`, `mobile/php/`, `FEI/php/`, `mobile/FEI/php/` and `agenda/`. The four `FEI/projeto/*_comodo.php` files have their own copies too. Change them to your values.
-3. Recreate the tables. There is no complete schema. The code uses `tb_usuario`, `tb_pasta`, `tb_arquivo`, `tb_evento`, `tb_atividade`, `tb_ferramenta`, `tb_pacote`, `usuario_pacote`, `pacote_ferramenta`, `tb_utilizacao`, `tb_visita`, `tb_projeto`, `tb_comodo`, `tb_esquadria`, `tb_tomada`, `tb_ponto_eletrico`, `tb_estado` and `tb_cidade`. Partial definitions exist in:
+3. Recreate the tables. There is no SQL schema, but the database diagram and the data dictionary are in sections 6.5 and 6.6 of the [technical documentation](docs/technical-documentation-pt-BR.pdf). The code uses `tb_usuario`, `tb_pasta`, `tb_arquivo`, `tb_evento`, `tb_atividade`, `tb_ferramenta`, `tb_pacote`, `usuario_pacote`, `pacote_ferramenta`, `tb_utilizacao`, `tb_visita`, `tb_projeto`, `tb_comodo`, `tb_esquadria`, `tb_tomada`, `tb_ponto_eletrico`, `tb_estado` and `tb_cidade`. Partial definitions exist in:
    - `Banco/tb_acesso.txt` (the `tb_acesso` table);
    - `Banco/Procedures.txt` (two stored procedures);
    - `agenda/banco.txt` (the agenda module);

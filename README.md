@@ -2,7 +2,13 @@
 
 A PHP web system with engineering calculators (electrical, math, physics) for students and professionals in technical fields. It has a user area, a "shop" that sells packages of tools, an admin panel and a mobile web version.
 
-Final project (TCC) of the IT technical course at ETEC Doutora Ruth Cardoso (São Vicente, Brazil), built as a team project around 2015-2016 (the mobile "Sobre" page says "ANYTECH - 2016").
+Final project (TCC) of the IT technical course (Técnico em Informática) at ETEC Doutora Ruth Cardoso, Centro Paula Souza (São Vicente, Brazil), presented in June 2015. The project schedule ran from August 2014 to May 2015.
+
+The idea, from the project documentation: give electricians, electrical technicians and students simple web tools for the calculations and the low-voltage residential electrical projects they do by hand, following the Brazilian standard ABNT NBR 5410 and using simplified symbols, as an affordable alternative to commercial tools that are expensive, complex or tied to AutoCAD. The team surveyed similar software and interviewed 17 students of the school's building-construction course, who named wiring calculations and the time a project takes as their main difficulties.
+
+## Team
+
+Gustavo Alves de Araújo, João Gabriel de Almindo Vasconcelos, Lucas Sérgio Denhei Alexandre, Luiz Carlos Marcelino Junior and Nícollas Frazão.
 
 ## What it does
 
@@ -96,7 +102,7 @@ imagens/, icones/, Páginas/   images and screenshots
   - the session checks are basic.
 - File and folder names contain spaces and accents. `Thumbs.db` files are committed. `LEIA-ME.txt` is a to-do note in Latin-1.
 - `ET.php` loads `Mensagens.php` but the file is `mensagens.php`, so that section breaks on case-sensitive filesystems.
-- Database dumps, connection passwords and the developers page (with the other team members' names and contacts) were removed from the history. The connection files keep `***REMOVED***` placeholders.
+- Database dumps, connection passwords and the developers page (with the team members' contact details) were removed from the history. The connection files keep `***REMOVED***` placeholders.
 - Third-party material:
   - RGraph is bundled under its CC BY-NC 3.0 licence (`et-admin/RGraph/license.txt`), which does not allow commercial use;
   - two sample images of commercial characters were removed from the repository.

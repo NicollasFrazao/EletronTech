@@ -2,7 +2,7 @@
 
 A PHP web system with engineering calculators (electrical, math, physics) for students and professionals in technical fields. It has a user area, a "shop" that sells packages of tools, an admin panel and a mobile web version.
 
-Team project from about 2015-2016 (the mobile "Sobre" page says "ANYTECH - 2016").
+Final project (TCC) of the IT technical course at ETEC Doutora Ruth Cardoso (São Vicente, Brazil), built as a team project around 2015-2016 (the mobile "Sobre" page says "ANYTECH - 2016").
 
 ## What it does
 

@@ -43,3 +43,8 @@ The original code is kept exactly as submitted, with its full README:
 
 The team: Gustavo Alves de Araújo, João Gabriel de Almindo Vasconcelos, Lucas Sérgio Denhei
 Alexandre, Luiz Carlos Marcelino Junior and Nícollas Frazão.
+
+## License
+
+The code is under the [MIT License](LICENSE). The 2015 technical documentation in
+[`docs/`](docs/technical-documentation-pt-BR.pdf) is the team's work and is not covered by it.

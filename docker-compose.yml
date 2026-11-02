@@ -1,0 +1,64 @@
+# Local environment: `make up` (or `docker compose up -d --wait`), then http://localhost:8000.
+# Mailpit shows the outgoing mail at http://localhost:8025.
+x-php: &php
+    build:
+        context: docker/php
+    image: eletrontech-php:8.4
+    # Run as the host user so files written in the bind mount (vendor/, caches) stay editable.
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    volumes:
+        - .:/var/www/html
+    environment:
+        DB_HOST: mysql
+        MAIL_HOST: mailpit
+        MAIL_PORT: 1025
+
+services:
+    app:
+        <<: *php
+        command: sh -c "php artisan migrate --force --no-interaction && php artisan serve --host=0.0.0.0 --port=8000"
+        ports:
+            - "${APP_PORT:-8000}:8000"
+        depends_on:
+            mysql:
+                condition: service_healthy
+            mailpit:
+                condition: service_started
+        healthcheck:
+            test: ["CMD", "php", "-r", "exit(@file_get_contents('http://127.0.0.1:8000/up') === false ? 1 : 0);"]
+            interval: 5s
+            timeout: 5s
+            retries: 60
+            start_period: 10s
+
+    queue:
+        <<: *php
+        command: php artisan queue:work --tries=3 --sleep=1
+        depends_on:
+            app:
+                condition: service_healthy
+
+    mysql:
+        image: mysql:8.4
+        environment:
+            MYSQL_DATABASE: eletrontech
+            MYSQL_USER: eletrontech
+            MYSQL_PASSWORD: eletrontech
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "${FORWARD_DB_PORT:-3306}:3306"
+        volumes:
+            - mysql-data:/var/lib/mysql
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-ueletrontech", "-peletrontech"]
+            interval: 5s
+            timeout: 5s
+            retries: 30
+
+    mailpit:
+        image: axllent/mailpit:v1.20
+        ports:
+            - "${FORWARD_MAILPIT_PORT:-8025}:8025"
+
+volumes:
+    mysql-data:

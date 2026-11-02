@@ -1,0 +1,23 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "declare_strict_types": true,
+        "strict_comparison": true,
+        "strict_param": true,
+        "final_class": true,
+        "no_superfluous_phpdoc_tags": {
+            "allow_mixed": true,
+            "allow_unused_params": false,
+            "remove_inheritdoc": false
+        },
+        "global_namespace_import": {
+            "import_classes": true,
+            "import_constants": false,
+            "import_functions": false
+        }
+    },
+    "exclude": [
+        "bootstrap/cache",
+        "phpcs/tests/fixtures"
+    ]
+}

@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+    What Pint does not cover: doc comments, comment hygiene and the readability limits of
+    development-conventions.md. Layout and spacing belong to Pint (pint.json); the rules below are
+    chosen so the two never disagree. The `phpcs` CI job.
+-->
+<ruleset name="EletronTech coding standard">
+    <arg name="basepath" value="."/>
+    <arg name="extensions" value="php"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+
+    <file>app</file>
+    <file>bootstrap/app.php</file>
+    <file>config</file>
+    <file>database</file>
+    <file>phpcs/EletronTech</file>
+    <file>routes</file>
+    <file>tests</file>
+
+    <!-- The fixtures break the rules on purpose; tests/Unit/CodingStandardTest.php checks them. -->
+    <exclude-pattern>*/phpcs/tests/fixtures/*</exclude-pattern>
+
+    <!-- Doc comments: present on every public class and method, starting with a summary. -->
+    <rule ref="./phpcs/EletronTech"/>
+    <rule ref="EletronTech.Commenting.RequirePublicDocComment">
+        <!-- Pest test files are closures, and the framework's config and migration files are data. -->
+        <exclude-pattern>*/config/*</exclude-pattern>
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
+
+    <!-- Doc comment shape: one blank line after the summary and between tag groups, in this order. -->
+    <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
+        <properties>
+            <property name="linesCountBeforeFirstContent" value="0"/>
+            <property name="linesCountBetweenDescriptionAndAnnotations" value="1"/>
+            <property name="linesCountBetweenDifferentAnnotationsTypes" value="0"/>
+            <property name="linesCountBetweenAnnotationsGroups" value="1"/>
+            <property name="linesCountAfterLastContent" value="0"/>
+            <property name="annotationsGroups" type="array">
+                <element value="@template,@template-covariant,@extends,@implements,@use"/>
+                <element value="@property,@property-read,@method"/>
+                <element value="@var,@param"/>
+                <element value="@return"/>
+                <element value="@throws"/>
+                <element value="@see,@link,@deprecated"/>
+            </property>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
+    <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
+    <rule ref="SlevomatCodingStandard.Commenting.ForbiddenAnnotations">
+        <properties>
+            <property name="forbiddenAnnotations" type="array">
+                <element value="@author"/>
+                <element value="@created"/>
+                <element value="@copyright"/>
+                <element value="@license"/>
+                <element value="@package"/>
+                <element value="@subpackage"/>
+                <element value="@version"/>
+            </property>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Commenting.DisallowCommentAfterCode"/>
+
+    <!-- Comments say why: no commented-out code, and deferred work names its issue (TodoWithIssue). -->
+    <rule ref="Squiz.PHP.CommentedOutCode">
+        <properties>
+            <property name="maxPercentage" value="40"/>
+        </properties>
+        <type>error</type>
+    </rule>
+
+    <!-- Readability limits. Cognitive complexity is checked by PHPStan, parameter count by PHPMD. -->
+    <rule ref="Generic.Metrics.NestingLevel">
+        <properties>
+            <property name="nestingLevel" value="3"/>
+            <property name="absoluteNestingLevel" value="3"/>
+        </properties>
+    </rule>
+    <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireMultiLineCondition">
+        <properties>
+            <property name="minLineLength" value="120"/>
+            <property name="alwaysSplitAllConditionParts" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing">
+        <properties>
+            <property name="linesCountBefore" value="1"/>
+            <property name="linesCountBeforeFirst" value="0"/>
+            <property name="linesCountAfter" value="1"/>
+            <property name="linesCountAfterLast" value="0"/>
+        </properties>
+    </rule>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="140"/>
+            <property name="absoluteLineLimit" value="140"/>
+        </properties>
+        <exclude-pattern>*/config/*</exclude-pattern>
+    </rule>
+</ruleset>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- Unused code and size/complexity limits; the `phpmd` CI job. -->
+<ruleset name="EletronTech"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd">
+    <description>Unused code and the size limits of development-conventions.md.</description>
+
+    <rule ref="rulesets/unusedcode.xml"/>
+
+    <rule ref="rulesets/codesize.xml">
+        <exclude name="ExcessiveParameterList"/>
+    </rule>
+
+    <!-- At most 4 parameters: beyond that, take a DTO. -->
+    <rule ref="rulesets/codesize.xml/ExcessiveParameterList">
+        <properties>
+            <property name="maximum" value="4"/>
+        </properties>
+    </rule>
+</ruleset>

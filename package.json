@@ -12,6 +12,9 @@
         "check:unused": "knip",
         "hooks": "husky"
     },
+    "overrides": {
+        "minimatch": "^11.0.1"
+    },
     "devDependencies": {
         "@commitlint/cli": "21.2.4",
         "@commitlint/config-conventional": "21.2.4",

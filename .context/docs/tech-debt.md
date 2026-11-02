@@ -21,5 +21,5 @@ points here or to the issue.
 | The home page is a placeholder without Vite assets | The interface is designed in E9 | #12 |
 | No mutation testing | Worth it once there are calculators to protect | #5 |
 | `docker compose up` serves with `php artisan serve` | Enough for development; a production image (FPM or FrankenPHP) is part of the release | #13 |
-| No `LICENSE` file | The licence of v2 is the owner's decision; the 2015 code had none, and its bundled RGraph is CC BY-NC 3.0 | owner |
+| `minimatch` is forced to 11 through `overrides` in `package.json` | ESLint 10 and `eslint-plugin-sonarjs` ask for `^10`, and GHSA-g3hv-75wg-m249 is fixed only in 11.0.1 | when both accept `minimatch` 11 |
 | `composer audit` reports abandoned packages instead of failing (`config.audit.abandoned: report`) | `symplify/rule-doc-generator-contracts`, abandoned, comes with `tomasvotruba/cognitive-complexity`; vulnerabilities still fail the job | when the extension drops it |

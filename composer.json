@@ -9,7 +9,7 @@
         "nbr-5410",
         "calculators"
     ],
-    "license": "proprietary",
+    "license": "MIT",
     "require": {
         "php": "^8.4",
         "laravel/framework": "^13.17",

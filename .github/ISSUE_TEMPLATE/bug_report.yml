@@ -1,0 +1,40 @@
+name: Bug report
+description: A calculation, screen or rule behaves differently from the documentation or NBR 5410.
+title: 'fix: '
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: The screen or route, the input you gave, and the result you got.
+      placeholder: |
+        Breaker and wiring, 4400 W at 220 V -> 16 A breaker, 1.5 mm² wire
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: The expected result and where it comes from (a table of NBR 5410, a screen of the technical documentation, a hand calculation).
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce
+      description: Ideally a failing test, or the smallest sequence of steps.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Commit or version
+      placeholder: e.g. 1a2b3c4
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, and anything non-default in the Docker setup or .env.

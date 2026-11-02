@@ -22,7 +22,7 @@ jobs:
   pint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-php
       - name: Code style (Laravel preset)
         run: composer pint
@@ -30,7 +30,7 @@ jobs:
   phpcs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-php
       - name: Doc comments and readability limits
         run: composer phpcs
@@ -38,7 +38,7 @@ jobs:
   phpstan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-php
       - name: Larastan max, strict rules, cognitive complexity, dead code
         run: composer phpstan
@@ -46,7 +46,7 @@ jobs:
   phpmd:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-php
       - name: Unused code, parameter count, size and complexity
         run: composer phpmd
@@ -54,7 +54,7 @@ jobs:
   phpmnd:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-php
       - name: Magic numbers
         run: composer phpmnd
@@ -62,7 +62,7 @@ jobs:
   deptrac:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-php
       - name: Layer rules (docs/adr/0001-layered-architecture.md)
         run: composer deptrac
@@ -70,7 +70,7 @@ jobs:
   rector:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-php
       - name: Pending upgrades and dead code (dry run)
         run: composer rector
@@ -78,7 +78,7 @@ jobs:
   composer-unused:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-php
       - name: Composer packages nothing uses
         run: composer unused
@@ -86,7 +86,7 @@ jobs:
   composer-audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-php
       - name: Known vulnerabilities in Composer packages
         run: composer audit
@@ -94,7 +94,7 @@ jobs:
   context:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-php
       - name: Agent surfaces are copies of .context/docs/README.md
         run: composer context:check
@@ -102,7 +102,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-php
         with:
           coverage: pcov
@@ -119,7 +119,7 @@ jobs:
   eslint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: 22
@@ -131,7 +131,7 @@ jobs:
   knip:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: 22
@@ -143,7 +143,7 @@ jobs:
   npm-audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: 22
@@ -154,7 +154,7 @@ jobs:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v7

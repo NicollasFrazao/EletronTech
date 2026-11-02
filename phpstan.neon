@@ -1,0 +1,34 @@
+# Larastan at the maximum level, strict rules, cognitive complexity and dead code; the `phpstan` CI job.
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/tomasvotruba/cognitive-complexity/config/extension.neon
+    - vendor/shipmonk/dead-code-detector/rules.neon
+
+parameters:
+    level: max
+    paths:
+        - app
+        - bootstrap/app.php
+        - config
+        - database
+        - routes
+    tmpDir: storage/framework/cache/phpstan
+
+    # Cognitive complexity, as Sonar counts it: at most 15 per method.
+    cognitive_complexity:
+        function: 15
+        class: 50
+
+    # Every exception this application defines is checked: a method that throws one, or lets one
+    # escape, declares it with @throws so the caller knows it has to handle it.
+    exceptions:
+        checkedExceptionRegexes:
+            - '#^App\\#'
+        check:
+            missingCheckedExceptionInThrows: true
+            tooWideThrowType: true
+
+    shipmonkDeadCode:
+        detect:
+            deadEnumCases: true

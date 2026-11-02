@@ -1,0 +1,18 @@
+#!/bin/sh
+# Runs PHP for the git hooks: the host's PHP when it is 8.4 or newer, otherwise the `app` image.
+if command -v php >/dev/null 2>&1 && php -r 'exit(PHP_VERSION_ID >= 80400 ? 0 : 1);'; then
+    exec php "$@"
+fi
+
+# lint-staged passes absolute host paths; inside the container the repository is the working
+# directory, so make them relative to the repository root.
+root="$(git rev-parse --show-toplevel)/"
+count=$#
+while [ "$count" -gt 0 ]; do
+    argument="$1"
+    shift
+    set -- "$@" "${argument#"$root"}"
+    count=$((count - 1))
+done
+
+exec docker compose run --rm --no-deps -T app php "$@"

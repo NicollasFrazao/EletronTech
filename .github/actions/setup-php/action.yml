@@ -1,0 +1,25 @@
+name: Set up PHP and Composer dependencies
+description: PHP 8.4 with the project's extensions, and `composer install` from a cache keyed on composer.lock.
+inputs:
+  coverage:
+    description: Coverage driver for setup-php (none or pcov).
+    default: none
+runs:
+  using: composite
+  steps:
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.4'
+        extensions: pdo_mysql, pdo_sqlite, intl, bcmath, zip
+        coverage: ${{ inputs.coverage }}
+        tools: composer:v2
+    - id: composer-cache
+      shell: bash
+      run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+    - uses: actions/cache@v6
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: composer-${{ runner.os }}-${{ hashFiles('composer.lock') }}
+        restore-keys: composer-${{ runner.os }}-
+    - shell: bash
+      run: composer install --no-interaction --no-progress --prefer-dist

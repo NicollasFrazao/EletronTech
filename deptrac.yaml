@@ -1,0 +1,68 @@
+# Layer rules of docs/adr/0001-layered-architecture.md, checked in CI by the `deptrac` job.
+# Dependencies on PHP's own classes (DateTimeImmutable, RuntimeException...) are not in any layer,
+# so they are allowed everywhere.
+deptrac:
+  paths:
+    - ./app
+  exclude_files:
+    - '#.*/\.gitkeep$#'
+  layers:
+    - name: Domain
+      collectors:
+        - type: classLike
+          value: '^App\\Domain\\.*'
+    - name: Application
+      collectors:
+        - type: classLike
+          value: '^App\\Application\\.*'
+    - name: Infrastructure
+      collectors:
+        - type: classLike
+          value: '^App\\Infrastructure\\.*'
+    - name: Http
+      collectors:
+        - type: classLike
+          value: '^App\\Http\\.*'
+    - name: Console
+      collectors:
+        - type: classLike
+          value: '^App\\Console\\.*'
+    - name: Providers
+      collectors:
+        - type: classLike
+          value: '^App\\Providers\\.*'
+    # Everything outside App\ that is not part of PHP itself: Laravel, Symfony, any vendor package.
+    - name: Vendor
+      collectors:
+        - type: bool
+          must:
+            - type: classLike
+              value: '.*'
+          must_not:
+            - type: classLike
+              value: '^App\\.*'
+            - type: php_internal
+              value: '.*'
+  ruleset:
+    Domain: ~
+    Application:
+      - Domain
+    Infrastructure:
+      - Domain
+      - Application
+      - Vendor
+    Http:
+      - Application
+      - Domain
+      - Vendor
+    Console:
+      - Application
+      - Domain
+      - Vendor
+    Providers:
+      - Domain
+      - Application
+      - Infrastructure
+      - Http
+      - Console
+      - Vendor

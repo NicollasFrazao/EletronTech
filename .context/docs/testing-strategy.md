@@ -52,7 +52,9 @@ against MySQL and is marked so; add a MySQL service to the `test` job when the f
 - `tests/Unit/CodingStandardTest.php` — the local sniffs on the fixtures in `phpcs/tests/fixtures/`.
 - `tests/Unit/Domain/Quantity/` — units and the catalogue, exact conversions (every kind of unit,
   against known values), arithmetic within and between quantities, `Precision`, `NumberParser`, and
-  `ConversionPropertiesTest.php`, the property-based round trips and laws.
+  `ConversionPropertiesTest.php`, the property-based round trips and laws, and
+  `FluidAndMaterialLawsTest.php` for the quantities E3 added (volume, dynamic and hydrostatic pressure,
+  Ohm's second law).
 - `tests/Unit/Application/UnitConversion/` — the converter use cases.
 - `tests/Feature/UnitConverterTest.php` — the converter page and its JSON answer, and each
   validation error on its field.
@@ -60,11 +62,15 @@ against MySQL and is marked so; add a MySQL service to the `test` job when the f
   through the same checks: distinct input names, a unit for each quantity, options for each choice,
   refusal of empty inputs), `Inputs`, `RealNumbers`, and `Electrical/`, one file per calculator with
   worked examples whose source (NBR 5410 section, IEC standard or textbook) is cited at the top. The
-  2015 bugs each have a case named after them.
+  2015 bugs each have a case named after them. E3 added `Electrical/` files for Ohm's law, conductor
+  resistance and series/parallel resistance, and `Geometry/`, `Mathematics/`, `Physics/` and
+  `Construction/`, one file per tool, with the formula at the top. `Mathematics/ExpressionTest.php`
+  covers the grammar, every refused text and a property-based check against exact arithmetic.
 - `tests/Unit/Application/Calculation/` — reading typed values and units by the schema, rounding,
   and the schema listing.
-- `tests/Feature/CalculatorsTest.php` — the catalogue as registered, the JSON endpoints and each kind
-  of refused value on its field.
+- `tests/Feature/CalculatorsTest.php` — the catalogue as registered, the JSON endpoints (an expression
+  with a decimal comma, a number in hexadecimal, units on a construction tool) and each kind of refused
+  value on its field, including a value longer than 255 characters.
 - `tests/Support/Results.php` reads a calculator's result by name: `exact()` (the fraction),
   `shown()` (12 significant digits), `unit()`.
 

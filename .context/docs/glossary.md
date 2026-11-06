@@ -79,7 +79,12 @@ from one to the other. Add a term here before using it in code.
 | Outlet count | Quantificação de Tomadas |
 | Motor efficiency | Rendimento de Motor |
 | Resistor colour code, electrical consumption | Cálculo de Resistores (código de cores), Consumo Elétrico (mobile site only) |
-| Binary converter, BTU meter, floor and wall tiles, block count, rule of three, Bernoulli | Conversor Binário, Medidor de BTU, Pisos e Azulejos, Quantificação de Blocos, Regra de Três, Bernoulli (mobile site only) |
+| Binary converter, BTU sizing, floor and wall tiles, block count, rule of three, Bernoulli equation | Conversor Binário, Medidor de BTU, Pisos e Azulejos, Quantificação de Blocos, Regra de Três, Bernoulli (mobile site only) |
+| Area and perimeter (shapes) | Formas Superficiais (mobile site, unfinished; merged into area and perimeter) |
+| Surface area and volume | Formas Volumétricas (mobile site, form without a calculation) |
+| Basic calculator (brackets) | Calculadora de Equações (mobile site, unfinished; merged into the basic calculator) |
+| Ohm's law, conductor resistance, series and parallel resistance | 1ª Lei de Ohm, 2ª Lei de Ohm, Em Série, Em Paralelo (modes of Cálculo de Resistores, mobile site) |
+| Spirit level | Nível (mobile site; reads the device's tilt sensor, not a calculator) |
 | Calculator | Ferramenta de cálculo | A tool implementing the `Calculator` contract: an identifier, an input schema, a calculation |
 | Calculator catalogue | Catálogo de ferramentas | Every calculator by identifier (`CalculatorCatalog`) |
 | Input schema | Campos do formulário | The inputs a calculator reads: quantity with a default unit, pure number or choice, required or optional |
@@ -91,6 +96,22 @@ from one to the other. Add a term here before using it in code.
 | Colour bands | Faixas de cores | Two digits, a multiplier and a tolerance on a resistor (IEC 60062) |
 | Tolerance | Tolerância | How far a resistor may be from its nominal value, in percent; ±20% without a band |
 | Tool use | Utilização (`tb_utilizacao`) — one recorded use of a tool by a user |
+| Expression | Expressão / equação | Text with numbers, + − × ÷ and brackets that the basic calculator evaluates exactly |
+| Implied product | Multiplicação implícita | A bracket written against a number or another bracket multiplies: 2(3 + 1) is 8 |
+| Number base | Sistema de numeração | Binary (2), octal (8), decimal (10) or hexadecimal (16) |
+| Proportion (direct, inverse) | Grandezas diretamente / inversamente proporcionais | How the two quantities of a rule of three vary together |
+| Equivalent resistance | Resistência equivalente (Req) | The one resistor that behaves like a series or parallel group |
+| Shape | Forma | A plane figure (rectangle, circle, triangle...) or a solid (cube, cone...) |
+| Apothem | Apótema | Distance from the centre of a regular polygon to the middle of a side |
+| Semi-perimeter | Semiperímetro | Half the perimeter, the start of Heron's formula |
+| Slant height | Geratriz / apótema da pirâmide | Length along the side of a cone, or height of a pyramid's triangular face |
+| Rhombus, parallelogram (rhomboid), trapezoid | Losango, paralelogramo (romboide), trapézio | Plane shapes of the area and perimeter tool |
+| Square pyramid, regular tetrahedron | Pirâmide de base quadrada, tetraedro regular | Solids of the surface area and volume tool |
+| Waste allowance | Perda / quebra | Extra share of tiles or blocks bought for cuts and breakage, 10% unless given |
+| Mortar joint | Junta (de argamassa) | The mortar between blocks, added once to the block's length and once to its height |
+| Cooling capacity | Capacidade de refrigeração (BTU/h) | What an air conditioner removes per hour; sized by a rule of thumb per m², person and appliance |
+| Flow point | Ponto do escoamento | A point of a pipe with its pressure, velocity and height, for Bernoulli's equation |
+| Standard gravity | Gravidade padrão (g₀) | 9.80665 m/s², exact by definition |
 
 ## Physical quantities
 
@@ -117,6 +138,11 @@ The classes of `app/Domain/Quantity/`. Each stores its value in the coherent uni
 | Magnetic flux | Fluxo magnético | weber (Wb) |
 | Luminous flux | Fluxo luminoso | lumen (lm) |
 | Illuminance | Iluminância | lux (lx); the foot-candle is one lumen per square foot |
+| Volume | Volume | cubic metre (m³); also litre and cubic centimetre |
+| Pressure | Pressão | pascal (Pa); also bar, standard atmosphere, metre of water (mca) and psi |
+| Velocity | Velocidade | metre per second (m/s); also km/h |
+| Density | Densidade / massa específica | kilogram per cubic metre (kg/m³); also g/cm³ |
+| Resistivity | Resistividade | ohm-metre (Ω·m); electricians read Ω·mm²/m (copper ≈ 0.0172) |
 
 | English (code) | Portuguese | Meaning |
 | --- | --- | --- |

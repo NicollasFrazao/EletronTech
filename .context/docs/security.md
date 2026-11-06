@@ -23,11 +23,14 @@ The 2015 code (tag `v1`) is kept for reference only. Never copy these patterns:
 | File downloads blocked by extension (`.php`, `.html`) | Files stored outside `public/` on a private disk, served through a controller that checks ownership, with a forced download content type |
 | No CSRF protection | Laravel's CSRF middleware on every web form |
 | Login lockout planned (NF 1.4) but weak | Rate limiting on login and password recovery |
+| The basic calculator ran the typed text with JavaScript's `eval` | A parser of our own that accepts only numbers, four operators and brackets ([ADR 0004](/docs/adr/0004-arithmetic-expressions-without-eval.md)); no `eval` anywhere |
 
 ## Rules
 
 - Every route that touches a user's data is behind `auth` and checks ownership with a policy.
 - Validation in form requests; the domain validates its own invariants again.
+- Never `eval` or `create_function` anything a person typed; text a tool must interpret goes through a
+  grammar of its own with a length limit (the basic calculator's `Expression`).
 - Uploaded files: size and MIME limits, random stored names, never executed, never under `public/`.
 - Output in Blade with `{{ }}`; `{!! !!}` only for HTML the application generated itself.
 - Secrets never in code, tests, logs or fixtures. The `APP_KEY` in `phpunit.xml` is test-only.

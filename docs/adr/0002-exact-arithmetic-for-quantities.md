@@ -74,5 +74,9 @@ ADR 0001 lets the Domain depend on nothing but PHP's own classes.
 - The quantity classes are the shared kernel of E2 and E3; until those phases call them, the dead
   code detector would report their public methods as unused. They were marked `@api`, which the
   detector reads as "public API", to be removed once the calculators use them. E2 removed the class-level
-  tags; the methods no calculator calls yet keep a method-level `@api`
+  tags; E3 removed the tags of the nine methods its calculators call (Ohm's law, the resistor network,
+  `Quantity::zero()`); the nine methods nothing calls yet keep a method-level `@api`
   ([tech-debt.md](/.context/docs/tech-debt.md)).
+- E3 added `Volume`, `Pressure`, `Velocity`, `Density` and `Resistivity`, with the operations between
+  kinds its calculators need. Standard gravity (9.80665 m/s², exact by definition) is a constant of
+  `Density`, the only quantity that weighs a column of fluid.

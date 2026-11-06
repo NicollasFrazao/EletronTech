@@ -46,8 +46,10 @@ it('refuses what the converter cannot answer', function (ConversionInput $input,
 it('lists one group per dimension with its units smallest first', function (): void {
     $groups = new ListConvertibleUnits(new UnitCatalogue)->handle();
 
-    expect($groups)->toHaveCount(18)
+    expect($groups)->toHaveCount(23)
         ->and($groups[0]->dimension)->toBe('voltage')
         ->and($groups[0]->units[0]->id)->toBe('nanovolt')
-        ->and(array_column($groups, 'dimension'))->toContain('apparent_power', 'area', 'energy', 'illuminance');
+        ->and(array_column($groups, 'dimension'))->toContain(
+            'apparent_power', 'area', 'energy', 'illuminance', 'volume', 'pressure', 'velocity', 'density', 'resistivity',
+        );
 });

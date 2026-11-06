@@ -27,4 +27,9 @@ enum Dimension: string
     case Duration = 'duration';
     case LuminousFlux = 'luminous_flux';
     case Illuminance = 'illuminance';
+    case Volume = 'volume';
+    case Pressure = 'pressure';
+    case Velocity = 'velocity';
+    case Density = 'density';
+    case Resistivity = 'resistivity';
 }

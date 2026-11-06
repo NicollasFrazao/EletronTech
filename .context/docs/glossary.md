@@ -63,19 +63,37 @@ from one to the other. Add a term here before using it in code.
 
 ## Physical quantities
 
-| English (code) | Portuguese | Unit |
+The classes of `app/Domain/Quantity/`. Each stores its value in the coherent unit of the table.
+
+| English (code) | Portuguese | Coherent unit |
 | --- | --- | --- |
-| Current | Corrente | ampere (A) |
 | Voltage | Tensão | volt (V) |
-| Power | Potência | watt (W); apparent power in volt-ampere (VA) |
-| Charge | Carga elétrica | coulomb (C) |
-| Capacitance | Capacitância | farad (F) |
-| Conductance | Condutância | siemens (S) |
-| Inductance | Indutância | henry (H) |
-| Magnetic flux | Fluxo magnético | weber (Wb) |
+| Current | Corrente | ampere (A) |
+| Power (active power) | Potência (ativa) | watt (W) |
+| Apparent power | Potência aparente | volt-ampere (VA) |
+| Power factor | Fator de potência | dimensionless, greater than 0 and at most 1 |
 | Resistance / impedance | Resistência / impedância | ohm (Ω) |
-| Luminous flux | Fluxo luminoso | lumen (lm) |
-| Illuminance | Iluminância | lux (lx) |
+| Conductance | Condutância | siemens (S) |
+| Capacitance | Capacitância | farad (F) |
+| Inductance | Indutância | henry (H) |
+| Charge | Carga elétrica | coulomb (C) |
+| Frequency | Frequência | hertz (Hz) |
+| Length | Comprimento | metre (m) |
+| Area | Área | square metre (m²) |
+| Magnetic flux | Fluxo magnético | weber (Wb) (no class yet) |
+| Luminous flux | Fluxo luminoso | lumen (lm) (no class yet) |
+| Illuminance | Iluminância | lux (lx) (no class yet) |
+
+| English (code) | Portuguese | Meaning |
+| --- | --- | --- |
+| Dimension | Grandeza | The kind of quantity a unit measures; units convert only within one dimension |
+| Unit | Unidade de medida | A base unit with an optional prefix, such as kilowatt; identified in forms by `kilowatt`, `milliampere_hour` |
+| Base unit | Unidade | A unit without its prefix: volt, ampere-hour, horsepower, inch |
+| Prefix | Prefixo | pico, nano, micro, milli, centi, kilo, mega, giga |
+| Coherent unit | Unidade coerente (SI) | The SI unit of a dimension without a prefix; what quantities store their value in |
+| Metric horsepower | Cavalo-vapor (cv) | 735.49875 W; the horsepower (hp) is 745.69987158227022 W |
+| CGS units (abvolt, statcoulomb...) | Unidades CGS | The electromagnetic (ab-) and electrostatic (stat-) units the 2015 converter offered |
+| Precision | Precisão / arredondamento | How a result is rounded for display: significant digits or decimal places, always half up |
 
 ## Accounts, packages and licences
 
@@ -109,5 +127,6 @@ from one to the other. Add a term here before using it in code.
 
 ## Abbreviations allowed in names
 
-`id`, `url`, `pdf`, `txt`, `sql`, `http`, `db`, `dto`, `nbr`, `tug`, `tue`, `va` (volt-ampere).
+`id`, `url`, `pdf`, `txt`, `sql`, `http`, `db`, `dto`, `nbr`, `tug`, `tue`, `va` (volt-ampere),
+`btu` (British thermal unit).
 Units are spelled out in names (`Power::fromWatts()`), symbols appear only in output.

@@ -1,6 +1,6 @@
 # 0001. Layered architecture with Laravel only at the edges
 
-- Status: Accepted
+- Status: Accepted; amended by [0002](0002-exact-arithmetic-for-quantities.md) (the Domain may use `Brick\Math`)
 - Date: 2026-11-02
 - Issues: #2 (rewrite), #3 (foundation)
 

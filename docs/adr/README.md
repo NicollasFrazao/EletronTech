@@ -6,3 +6,4 @@ decided, what else was considered, and what it costs. A superseded record stays,
 | # | Decision | Status |
 | --- | --- | --- |
 | [0001](0001-layered-architecture.md) | Layered architecture with Laravel only at the edges, enforced by Deptrac | Accepted |
+| [0002](0002-exact-arithmetic-for-quantities.md) | Exact arithmetic for physical quantities with brick/math; amends 0001 so the Domain may use `Brick\Math` | Accepted |

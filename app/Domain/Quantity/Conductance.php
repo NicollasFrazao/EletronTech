@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Domain\Quantity;
+
+use Brick\Math\BigNumber;
+use Brick\Math\BigRational;
+
+/**
+ * An electrical conductance, stored in siemens.
+ *
+ * @api
+ */
+final readonly class Conductance extends Quantity
+{
+    /**
+     * The dimension every value of this quantity has.
+     */
+    public static function dimension(): Dimension
+    {
+        return Dimension::Conductance;
+    }
+
+    /**
+     * The conductance of a value in siemens.
+     */
+    public static function fromSiemens(BigNumber|int|string $siemens): self
+    {
+        return new self(BigRational::of($siemens));
+    }
+
+    /**
+     * The exact value in siemens.
+     */
+    public function toSiemens(): BigRational
+    {
+        return $this->value;
+    }
+
+    /**
+     * The resistance of this conductance (R = 1 / G).
+     *
+     * @throws DivisionByZero
+     */
+    public function reciprocal(): Resistance
+    {
+        return Resistance::fromOhms(self::quotient(BigRational::one(), $this->value));
+    }
+}

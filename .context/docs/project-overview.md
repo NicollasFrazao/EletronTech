@@ -32,7 +32,7 @@ calculations that follow the standard.
 
 | Area | What it does | Phase |
 | --- | --- | --- |
-| Physical quantities | Units and conversions (ampere, volt, watt, coulomb, farad, siemens, henry, weber, ohm) as value objects | E1 #4 |
+| Physical quantities | Exact value objects for voltage, current, power, apparent power, resistance, conductance, capacitance, inductance, charge, frequency, length and area, with their units and prefixes; the unit converter | E1 #4 |
 | Electrical calculators | Breaker and wiring, general lighting, lighting power, outlet count, capacitance, conductance, impedance, inductance, general power, motor efficiency | E2 #5 |
 | General calculators | Area and perimeter, construction quantities, a basic calculator and the extra tools of the mobile site | E3 #6 |
 | Accounts | Registration, email confirmation, password recovery, profile and cover photos, night mode, deactivation with a reactivation date | E4 #7 |

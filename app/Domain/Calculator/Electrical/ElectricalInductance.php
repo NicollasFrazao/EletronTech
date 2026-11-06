@@ -159,7 +159,7 @@ final readonly class ElectricalInductance implements Calculator
      */
     private function turns(Inputs $inputs): TurnCount
     {
-        return TurnCount::tryOf($inputs->positiveWholeNumber(self::TURNS))
+        return TurnCount::tryOf($inputs->wholeNumber(self::TURNS, 1))
             ?? throw InvalidInput::of(self::TURNS, InputProblem::NotPositive);
     }
 

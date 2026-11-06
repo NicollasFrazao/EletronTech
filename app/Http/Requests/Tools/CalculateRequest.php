@@ -13,19 +13,29 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 final class CalculateRequest extends FormRequest
 {
-    private const int MAX_VALUE_LENGTH = 64;
+    /**
+     * Long enough for an arithmetic expression; a number or a unit identifier is far shorter.
+     */
+    private const int MAX_VALUE_LENGTH = 255;
 
     /**
-     * The shape of the input: short scalar values and a map of unit identifiers.
+     * The shape of the input: scalar values of bounded length and a map of unit identifiers. A value that is too
+     * long is refused on its field rather than dropped, so it is not reported as missing.
      *
      * @return array<string, list<string>>
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'units' => ['sometimes', 'array'],
             'units.*' => ['string', 'max:'.self::MAX_VALUE_LENGTH],
         ];
+
+        foreach (array_keys($this->except('units')) as $name) {
+            $rules[(string) $name] = ['nullable', 'string', 'max:'.self::MAX_VALUE_LENGTH];
+        }
+
+        return $rules;
     }
 
     /**
@@ -37,7 +47,7 @@ final class CalculateRequest extends FormRequest
         $units = [];
 
         foreach ($this->except('units') as $name => $value) {
-            if (is_string($value) && mb_strlen($value) <= self::MAX_VALUE_LENGTH) {
+            if (is_string($value)) {
                 $values[(string) $name] = $value;
             }
         }

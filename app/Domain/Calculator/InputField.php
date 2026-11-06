@@ -13,22 +13,36 @@ use BackedEnum;
 final readonly class InputField
 {
     /**
-     * @param  Unit|null  $defaultUnit  The unit a quantity is read in when none is given; null for other kinds.
-     * @param  list<string>  $options  The identifiers a choice accepts; empty for other kinds.
+     * The unit a quantity is read in when none is given; null for other kinds.
+     */
+    public ?Unit $defaultUnit;
+
+    /**
+     * The identifiers a choice accepts; empty for other kinds.
+     *
+     * @var list<string>
+     */
+    public array $options;
+
+    /**
+     * @param  Unit|list<string>|null  $accepts  A quantity's default unit, a choice's options, or nothing.
      */
     private function __construct(
         public string $name,
         public bool $isRequired,
-        public ?Unit $defaultUnit,
-        public array $options,
-    ) {}
+        private InputKind $kind,
+        Unit|array|null $accepts = null,
+    ) {
+        $this->defaultUnit = $accepts instanceof Unit ? $accepts : null;
+        $this->options = is_array($accepts) ? $accepts : [];
+    }
 
     /**
      * A required quantity, read in the default unit unless the caller names another unit of its dimension.
      */
     public static function quantity(string $name, Unit $defaultUnit): self
     {
-        return new self($name, true, $defaultUnit, []);
+        return new self($name, true, InputKind::Quantity, $defaultUnit);
     }
 
     /**
@@ -36,7 +50,7 @@ final readonly class InputField
      */
     public static function number(string $name): self
     {
-        return new self($name, true, null, []);
+        return new self($name, true, InputKind::Number);
     }
 
     /**
@@ -48,7 +62,15 @@ final readonly class InputField
     {
         $options = array_map(static fn (BackedEnum $case): string => (string) $case->value, $cases);
 
-        return new self($name, true, null, $options);
+        return new self($name, true, InputKind::Choice, $options);
+    }
+
+    /**
+     * A required text, handed to the calculator as typed; the calculator reads it.
+     */
+    public static function text(string $name): self
+    {
+        return new self($name, true, InputKind::Text);
     }
 
     /**
@@ -56,18 +78,14 @@ final readonly class InputField
      */
     public function optional(): self
     {
-        return new self($this->name, false, $this->defaultUnit, $this->options);
+        return new self($this->name, false, $this->kind, $this->defaultUnit ?? $this->options);
     }
 
     /**
-     * The kind of value the input takes: a quantity has a default unit, a choice has options.
+     * The kind of value the input takes.
      */
     public function kind(): InputKind
     {
-        if ($this->defaultUnit instanceof Unit) {
-            return InputKind::Quantity;
-        }
-
-        return $this->options === [] ? InputKind::Number : InputKind::Choice;
+        return $this->kind;
     }
 }

@@ -49,8 +49,6 @@ abstract readonly class Quantity
 
     /**
      * A quantity of exactly zero.
-     *
-     * @api
      */
     public static function zero(): static
     {

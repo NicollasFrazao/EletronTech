@@ -17,6 +17,10 @@ return [
         'too_large' => 'The value is beyond the largest the tables cover.',
         'not_representable' => 'This value cannot be written with these bands.',
         'wrong_number_of_values' => 'Fill in the values the calculation needs and leave the ones to calculate empty.',
+        'no_solution' => 'No value satisfies the calculation with these values; check them.',
+        'not_an_expression' => 'Type an expression with numbers, + - * / and brackets, such as (2 + 3) * 4.',
+        'division_by_zero' => 'The expression divides by zero.',
+        'too_long' => 'This text is too long.',
         'impossible' => 'These values lead to an impossible calculation.',
     ],
 ];

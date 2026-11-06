@@ -12,7 +12,9 @@ namespace App\Domain\Quantity;
  * so no conversion goes through a float. Since the 2019 SI the speed of light, the elementary charge and the
  * Avogadro constant are exact, so the electrostatic CGS units and the faraday are exact too. The BTU per hour
  * is the International Table BTU (1055.05585262 J) per 3600 s; the foot-candle is one lumen per square foot,
- * 1 / 0.09290304 lux.
+ * 1 / 0.09290304 lux. The metre of water is the pressure of one metre of water under standard gravity
+ * (9806.65 Pa, the "metro de coluna d'água" of Brazilian plumbing); the pound-force per square inch is
+ * 0.45359237 kg × 9.80665 m/s² over one square inch.
  */
 enum BaseUnit: string
 {
@@ -74,6 +76,20 @@ enum BaseUnit: string
     case Lumen = 'lumen';
     case Lux = 'lux';
     case FootCandle = 'foot_candle';
+    case CubicCentimetre = 'cubic_centimetre';
+    case Litre = 'litre';
+    case CubicMetre = 'cubic_metre';
+    case Pascal = 'pascal';
+    case Bar = 'bar';
+    case Atmosphere = 'atmosphere';
+    case MetreOfWater = 'metre_of_water';
+    case PoundForcePerSquareInch = 'pound_force_per_square_inch';
+    case MetrePerSecond = 'metre_per_second';
+    case KilometrePerHour = 'kilometre_per_hour';
+    case KilogramPerCubicMetre = 'kilogram_per_cubic_metre';
+    case GramPerCubicCentimetre = 'gram_per_cubic_centimetre';
+    case OhmMetre = 'ohm_metre';
+    case OhmSquareMillimetrePerMetre = 'ohm_square_millimetre_per_metre';
 
     /**
      * Prefixes from nano to giga, as the 2015 converter offered for volt, ampere, ohm, siemens and henry.
@@ -108,6 +124,12 @@ enum BaseUnit: string
             self::Second, self::Minute, self::Hour, self::Day => Dimension::Duration,
             self::Lumen => Dimension::LuminousFlux,
             self::Lux, self::FootCandle => Dimension::Illuminance,
+            self::CubicCentimetre, self::Litre, self::CubicMetre => Dimension::Volume,
+            self::Pascal, self::Bar, self::Atmosphere, self::MetreOfWater,
+            self::PoundForcePerSquareInch => Dimension::Pressure,
+            self::MetrePerSecond, self::KilometrePerHour => Dimension::Velocity,
+            self::KilogramPerCubicMetre, self::GramPerCubicCentimetre => Dimension::Density,
+            self::OhmMetre, self::OhmSquareMillimetrePerMetre => Dimension::Resistivity,
         };
     }
 
@@ -120,7 +142,8 @@ enum BaseUnit: string
             self::Volt, self::WattPerAmpere, self::Ampere, self::CoulombPerSecond, self::Watt, self::VoltAmpere,
             self::Ohm, self::VoltPerAmpere, self::Siemens, self::Mho, self::AmperePerVolt, self::Farad,
             self::Henry, self::WeberPerAmpere, self::Coulomb, self::Hertz, self::Metre, self::SquareMetre,
-            self::VoltAmpereReactive, self::Weber, self::Joule, self::Second, self::Lumen, self::Lux => '1',
+            self::VoltAmpereReactive, self::Weber, self::Joule, self::Second, self::Lumen, self::Lux,
+            self::CubicMetre, self::Pascal, self::MetrePerSecond, self::KilogramPerCubicMetre, self::OhmMetre => '1',
             self::Abvolt => '0.00000001',
             self::Statvolt => '299.792458',
             self::Abampere, self::Abcoulomb => '10',
@@ -150,6 +173,14 @@ enum BaseUnit: string
             self::Minute => '60',
             self::Day => '86400',
             self::FootCandle => '1562500/145161',
+            self::CubicCentimetre, self::OhmSquareMillimetrePerMetre => '0.000001',
+            self::Litre => '0.001',
+            self::Bar => '100000',
+            self::Atmosphere => '101325',
+            self::MetreOfWater => '9806.65',
+            self::PoundForcePerSquareInch => '44482216152605/6451600000',
+            self::KilometrePerHour => '5/18',
+            self::GramPerCubicCentimetre => '1000',
         };
     }
 
@@ -217,6 +248,20 @@ enum BaseUnit: string
             self::Lumen => 'lm',
             self::Lux => 'lx',
             self::FootCandle => 'fc',
+            self::CubicCentimetre => 'cm³',
+            self::Litre => 'L',
+            self::CubicMetre => 'm³',
+            self::Pascal => 'Pa',
+            self::Bar => 'bar',
+            self::Atmosphere => 'atm',
+            self::MetreOfWater => 'mH₂O',
+            self::PoundForcePerSquareInch => 'psi',
+            self::MetrePerSecond => 'm/s',
+            self::KilometrePerHour => 'km/h',
+            self::KilogramPerCubicMetre => 'kg/m³',
+            self::GramPerCubicCentimetre => 'g/cm³',
+            self::OhmMetre => 'Ω·m',
+            self::OhmSquareMillimetrePerMetre => 'Ω·mm²/m',
         };
     }
 
@@ -238,6 +283,10 @@ enum BaseUnit: string
             self::VoltAmpereReactive => 'volt-ampere reactive',
             self::WattHour => 'watt-hour',
             self::FootCandle => 'foot-candle',
+            self::Atmosphere => 'standard atmosphere',
+            self::PoundForcePerSquareInch => 'pound-force per square inch',
+            self::OhmMetre => 'ohm-metre',
+            self::OhmSquareMillimetrePerMetre => 'ohm square millimetre per metre',
             default => str_replace('_', ' ', $this->value),
         };
     }
@@ -261,6 +310,8 @@ enum BaseUnit: string
             self::VoltAmpereReactive, self::Joule, self::WattHour => [Prefix::None, Prefix::Kilo, Prefix::Mega],
             self::Weber => [Prefix::Micro, Prefix::Milli, Prefix::None],
             self::Lumen, self::Lux => [Prefix::None, Prefix::Kilo],
+            self::Litre => [Prefix::Milli, Prefix::None],
+            self::Pascal => [Prefix::None, Prefix::Kilo, Prefix::Mega],
             default => [Prefix::None],
         };
     }

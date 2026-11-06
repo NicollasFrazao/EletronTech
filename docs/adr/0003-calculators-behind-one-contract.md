@@ -2,7 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-11-05
-- Issues: #5 (E2, electrical calculators)
+- Issues: #5 (E2, electrical calculators), #6 (E3, general calculators)
 
 ## Context
 
@@ -18,15 +18,19 @@ and its inputs.
 - **One contract.** `App\Domain\Calculator\Calculator` has three methods: `id()` (a stable identifier
   such as `outlet-count`), `inputs()` (the input schema: a list of `InputField`, each a quantity with a
   default unit, a pure number or a choice among an enum's cases, required or optional) and
-  `calculate(Inputs): Result`. Each tool is one final class implementing it (Strategy), in
-  `app/Domain/Calculator/Electrical/` for E2.
+  `calculate(Inputs): Result`. Each tool is one final class implementing it (Strategy), in a folder per
+  area: `Electrical/` (E2, and E3's Ohm's law, conductor resistance and series/parallel resistance),
+  `Geometry/`, `Construction/`, `Mathematics/` and `Physics/` (E3).
 - **A catalogue.** `CalculatorCatalog` holds the calculators by identifier, in the order they are
   offered; the composition root (`AppServiceProvider`) registers them. Adding a tool is a class and a
   line there.
-- **Typed inputs.** `Inputs` carries what was typed, already read into quantities, exact numbers or
-  option identifiers, and hands each one out typed (`positiveQuantity('width', Length::class)`,
-  `choice('room_type', RoomType::class)`), refusing a missing value, a value of the wrong kind or one
-  outside the tool's range with `InvalidInput` (the field and an `InputProblem`). Domain concepts with
+- **Typed inputs.** `Inputs` carries what was typed, already read into quantities, exact numbers,
+  option identifiers or texts, and hands each one out typed (`positiveQuantity('width', Length::class)`,
+  `wholeNumber('days', 1)`, `choice('room_type', RoomType::class)`, `text('expression')`), refusing a
+  missing value, a value of the wrong kind or one outside the tool's range with `InvalidInput` (the field
+  and an `InputProblem`). A text input (E3) is handed over as typed for tools that read it themselves:
+  the basic calculator's expression ([ADR 0004](0004-arithmetic-expressions-without-eval.md)) and the
+  binary converter's number. Domain concepts with
   rules of their own are value objects: `RoomDimensions`, `TurnCount`, `Efficiency`, `EnergyTariff`,
   `ResistorBands`, and E1's `PowerFactor`.
 - **A result with its steps.** `Result` holds the answers and the intermediate values a person would
@@ -43,8 +47,14 @@ and its inputs.
 - **Irrational values** (√3, π, the root of the power triangle) are computed by `RealNumbers` to 32
   significant digits, as ADR 0002 anticipated, and the rest of the calculation stays exact.
 - **Solving for the missing value.** Tools that the 2015 version solved in any direction (conductance,
-  inductance, motor efficiency) take every value as optional and solve for the ones left empty;
-  `Inputs::missing()` refuses any other count.
+  inductance, motor efficiency; in E3 Ohm's law, conductor resistance, series/parallel resistance, rule
+  of three, Bernoulli) take every value as optional and solve for the ones left empty;
+  `Inputs::missing()` refuses any other count. Values with no solution (a resistor that would have to be
+  negative, a triangle whose sides do not close) are `InputProblem::NoSolution` on the whole input.
+- **A shape, then its dimensions.** Tools with several shapes (area and perimeter, surface area and
+  volume) take the shape as a choice and every dimension any shape uses as optional; each shape is a
+  small value object (`Rectangle`, `Triangle`, `Cone`...) behind `PlaneFigure` or `SolidFigure`, and
+  reads only the dimensions it is given by.
 
 ## Alternatives considered
 
@@ -69,3 +79,5 @@ and its inputs.
   data; PHPStan checks the calculator's own code through the generic getters.
 - The NBR 5410 values are copied from the 2004 edition; a new edition means
   revisiting `Electrical\Nbr5410\`.
+- The schema does not say which optional dimensions a shape reads; that is in the shape's code. A form
+  that shows only the relevant fields needs that mapping (E9, see `tech-debt.md`).

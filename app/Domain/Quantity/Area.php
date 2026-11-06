@@ -45,4 +45,12 @@ final readonly class Area extends Quantity
     {
         return Length::fromMetres(self::quotient($this->value, $side->toMetres()));
     }
+
+    /**
+     * The volume of a prism or cylinder with this base and a height (V = A × h).
+     */
+    public function timesLength(Length $height): Volume
+    {
+        return Volume::fromCubicMetres($this->value->multipliedBy($height->toMetres()));
+    }
 }

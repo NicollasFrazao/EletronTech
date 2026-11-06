@@ -32,9 +32,9 @@ calculations that follow the standard.
 
 | Area | What it does | Phase |
 | --- | --- | --- |
-| Physical quantities | Exact value objects for voltage, current, power, apparent power, resistance, conductance, capacitance, inductance, charge, frequency, length and area, with their units and prefixes; the unit converter | E1 #4 |
+| Physical quantities | Exact value objects for voltage, current, power, apparent power, resistance, conductance, capacitance, inductance, charge, frequency, length and area, with their units and prefixes; the unit converter. E2 and E3 added the rest the calculators need (energy, duration, flux, illuminance, volume, pressure, velocity, density, resistivity...) | E1 #4 |
 | Electrical calculators | Breaker and wiring, general lighting, lighting power, outlet count, capacitance, conductance, impedance, inductance, general power, motor efficiency, electrical consumption, resistor colour code | E2 #5 |
-| General calculators | Area and perimeter, construction quantities, a basic calculator and the extra tools of the mobile site | E3 #6 |
+| General calculators | Area and perimeter of nine plane shapes, surface area and volume of five solids, a basic calculator (exact, without `eval`), binary converter, rule of three, Bernoulli's equation, BTU sizing, floor and wall tiles, block count; and the rest of the mobile resistor tool: Ohm's law, conductor resistance, series and parallel resistance | E3 #6 |
 | Accounts | Registration, email confirmation, password recovery, profile and cover photos, night mode, deactivation with a reactivation date | E4 #7 |
 | Packages and licences | Tool packages (ready-made and custom), the initial seven-day licence with a free package, the shop | E5 #8 |
 | Floor-plan editor | Rooms, door and window frames, electrical points and outlets on a canvas, saved per project | E6 #9 |

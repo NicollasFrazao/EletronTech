@@ -76,7 +76,7 @@ final readonly class Calculate
      */
     private function read(InputField $field, string $typed, ?string $unitId): Quantity|BigRational|string
     {
-        if ($field->kind() === InputKind::Choice) {
+        if ($field->kind() === InputKind::Choice || $field->kind() === InputKind::Text) {
             return $typed;
         }
 

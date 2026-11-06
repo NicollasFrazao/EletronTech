@@ -58,6 +58,17 @@ it('converts between units exactly', function (string $value, string $from, stri
     'kilolumen to lumen' => ['3.25', 'kilolumen', 'lumen', '3250'],
     'foot-candle to lux' => ['1', 'foot_candle', 'lux', '1562500/145161'],
     'square millimetre to square metre' => ['2.5', 'square_millimetre', 'square_metre', '0.0000025'],
+    'litre to cubic centimetre' => ['1', 'litre', 'cubic_centimetre', '1000'],
+    'millilitre to cubic centimetre' => ['250', 'millilitre', 'cubic_centimetre', '250'],
+    'cubic metre to litre' => ['1.5', 'cubic_metre', 'litre', '1500'],
+    'bar to kilopascal' => ['1', 'bar', 'kilopascal', '100'],
+    'standard atmosphere to pascal' => ['1', 'atmosphere', 'pascal', '101325'],
+    'metre of water to kilopascal' => ['10', 'metre_of_water', 'kilopascal', '98.0665'],
+    'pound-force per square inch to pascal' => ['1', 'pound_force_per_square_inch', 'pascal', '44482216152605/6451600000'],
+    'megapascal to bar' => ['1', 'megapascal', 'bar', '10'],
+    'kilometre per hour to metre per second' => ['36', 'kilometre_per_hour', 'metre_per_second', '10'],
+    'gram per cubic centimetre to kilogram per cubic metre' => ['1', 'gram_per_cubic_centimetre', 'kilogram_per_cubic_metre', '1000'],
+    'ohm square millimetre per metre to ohm-metre' => ['0.0172', 'ohm_square_millimetre_per_metre', 'ohm_metre', '0.0000000172'],
 ]);
 
 it('expresses one elementary charge in coulombs exactly', function (): void {

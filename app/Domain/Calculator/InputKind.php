@@ -17,4 +17,7 @@ enum InputKind: string
 
     /** One option of a fixed list, such as a room type. */
     case Choice = 'choice';
+
+    /** A text the calculator reads itself, such as an arithmetic expression or a number written in base 16. */
+    case Text = 'text';
 }

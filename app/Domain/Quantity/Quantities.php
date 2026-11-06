@@ -37,6 +37,11 @@ final class Quantities
             Dimension::Duration => Duration::fromSeconds($coherent),
             Dimension::LuminousFlux => LuminousFlux::fromLumens($coherent),
             Dimension::Illuminance => Illuminance::fromLux($coherent),
+            Dimension::Volume => Volume::fromCubicMetres($coherent),
+            Dimension::Pressure => Pressure::fromPascals($coherent),
+            Dimension::Velocity => Velocity::fromMetresPerSecond($coherent),
+            Dimension::Density => Density::fromKilogramsPerCubicMetre($coherent),
+            Dimension::Resistivity => Resistivity::fromOhmMetres($coherent),
         };
     }
 }

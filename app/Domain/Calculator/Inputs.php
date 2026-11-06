@@ -112,11 +112,15 @@ final readonly class Inputs
     }
 
     /**
-     * The whole number given for an input, refused unless it is at least one.
+     * The whole number given for an input, refused when it is a fraction, too large for an integer, or below its
+     * minimum: at least one for a count that cannot be none (turns, days), at least zero for one that can (people
+     * in a room).
+     *
+     * @param  0|1  $atLeast
      *
      * @throws InvalidInput
      */
-    public function positiveWholeNumber(string $name): int
+    public function wholeNumber(string $name, int $atLeast): int
     {
         $value = $this->number($name);
 
@@ -124,8 +128,8 @@ final readonly class Inputs
             throw InvalidInput::of($name, InputProblem::NotWhole);
         }
 
-        if ($value->isNegativeOrZero()) {
-            throw InvalidInput::of($name, InputProblem::NotPositive);
+        if ($value->isLessThan($atLeast)) {
+            throw InvalidInput::of($name, $atLeast === 1 ? InputProblem::NotPositive : InputProblem::Negative);
         }
 
         if (! $value->getNumerator()->isLessThanOrEqualTo(PHP_INT_MAX)) {
@@ -133,6 +137,22 @@ final readonly class Inputs
         }
 
         return $value->getNumerator()->toInt();
+    }
+
+    /**
+     * The text given for an input, as typed.
+     *
+     * @throws InvalidInput
+     */
+    public function text(string $name): string
+    {
+        $value = $this->values[$name] ?? throw InvalidInput::of($name, InputProblem::Missing);
+
+        if (! is_string($value)) {
+            throw InvalidInput::of($name, InputProblem::WrongKind);
+        }
+
+        return $value;
     }
 
     /**

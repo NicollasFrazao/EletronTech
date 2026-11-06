@@ -30,6 +30,10 @@ status check, named exactly as in the first column.
 | `composer-audit` | `composer audit` | Composer | — |
 | `context` | `composer context:check` | `php artisan context:check` | `app/Console/ContextBase/AgentSurfaces.php` |
 
+`pint.json` overrides the Laravel preset's `phpdoc_separation` so that `@param` and `@return` stay in
+separate groups, as `phpcs.xml` (Slevomat `DocCommentSpacing`) and the conventions require; with the
+preset's default the two tools contradict each other on any doc comment that has both.
+
 PHPStan, Rector and Deptrac cache under `storage/framework/cache/` and `.deptrac.cache`, both
 git-ignored.
 

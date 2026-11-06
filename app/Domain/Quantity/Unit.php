@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * A unit of measurement: a base unit with an optional SI prefix, such as kilowatt or milliampere-hour.
- *
- * @api
  */
 final readonly class Unit
 {
@@ -94,6 +92,8 @@ final readonly class Unit
 
     /**
      * Whether both are the same unit.
+     *
+     * @api
      */
     public function isEqualTo(self $other): bool
     {

@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * A capacitance, stored in farads.
- *
- * @api
  */
 final readonly class Capacitance extends Quantity
 {
@@ -40,6 +38,8 @@ final readonly class Capacitance extends Quantity
 
     /**
      * The charge this capacitance holds at a voltage (Q = C × V).
+     *
+     * @api
      */
     public function timesVoltage(Voltage $voltage): Charge
     {

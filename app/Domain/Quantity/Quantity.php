@@ -18,8 +18,6 @@ use InvalidArgumentException;
  * two lengths is a negative length, and whether a negative input makes sense is a rule of the calculator that
  * receives it. Each kind of quantity is a final subclass; the operations between kinds (a voltage times a
  * current is a power) live on the subclasses, so a combination that makes no sense has no method.
- *
- * @api
  */
 abstract readonly class Quantity
 {
@@ -39,6 +37,8 @@ abstract readonly class Quantity
      * The quantity of a value given in a unit of its dimension.
      *
      * @throws IncompatibleUnit
+     *
+     * @api
      */
     public static function of(BigNumber|int|string $value, Unit $unit): static
     {
@@ -49,6 +49,8 @@ abstract readonly class Quantity
 
     /**
      * A quantity of exactly zero.
+     *
+     * @api
      */
     public static function zero(): static
     {
@@ -71,6 +73,8 @@ abstract readonly class Quantity
      * The value expressed in a unit and rounded for display.
      *
      * @throws IncompatibleUnit
+     *
+     * @api
      */
     public function rounded(Unit $unit, Precision $precision): BigDecimal
     {
@@ -131,6 +135,8 @@ abstract readonly class Quantity
      * Whether both quantities are exactly equal, whatever units they were created in.
      *
      * @param  static  $other
+     *
+     * @api
      */
     public function isEqualTo(self $other): bool
     {

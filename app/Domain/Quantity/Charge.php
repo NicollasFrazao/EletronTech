@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * An electric charge, stored in coulombs.
- *
- * @api
  */
 final readonly class Charge extends Quantity
 {
@@ -32,6 +30,8 @@ final readonly class Charge extends Quantity
 
     /**
      * The exact value in coulombs.
+     *
+     * @api
      */
     public function toCoulombs(): BigRational
     {
@@ -52,6 +52,8 @@ final readonly class Charge extends Quantity
      * The voltage across a capacitance holding this charge (V = Q / C).
      *
      * @throws DivisionByZero
+     *
+     * @api
      */
     public function dividedByCapacitance(Capacitance $capacitance): Voltage
     {

@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * A frequency, stored in hertz.
- *
- * @api
  */
 final readonly class Frequency extends Quantity
 {

@@ -21,4 +21,10 @@ enum Dimension: string
     case Frequency = 'frequency';
     case Length = 'length';
     case Area = 'area';
+    case ReactivePower = 'reactive_power';
+    case MagneticFlux = 'magnetic_flux';
+    case Energy = 'energy';
+    case Duration = 'duration';
+    case LuminousFlux = 'luminous_flux';
+    case Illuminance = 'illuminance';
 }

@@ -24,6 +24,12 @@ return [
         'frequency' => 'Frequency',
         'length' => 'Length',
         'area' => 'Area',
+        'reactive_power' => 'Reactive power',
+        'magnetic_flux' => 'Magnetic flux',
+        'energy' => 'Energy',
+        'duration' => 'Duration',
+        'luminous_flux' => 'Luminous flux',
+        'illuminance' => 'Illuminance',
     ],
     'errors' => [
         'invalid_number' => 'Type a number, such as 1.5, 1,5 or 4.7e-6, with at most 40 digits.',

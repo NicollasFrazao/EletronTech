@@ -50,6 +50,13 @@ it('converts between units exactly', function (string $value, string $from, stri
     'mile to kilometre' => ['1', 'mile', 'kilometre', '1.609344'],
     'hectare to square metre' => ['1', 'hectare', 'square_metre', '10000'],
     'square foot to square inch' => ['1', 'square_foot', 'square_inch', '144'],
+    'kilovolt-ampere reactive to volt-ampere reactive' => ['1.2', 'kilovolt_ampere_reactive', 'volt_ampere_reactive', '1200'],
+    'maxwell to microweber' => ['100', 'maxwell', 'microweber', '1'],
+    'kilowatt-hour to megajoule' => ['1', 'kilowatt_hour', 'megajoule', '3.6'],
+    'day to minute' => ['1', 'day', 'minute', '1440'],
+    'hour to second' => ['0.5', 'hour', 'second', '1800'],
+    'kilolumen to lumen' => ['3.25', 'kilolumen', 'lumen', '3250'],
+    'foot-candle to lux' => ['1', 'foot_candle', 'lux', '1562500/145161'],
     'square millimetre to square metre' => ['2.5', 'square_millimetre', 'square_metre', '0.0000025'],
 ]);
 

@@ -56,8 +56,19 @@ against MySQL and is marked so; add a MySQL service to the `test` job when the f
 - `tests/Unit/Application/UnitConversion/` — the converter use cases.
 - `tests/Feature/UnitConverterTest.php` — the converter page and its JSON answer, and each
   validation error on its field.
+- `tests/Unit/Domain/Calculator/` — the contract (`CalculatorContractTest.php` runs every calculator
+  through the same checks: distinct input names, a unit for each quantity, options for each choice,
+  refusal of empty inputs), `Inputs`, `RealNumbers`, and `Electrical/`, one file per calculator with
+  worked examples whose source (NBR 5410 section, IEC standard or textbook) is cited at the top. The
+  2015 bugs each have a case named after them.
+- `tests/Unit/Application/Calculation/` — reading typed values and units by the schema, rounding,
+  and the schema listing.
+- `tests/Feature/CalculatorsTest.php` — the catalogue as registered, the JSON endpoints and each kind
+  of refused value on its field.
+- `tests/Support/Results.php` reads a calculator's result by name: `exact()` (the fraction),
+  `shown()` (12 significant digits), `unit()`.
 
 ## Coverage
 
-Line coverage of `app/` only. Mutation testing (Infection) is optional and not in CI yet; consider it
-when the calculators arrive in E2 (#5).
+Line coverage of `app/` only. Mutation testing (Infection) is not in CI yet; see
+[tech-debt.md](tech-debt.md).

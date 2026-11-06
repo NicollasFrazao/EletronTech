@@ -15,8 +15,6 @@ use InvalidArgumentException;
  *
  * Quantities keep their value exact; rounding happens only here, when a value is about to be shown, and
  * always half up (0.125 to two places is 0.13), the rule people apply by hand.
- *
- * @api
  */
 final readonly class Precision
 {
@@ -45,6 +43,8 @@ final readonly class Precision
 
     /**
      * Rounds to a fixed number of decimal places and keeps them: with 2 places, 2.5 is 2.50.
+     *
+     * @api
      */
     public static function decimalPlaces(int $places): self
     {

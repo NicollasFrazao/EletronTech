@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * An area, stored in square metres.
- *
- * @api
  */
 final readonly class Area extends Quantity
 {

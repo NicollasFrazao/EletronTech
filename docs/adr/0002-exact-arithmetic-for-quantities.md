@@ -69,8 +69,10 @@ ADR 0001 lets the Domain depend on nothing but PHP's own classes.
   trait's methods); and every subclass is `final` and only adds its unit and its operations with other
   kinds, so there is no hierarchy to grow.
 - Irrational results (square roots for impedance, π for reactance) cannot be fractions: the
-  calculators of E2 (#5) will compute them as `BigDecimal` with a stated number of digits.
+  calculators of E2 (#5) compute them to 32 significant digits with `App\Domain\Calculator\RealNumbers`
+  and carry on exactly from there ([ADR 0003](0003-calculators-behind-one-contract.md)).
 - The quantity classes are the shared kernel of E2 and E3; until those phases call them, the dead
-  code detector would report their public methods as unused. They are marked `@api`, which the
-  detector reads as "public API", and the tag is removed once the calculators use them
+  code detector would report their public methods as unused. They were marked `@api`, which the
+  detector reads as "public API", to be removed once the calculators use them. E2 removed the class-level
+  tags; the methods no calculator calls yet keep a method-level `@api`
   ([tech-debt.md](/.context/docs/tech-debt.md)).

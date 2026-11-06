@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * Active power, stored in watts.
- *
- * @api
  */
 final readonly class Power extends Quantity
 {
@@ -32,6 +30,8 @@ final readonly class Power extends Quantity
 
     /**
      * The exact value in watts.
+     *
+     * @api
      */
     public function toWatts(): BigRational
     {
@@ -42,6 +42,8 @@ final readonly class Power extends Quantity
      * The current a load of this power draws at a voltage (I = P / V).
      *
      * @throws DivisionByZero
+     *
+     * @api
      */
     public function dividedByVoltage(Voltage $voltage): Current
     {
@@ -60,9 +62,19 @@ final readonly class Power extends Quantity
 
     /**
      * The apparent power a load of this active power takes at a power factor (S = P / pf).
+     *
+     * @api
      */
     public function dividedByPowerFactor(PowerFactor $powerFactor): ApparentPower
     {
         return ApparentPower::fromVoltAmperes($this->value->dividedBy($powerFactor->value()));
+    }
+
+    /**
+     * The energy a load of this power uses over a duration (E = P × t).
+     */
+    public function timesDuration(Duration $duration): Energy
+    {
+        return Energy::fromJoules($this->value->multipliedBy($duration->toSeconds()));
     }
 }

@@ -55,9 +55,10 @@ It is exactly the CI, one job per check, every one of them a required check on `
 Enforced by Deptrac (`deptrac.yaml`). Reasoning in [architecture.md](architecture.md) and
 [ADR 0001](/docs/adr/0001-layered-architecture.md).
 
-- `app/Domain/` depends on **nothing** outside itself except PHP's own classes: no Laravel, no
+- `app/Domain/` depends on **nothing** outside itself except PHP's own classes and `Brick\Math`
+  (exact numbers, [ADR 0002](/docs/adr/0002-exact-arithmetic-for-quantities.md)): no Laravel, no
   Carbon, no `Illuminate\Support\Str`, no Eloquent.
-- `app/Application/` depends only on `app/Domain/`.
+- `app/Application/` depends only on `app/Domain/` (and `Brick\Math`).
 - `app/Infrastructure/`, `app/Http/` and `app/Console/` may use vendor packages; Http and Console
   never use Infrastructure directly: they call Application handlers, and the provider injects the
   implementations.
@@ -108,7 +109,9 @@ All enforced by a tool, at error level:
   `Comodo`; `ElectricalPoint`, not `PontoEletrico`; `Licence`, not `UserPackage`.
 - No abbreviations except those in the glossary's list.
 - Booleans read as predicates: `isActive`, `isCustom`, `hasExpired`.
-- Units are types, not suffixes: `Power $power`, not `float $powerInWatts`.
+- Units are types, not suffixes: `Power $power`, not `float $powerInWatts`. A number with a unit is
+  never a `float`: take the quantity (`app/Domain/Quantity/`), and round only for display, with
+  `Precision`.
 
 ## Language
 

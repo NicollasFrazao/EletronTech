@@ -1,6 +1,6 @@
-# Layer rules of docs/adr/0001-layered-architecture.md, checked in CI by the `deptrac` job.
-# Dependencies on PHP's own classes (DateTimeImmutable, RuntimeException...) are not in any layer,
-# so they are allowed everywhere.
+# Layer rules of docs/adr/0001-layered-architecture.md, amended by 0002-exact-arithmetic-for-quantities.md;
+# checked in CI by the `deptrac` job. Dependencies on PHP's own classes (DateTimeImmutable,
+# RuntimeException...) are not in any layer, so they are allowed everywhere.
 deptrac:
   paths:
     - ./app
@@ -31,6 +31,11 @@ deptrac:
       collectors:
         - type: classLike
           value: '^App\\Providers\\.*'
+    # Exact arithmetic (brick/math): a number type every layer may use, like PHP's own (ADR 0002).
+    - name: Math
+      collectors:
+        - type: classLike
+          value: '^Brick\\Math\\.*'
     # Everything outside App\ that is not part of PHP itself: Laravel, Symfony, any vendor package.
     - name: Vendor
       collectors:
@@ -41,23 +46,30 @@ deptrac:
           must_not:
             - type: classLike
               value: '^App\\.*'
+            - type: classLike
+              value: '^Brick\\Math\\.*'
             - type: php_internal
               value: '.*'
   ruleset:
-    Domain: ~
+    Domain:
+      - Math
     Application:
       - Domain
+      - Math
     Infrastructure:
       - Domain
       - Application
+      - Math
       - Vendor
     Http:
       - Application
       - Domain
+      - Math
       - Vendor
     Console:
       - Application
       - Domain
+      - Math
       - Vendor
     Providers:
       - Domain
@@ -65,4 +77,5 @@ deptrac:
       - Infrastructure
       - Http
       - Console
+      - Math
       - Vendor

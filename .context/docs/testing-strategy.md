@@ -37,6 +37,11 @@ against MySQL and is marked so; add a MySQL service to the `test` job when the f
   they rely on, including the boundaries (the smallest and largest valid input, the first invalid one).
 - Use Pest datasets for tables of inputs and expected outputs.
 - Literals are fine in tests (no magic-number rule there).
+- **Property-based tests** for laws that hold for every input (a conversion and its inverse, Ohm's
+  law both ways, rounding within half a unit): `Tests\Support\Property::check($runs, $generators,
+  $assertion)` runs the assertion with [Eris](https://github.com/giorgiosironi/eris) generators and
+  shrinks a failure to a small counterexample. The seed changes on every run; a failure prints
+  `ERIS_SEED=...`, and `ERIS_SEED=<seed> composer test` reproduces it.
 - A bug fix comes with a test that fails before the fix.
 
 ## Current tests
@@ -45,6 +50,12 @@ against MySQL and is marked so; add a MySQL service to the `test` job when the f
 - `tests/Feature/ContextCommandsTest.php` — `context:export` and `context:check` on a temporary
   directory: export, drift report, missing surface, missing index.
 - `tests/Unit/CodingStandardTest.php` — the local sniffs on the fixtures in `phpcs/tests/fixtures/`.
+- `tests/Unit/Domain/Quantity/` — units and the catalogue, exact conversions (every kind of unit,
+  against known values), arithmetic within and between quantities, `Precision`, `NumberParser`, and
+  `ConversionPropertiesTest.php`, the property-based round trips and laws.
+- `tests/Unit/Application/UnitConversion/` — the converter use cases.
+- `tests/Feature/UnitConverterTest.php` — the converter page and its JSON answer, and each
+  validation error on its field.
 
 ## Coverage
 

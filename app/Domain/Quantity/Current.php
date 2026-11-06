@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * An electric current, stored in amperes.
- *
- * @api
  */
 final readonly class Current extends Quantity
 {
@@ -40,6 +38,8 @@ final readonly class Current extends Quantity
 
     /**
      * The power a load takes at this current and voltage (P = V × I, for direct current or a resistive load).
+     *
+     * @api
      */
     public function timesVoltage(Voltage $voltage): Power
     {
@@ -52,5 +52,25 @@ final readonly class Current extends Quantity
     public function timesResistance(Resistance $resistance): Voltage
     {
         return Voltage::fromVolts($this->value->multipliedBy($resistance->toOhms()));
+    }
+
+    /**
+     * The conductance that lets this current through at a voltage (G = I / V).
+     *
+     * @throws DivisionByZero
+     */
+    public function dividedByVoltage(Voltage $voltage): Conductance
+    {
+        return Conductance::fromSiemens(self::quotient($this->value, $voltage->toVolts()));
+    }
+
+    /**
+     * The voltage that drives this current through a conductance (V = I / G).
+     *
+     * @throws DivisionByZero
+     */
+    public function dividedByConductance(Conductance $conductance): Voltage
+    {
+        return Voltage::fromVolts(self::quotient($this->value, $conductance->toSiemens()));
     }
 }

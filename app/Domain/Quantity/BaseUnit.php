@@ -6,12 +6,13 @@ namespace App\Domain\Quantity;
 
 /**
  * A unit without its prefix: the coherent SI units, and the other units the 2015 converter offered or the
- * calculators need (CGS units, ampere-hour, horsepower, inch...).
+ * calculators need (CGS units, ampere-hour, horsepower, inch, watt-hour, foot-candle...).
  *
  * Each one knows its exact size in the coherent SI unit of its dimension, written as a decimal or a fraction
  * so no conversion goes through a float. Since the 2019 SI the speed of light, the elementary charge and the
  * Avogadro constant are exact, so the electrostatic CGS units and the faraday are exact too. The BTU per hour
- * is the International Table BTU (1055.05585262 J) per 3600 s.
+ * is the International Table BTU (1055.05585262 J) per 3600 s; the foot-candle is one lumen per square foot,
+ * 1 / 0.09290304 lux.
  */
 enum BaseUnit: string
 {
@@ -61,6 +62,18 @@ enum BaseUnit: string
     case SquareKilometre = 'square_kilometre';
     case SquareInch = 'square_inch';
     case SquareFoot = 'square_foot';
+    case VoltAmpereReactive = 'volt_ampere_reactive';
+    case Weber = 'weber';
+    case Maxwell = 'maxwell';
+    case Joule = 'joule';
+    case WattHour = 'watt_hour';
+    case Second = 'second';
+    case Minute = 'minute';
+    case Hour = 'hour';
+    case Day = 'day';
+    case Lumen = 'lumen';
+    case Lux = 'lux';
+    case FootCandle = 'foot_candle';
 
     /**
      * Prefixes from nano to giga, as the 2015 converter offered for volt, ampere, ohm, siemens and henry.
@@ -89,6 +102,12 @@ enum BaseUnit: string
             self::Metre, self::Inch, self::Foot, self::Yard, self::Mile => Dimension::Length,
             self::SquareMillimetre, self::SquareCentimetre, self::SquareMetre, self::Hectare,
             self::SquareKilometre, self::SquareInch, self::SquareFoot => Dimension::Area,
+            self::VoltAmpereReactive => Dimension::ReactivePower,
+            self::Weber, self::Maxwell => Dimension::MagneticFlux,
+            self::Joule, self::WattHour => Dimension::Energy,
+            self::Second, self::Minute, self::Hour, self::Day => Dimension::Duration,
+            self::Lumen => Dimension::LuminousFlux,
+            self::Lux, self::FootCandle => Dimension::Illuminance,
         };
     }
 
@@ -100,7 +119,8 @@ enum BaseUnit: string
         return match ($this) {
             self::Volt, self::WattPerAmpere, self::Ampere, self::CoulombPerSecond, self::Watt, self::VoltAmpere,
             self::Ohm, self::VoltPerAmpere, self::Siemens, self::Mho, self::AmperePerVolt, self::Farad,
-            self::Henry, self::WeberPerAmpere, self::Coulomb, self::Hertz, self::Metre, self::SquareMetre => '1',
+            self::Henry, self::WeberPerAmpere, self::Coulomb, self::Hertz, self::Metre, self::SquareMetre,
+            self::VoltAmpereReactive, self::Weber, self::Joule, self::Second, self::Lumen, self::Lux => '1',
             self::Abvolt => '0.00000001',
             self::Statvolt => '299.792458',
             self::Abampere, self::Abcoulomb => '10',
@@ -125,6 +145,11 @@ enum BaseUnit: string
             self::SquareKilometre => '1000000',
             self::SquareInch => '0.00064516',
             self::SquareFoot => '0.09290304',
+            self::Maxwell => '0.00000001',
+            self::WattHour, self::Hour => '3600',
+            self::Minute => '60',
+            self::Day => '86400',
+            self::FootCandle => '1562500/145161',
         };
     }
 
@@ -180,6 +205,18 @@ enum BaseUnit: string
             self::SquareKilometre => 'km²',
             self::SquareInch => 'in²',
             self::SquareFoot => 'ft²',
+            self::VoltAmpereReactive => 'var',
+            self::Weber => 'Wb',
+            self::Maxwell => 'Mx',
+            self::Joule => 'J',
+            self::WattHour => 'Wh',
+            self::Second => 's',
+            self::Minute => 'min',
+            self::Hour => 'h',
+            self::Day => 'd',
+            self::Lumen => 'lm',
+            self::Lux => 'lx',
+            self::FootCandle => 'fc',
         };
     }
 
@@ -198,6 +235,9 @@ enum BaseUnit: string
             self::AmperePerVolt => 'ampere per volt',
             self::WeberPerAmpere => 'weber per ampere',
             self::AmpereHour => 'ampere-hour',
+            self::VoltAmpereReactive => 'volt-ampere reactive',
+            self::WattHour => 'watt-hour',
+            self::FootCandle => 'foot-candle',
             default => str_replace('_', ' ', $this->value),
         };
     }
@@ -218,6 +258,9 @@ enum BaseUnit: string
             self::AmpereHour => [Prefix::Milli, Prefix::None],
             self::Hertz => [Prefix::None, Prefix::Kilo, Prefix::Mega, Prefix::Giga],
             self::Metre => [Prefix::Micro, Prefix::Milli, Prefix::Centi, Prefix::None, Prefix::Kilo],
+            self::VoltAmpereReactive, self::Joule, self::WattHour => [Prefix::None, Prefix::Kilo, Prefix::Mega],
+            self::Weber => [Prefix::Micro, Prefix::Milli, Prefix::None],
+            self::Lumen, self::Lux => [Prefix::None, Prefix::Kilo],
             default => [Prefix::None],
         };
     }

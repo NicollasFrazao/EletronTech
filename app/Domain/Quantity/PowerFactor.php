@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * The ratio of active to apparent power of a load: greater than 0 and at most 1 (1 for a resistive load).
- *
- * @api
  */
 final readonly class PowerFactor
 {

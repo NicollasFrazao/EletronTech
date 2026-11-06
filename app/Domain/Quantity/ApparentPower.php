@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * Apparent power, the product of RMS voltage and current, stored in volt-amperes.
- *
- * @api
  */
 final readonly class ApparentPower extends Quantity
 {

@@ -31,6 +31,12 @@ final class Quantities
             Dimension::Frequency => Frequency::fromHertz($coherent),
             Dimension::Length => Length::fromMetres($coherent),
             Dimension::Area => Area::fromSquareMetres($coherent),
+            Dimension::ReactivePower => ReactivePower::fromVoltAmperesReactive($coherent),
+            Dimension::MagneticFlux => MagneticFlux::fromWebers($coherent),
+            Dimension::Energy => Energy::fromJoules($coherent),
+            Dimension::Duration => Duration::fromSeconds($coherent),
+            Dimension::LuminousFlux => LuminousFlux::fromLumens($coherent),
+            Dimension::Illuminance => Illuminance::fromLux($coherent),
         };
     }
 }

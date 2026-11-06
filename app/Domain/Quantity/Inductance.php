@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * An inductance, stored in henries.
- *
- * @api
  */
 final readonly class Inductance extends Quantity
 {
@@ -36,5 +34,13 @@ final readonly class Inductance extends Quantity
     public function toHenries(): BigRational
     {
         return $this->value;
+    }
+
+    /**
+     * The flux linkage of this inductance when a current flows through it (N × Φ = L × I), as a magnetic flux.
+     */
+    public function timesCurrent(Current $current): MagneticFlux
+    {
+        return MagneticFlux::fromWebers($this->value->multipliedBy($current->toAmperes()));
     }
 }

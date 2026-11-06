@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * An electric potential difference, stored in volts.
- *
- * @api
  */
 final readonly class Voltage extends Quantity
 {
@@ -50,6 +48,8 @@ final readonly class Voltage extends Quantity
      * The resistance that draws this current at this voltage (Ohm's law, R = V / I).
      *
      * @throws DivisionByZero
+     *
+     * @api
      */
     public function dividedByCurrent(Current $current): Resistance
     {
@@ -60,6 +60,8 @@ final readonly class Voltage extends Quantity
      * The current this voltage drives through a resistance (Ohm's law, I = V / R).
      *
      * @throws DivisionByZero
+     *
+     * @api
      */
     public function dividedByResistance(Resistance $resistance): Current
     {

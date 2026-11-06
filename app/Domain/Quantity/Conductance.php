@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * An electrical conductance, stored in siemens.
- *
- * @api
  */
 final readonly class Conductance extends Quantity
 {
@@ -42,9 +40,19 @@ final readonly class Conductance extends Quantity
      * The resistance of this conductance (R = 1 / G).
      *
      * @throws DivisionByZero
+     *
+     * @api
      */
     public function reciprocal(): Resistance
     {
         return Resistance::fromOhms(self::quotient(BigRational::one(), $this->value));
+    }
+
+    /**
+     * The current this conductance lets through at a voltage (I = G × V).
+     */
+    public function timesVoltage(Voltage $voltage): Current
+    {
+        return Current::fromAmperes($this->value->multipliedBy($voltage->toVolts()));
     }
 }

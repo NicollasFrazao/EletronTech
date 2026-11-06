@@ -9,8 +9,6 @@ use Brick\Math\BigRational;
 
 /**
  * A length or distance, stored in metres.
- *
- * @api
  */
 final readonly class Length extends Quantity
 {

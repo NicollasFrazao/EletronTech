@@ -65,7 +65,7 @@ final readonly class ElectricalConsumption implements Calculator
     {
         $power = $inputs->positiveQuantity('power', Power::class);
         $dailyUse = $inputs->positiveQuantity(self::DAILY_USE, Duration::class);
-        $days = $inputs->positiveWholeNumber('days');
+        $days = $inputs->wholeNumber('days', 1);
 
         if ($dailyUse->isGreaterThan($this->day())) {
             throw InvalidInput::of(self::DAILY_USE, InputProblem::OutOfRange);

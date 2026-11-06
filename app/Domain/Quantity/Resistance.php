@@ -38,8 +38,6 @@ final readonly class Resistance extends Quantity
 
     /**
      * The voltage across this resistance when a current flows through it (Ohm's law, V = R × I).
-     *
-     * @api
      */
     public function timesCurrent(Current $current): Voltage
     {
@@ -50,8 +48,6 @@ final readonly class Resistance extends Quantity
      * The conductance of this resistance (G = 1 / R).
      *
      * @throws DivisionByZero
-     *
-     * @api
      */
     public function reciprocal(): Conductance
     {

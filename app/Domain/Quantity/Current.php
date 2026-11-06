@@ -38,8 +38,6 @@ final readonly class Current extends Quantity
 
     /**
      * The power a load takes at this current and voltage (P = V × I, for direct current or a resistive load).
-     *
-     * @api
      */
     public function timesVoltage(Voltage $voltage): Power
     {

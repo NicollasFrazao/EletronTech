@@ -13,6 +13,7 @@ use App\Domain\Calculator\Electrical\ElectricalConductance;
 use App\Domain\Calculator\Electrical\OutletCount;
 use App\Domain\Calculator\Electrical\ResistorColourCode;
 use App\Domain\Calculator\InputProblem;
+use App\Domain\Calculator\Mathematics\BasicCalculator;
 use App\Domain\Calculator\UnknownCalculator;
 use App\Domain\Quantity\UnitCatalogue;
 
@@ -21,7 +22,13 @@ use App\Domain\Quantity\UnitCatalogue;
  */
 function calculate(CalculationInput $input): array
 {
-    $catalog = new CalculatorCatalog(new ElectricalCapacitance, new ElectricalConductance, new OutletCount, new ResistorColourCode);
+    $catalog = new CalculatorCatalog(
+        new ElectricalCapacitance,
+        new ElectricalConductance,
+        new OutletCount,
+        new ResistorColourCode,
+        new BasicCalculator,
+    );
     $result = new Calculate($catalog, new UnitCatalogue)->handle($input);
 
     $lines = [];
@@ -88,4 +95,17 @@ it('lists every calculator with what each input accepts', function (): void {
         ->and($roomType->accepts->options)->toContain('kitchen', 'living_room')
         ->and([$length->kind, $length->accepts->defaultUnit?->id])->toBe(['quantity', 'metre'])
         ->and(array_map(static fn (UnitOption $unit): string => $unit->id, $length->accepts->units))->toContain('foot', 'kilometre');
+});
+
+it('hands a text to the calculator as typed and rounds the number it answers', function (): void {
+    expect(calculate(new CalculationInput('basic-calculator', ['expression' => ' 2 / 3 '])))
+        ->toBe(['result' => ['0.666666666667', null, false]]);
+});
+
+it('describes a text input without units or options', function (): void {
+    $list = new ListCalculators(new CalculatorCatalog(new BasicCalculator), new UnitCatalogue)->handle();
+    [$expression] = $list->calculators[0]->inputs;
+
+    expect([$expression->name, $expression->kind, $expression->accepts->defaultUnit, $expression->accepts->units])
+        ->toBe(['expression', 'text', null, []]);
 });

@@ -10,7 +10,7 @@ namespace App\Application\Calculation;
 final readonly class InputDescription
 {
     /**
-     * @param  string  $kind  "quantity", "number" or "choice".
+     * @param  string  $kind  "quantity", "number", "choice" or "text".
      */
     public function __construct(
         public string $name,

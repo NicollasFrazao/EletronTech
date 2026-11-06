@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 use App\Domain\Calculator\Calculator;
 use App\Domain\Calculator\CalculatorCatalog;
+use App\Domain\Calculator\Construction\BlockCount;
+use App\Domain\Calculator\Construction\BtuSizing;
+use App\Domain\Calculator\Construction\FloorAndWallTiles;
 use App\Domain\Calculator\Electrical\BreakerAndWiring;
+use App\Domain\Calculator\Electrical\ConductorResistance;
 use App\Domain\Calculator\Electrical\ElectricalCapacitance;
 use App\Domain\Calculator\Electrical\ElectricalConductance;
 use App\Domain\Calculator\Electrical\ElectricalConsumption;
@@ -14,12 +18,20 @@ use App\Domain\Calculator\Electrical\GeneralLighting;
 use App\Domain\Calculator\Electrical\GeneralPower;
 use App\Domain\Calculator\Electrical\LightingPower;
 use App\Domain\Calculator\Electrical\MotorEfficiency;
+use App\Domain\Calculator\Electrical\OhmsLaw;
 use App\Domain\Calculator\Electrical\OutletCount;
 use App\Domain\Calculator\Electrical\ResistorColourCode;
+use App\Domain\Calculator\Electrical\SeriesParallelResistance;
+use App\Domain\Calculator\Geometry\AreaAndPerimeter;
+use App\Domain\Calculator\Geometry\SurfaceAreaAndVolume;
 use App\Domain\Calculator\InputField;
 use App\Domain\Calculator\InputKind;
 use App\Domain\Calculator\Inputs;
 use App\Domain\Calculator\InvalidInput;
+use App\Domain\Calculator\Mathematics\BasicCalculator;
+use App\Domain\Calculator\Mathematics\BinaryConverter;
+use App\Domain\Calculator\Mathematics\RuleOfThree;
+use App\Domain\Calculator\Physics\BernoulliEquation;
 use App\Domain\Calculator\UnknownCalculator;
 
 dataset('calculators', fn (): array => [
@@ -35,6 +47,18 @@ dataset('calculators', fn (): array => [
     new MotorEfficiency,
     new ElectricalConsumption,
     new ResistorColourCode,
+    new OhmsLaw,
+    new ConductorResistance,
+    new SeriesParallelResistance,
+    new AreaAndPerimeter,
+    new SurfaceAreaAndVolume,
+    new BasicCalculator,
+    new BinaryConverter,
+    new RuleOfThree,
+    new BernoulliEquation,
+    new BtuSizing,
+    new FloorAndWallTiles,
+    new BlockCount,
 ]);
 
 it('declares inputs with distinct names, each quantity with a unit and each choice with options', function (Calculator $calculator): void {

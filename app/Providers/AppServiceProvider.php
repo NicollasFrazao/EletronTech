@@ -10,7 +10,11 @@ use App\Application\UnitConversion\ConvertQuantity;
 use App\Application\UnitConversion\ListConvertibleUnits;
 use App\Console\ContextBase\AgentSurfaces;
 use App\Domain\Calculator\CalculatorCatalog;
+use App\Domain\Calculator\Construction\BlockCount;
+use App\Domain\Calculator\Construction\BtuSizing;
+use App\Domain\Calculator\Construction\FloorAndWallTiles;
 use App\Domain\Calculator\Electrical\BreakerAndWiring;
+use App\Domain\Calculator\Electrical\ConductorResistance;
 use App\Domain\Calculator\Electrical\ElectricalCapacitance;
 use App\Domain\Calculator\Electrical\ElectricalConductance;
 use App\Domain\Calculator\Electrical\ElectricalConsumption;
@@ -20,8 +24,16 @@ use App\Domain\Calculator\Electrical\GeneralLighting;
 use App\Domain\Calculator\Electrical\GeneralPower;
 use App\Domain\Calculator\Electrical\LightingPower;
 use App\Domain\Calculator\Electrical\MotorEfficiency;
+use App\Domain\Calculator\Electrical\OhmsLaw;
 use App\Domain\Calculator\Electrical\OutletCount;
 use App\Domain\Calculator\Electrical\ResistorColourCode;
+use App\Domain\Calculator\Electrical\SeriesParallelResistance;
+use App\Domain\Calculator\Geometry\AreaAndPerimeter;
+use App\Domain\Calculator\Geometry\SurfaceAreaAndVolume;
+use App\Domain\Calculator\Mathematics\BasicCalculator;
+use App\Domain\Calculator\Mathematics\BinaryConverter;
+use App\Domain\Calculator\Mathematics\RuleOfThree;
+use App\Domain\Calculator\Physics\BernoulliEquation;
 use App\Domain\Quantity\UnitCatalogue;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -63,6 +75,18 @@ final class AppServiceProvider extends ServiceProvider
             new MotorEfficiency,
             new ElectricalConsumption,
             new ResistorColourCode,
+            new OhmsLaw,
+            new ConductorResistance,
+            new SeriesParallelResistance,
+            new AreaAndPerimeter,
+            new SurfaceAreaAndVolume,
+            new BasicCalculator,
+            new BinaryConverter,
+            new RuleOfThree,
+            new BernoulliEquation,
+            new BtuSizing,
+            new FloorAndWallTiles,
+            new BlockCount,
         ));
         $this->app->bind(Calculate::class, fn (Application $app): Calculate => new Calculate(
             $app->make(CalculatorCatalog::class),

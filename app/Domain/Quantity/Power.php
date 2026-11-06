@@ -30,8 +30,6 @@ final readonly class Power extends Quantity
 
     /**
      * The exact value in watts.
-     *
-     * @api
      */
     public function toWatts(): BigRational
     {
@@ -42,8 +40,6 @@ final readonly class Power extends Quantity
      * The current a load of this power draws at a voltage (I = P / V).
      *
      * @throws DivisionByZero
-     *
-     * @api
      */
     public function dividedByVoltage(Voltage $voltage): Current
     {

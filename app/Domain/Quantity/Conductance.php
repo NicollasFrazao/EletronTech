@@ -40,8 +40,6 @@ final readonly class Conductance extends Quantity
      * The resistance of this conductance (R = 1 / G).
      *
      * @throws DivisionByZero
-     *
-     * @api
      */
     public function reciprocal(): Resistance
     {

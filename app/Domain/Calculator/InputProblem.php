@@ -22,6 +22,10 @@ enum InputProblem: string
     case TooLarge = 'too_large';
     case NotRepresentable = 'not_representable';
     case WrongNumberOfValues = 'wrong_number_of_values';
+    case NoSolution = 'no_solution';
+    case NotAnExpression = 'not_an_expression';
+    case DivisionByZero = 'division_by_zero';
+    case TooLong = 'too_long';
 
     /**
      * A short English description, for logs and exception messages.
@@ -42,6 +46,10 @@ enum InputProblem: string
             self::TooLarge => 'the value is beyond the largest the tables cover',
             self::NotRepresentable => 'the value cannot be written this way',
             self::WrongNumberOfValues => 'the number of values filled in does not match what the calculation solves',
+            self::NoSolution => 'no value satisfies the calculation with these inputs',
+            self::NotAnExpression => 'the text is not an arithmetic expression',
+            self::DivisionByZero => 'the expression divides by zero',
+            self::TooLong => 'the text is longer than the calculation accepts',
         };
     }
 }

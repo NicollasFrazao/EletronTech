@@ -16,6 +16,7 @@
         <p>Electrical calculators and a floor-plan editor for low-voltage residential projects (ABNT NBR 5410).</p>
         <p>Version 2 is being rewritten. The original 2015 project is kept at the
             <a href="https://github.com/NicollasFrazao/eletrontech/tree/v1">v1 tag</a>.</p>
+        <p>Available now: the <a href="{{ route('tools.unit-converter') }}">{{ __('unit-converter.title') }}</a>.</p>
     </main>
 </body>
 </html>
